@@ -20,7 +20,7 @@ void inventory(){ // Functions for printing a user's inventory
     cin >> option;
     // Printing individual inventory menus
     if (option == 'f'){
-        for (const auto& pair : food) {
+        for (auto pair : food) {
             cout << pair.first.getName() << " x" << pair.second << "\n";
         }
     }
@@ -124,10 +124,12 @@ void pick(){ // Picks up an item from the ground
     }
 }
 void equip(){ // Lets the user equip an item
-    item toEquip = item("", "", 0);
-    c = 1;
+    // item toEquip = item("", "", 0);
+    // c = 1;
     cout << "Please select a category of item to equip\n\n";
     cout << "For weapons: w\nFor gear/ artifacts: g\nEnter your option (leave blank to exit this menu): ";
+    item toEquip = item("", "", 0);
+    c = 1;
     char option;
     cin >> option;
     if (option == 'w'){
@@ -136,7 +138,6 @@ void equip(){ // Lets the user equip an item
             c++;
         }
         int o;
-        cout << "Enter an item's number";
         while (true) {
             cout << "Enter the number of the item you want to pick up (0 to leave): ";
             if (!(cin >> o)) {
@@ -167,7 +168,6 @@ void equip(){ // Lets the user equip an item
         }
         int o;
         cout << "Enter an item's number";
-        int o;
         cout << "Enter an item's number";
         while (true) {
             cout << "Enter the number of the item you want to pick up (0 to leave): ";
@@ -228,12 +228,13 @@ void equip(){ // Lets the user equip an item
     } 
 }
 
+
 int main(){
     cout << "Welcome, adventurer.\nEnter your name here: ";
     string name;
     cin >> name;
     cout << "Hello, " << name << ". Welcome to the world. You start as a human with all your stats set to 1, HP at 10, but as time goes\non, you can level up your stats, learn skills, collect weapons, and find gear. Gear and weapons can also have their\nown buffs and skills as you get further in the game. Here, take this [BASIC DULL SWORD] (press p to pick up).\n";
-    ground.push_back(item("Dull sword", "weapon", 1));
+    ground.push_back(item("Dull sword", "Weapon", 1));
     while (true){
         char option;
         cout << "Enter an option (? or h for help, q to quit): ";
