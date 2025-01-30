@@ -3,15 +3,24 @@
 #include <vector>
 #include <algorithm>
 #include <limits>
-#include "item.h"
 #include "inventory.h"
 using namespace std;
+void help(){ // Prints the help menu
+    cout << "HELP MENU\n\ni: open inventory\n?/ h: open this help menu\ne: equip an item\nu: unequip an item\ns: view stats\np: pick up an item (shows a menu if multiple)\n\n";
+}
+void stats(){ // Prints a user's stats
+    for (const auto& pair : stat) {
+        cout << pair.first << ": " << pair.second << "\n";
+    }
+}
+
 int main(){
     cout << "Welcome, adventurer.\nEnter your name here: ";
     string name;
     cin >> name;
-    cout << "Hello, " << name << ". Welcome to the world. You start as a human with all your stats set to 1, HP at 10, but as time goes\non, you can level up your stats, learn skills, collect weapons, and find gear. Gear and weapons can also have their\nown buffs and skills as you get further in the game. Here, take this [BASIC DULL SWORD] (press p to pick up).\n";
+    cout << "Hello, " << name << ". Welcome to the world.\n\nYou start as a human with all your stats set to 1, HP at 10, but as time goes on, you can level up your stats, learn skills, collect weapons, and find gear.\n\nGear and weapons can also have their own buffs and skills as you get further in the game.\n\nHere, take this [BASIC DULL SWORD] (press p to pick up).\n\n";
     ground.push_back(item("Dull sword", "Weapon", 1));
+    ground.push_back(item("Chipped helmet", "Helmet", 1));
     while (true){
         char option;
         cout << "Enter an option (? or h for help, q to quit): ";
@@ -21,6 +30,7 @@ int main(){
         else if (option == 's') stats();
         else if (option == 'p') pick();
         else if (option == 'e') equip();
+        else if (option == 'd') unequip();
         else if (option == 'q') break;
         else continue;
     }
