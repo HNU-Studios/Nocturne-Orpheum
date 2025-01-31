@@ -300,7 +300,7 @@ void unequip(){ // Lets the user unequip/ take off an item
         }
         int o;
         while (true) {
-            cout << "Enter the number of the item you want to unequip (0 to leave): ";
+            cout << "\nEnter the number of the item you want to unequip (0 to leave): ";
             if (!(cin >> o)) {
                 // If the input is not an integer, clear the error & ignore invalid input
                 cin.clear(); // Clear error
@@ -310,12 +310,14 @@ void unequip(){ // Lets the user unequip/ take off an item
             }
             // cin >> choice;
             else if (o == 0) break;
-            else if (o < 1 || o > gear.size()) { // Runs if choice isn't valid
+            else if (o < 0 || o > gear.size()) { // Runs if choice isn't valid
                 cout << "Invalid choice. Please select a valid item number.\n";
             }
             else break;
         }
         item putBack = u[o - 1];
+        if (putBack.getType() == "Helmet" || putBack.getType() == "Breastplate" || putBack.getType() == "Mask") stat["HP"]--;
+        else if (putBack.getType() == "Glove") stat["Strength"]--;
         string idk = putBack.getType();
         if (equipped[putBack.getType()].getName() != ""){
             if (gear.find(putBack) != gear.end()) gear[putBack]++;

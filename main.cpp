@@ -13,7 +13,6 @@ void stats(){ // Prints a user's stats
         cout << pair.first << ": " << pair.second << "\n";
     }
 }
-
 int main(){
     cout << "Welcome, adventurer.\nEnter your name here: ";
     string name;
@@ -30,9 +29,8 @@ int main(){
         else if (option == 's') stats();
         else if (option == 'p') pick();
         else if (option == 'e') equip();
-        else if (option == 'd') unequip();
+        else if (option == 'u') unequip();
         else if (option == 'q') break;
-        else continue;
     }
     return 0;
 }
