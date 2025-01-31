@@ -18,8 +18,8 @@ int main(){
     string name;
     cin >> name;
     cout << "Hello, " << name << ". Welcome to the world.\n\nYou start as a human with all your stats set to 1, HP at 10, but as time goes on, you can level up your stats, learn skills, collect weapons, and find gear.\n\nGear and weapons can also have their own buffs and skills as you get further in the game.\n\nHere, take this [BASIC DULL SWORD] (press p to pick up).\n\n";
-    ground.push_back(item("Dull sword", "Weapon", 1));
-    ground.push_back(item("Chipped helmet", "Helmet", 1));
+    ground.push_back(dullSword);
+    ground.push_back(chippedHelmet);
     while (true){
         char option;
         cout << "Enter an option (? or h for help, q to quit): ";

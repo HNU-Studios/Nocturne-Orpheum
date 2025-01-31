@@ -3,13 +3,13 @@
 #include <vector>
 #include <algorithm>
 #include <limits>
-#include "item.h"
+#include "items.h"
 using namespace std;
 // Inventory arrays
 map<item, int> food; // Stores a user's food
 map<item, int> weapons; // Stores a user's unequipped weapons
 map<item, int> gear; // Stores a user's unequipped armour & artifacts
-map<string, int> stat = {{"Strength", 1}, {"Defense", 1}, {"Intelligence", 1}, {"HP", 10}, {"Level", 1}}; // User stats
+map<string, int> stat = {{"Strength", 1}, {"Defense", 1}, {"Intelligence", 1}, {"HP", 10}, {"Level", 1}, {"Charisma", 1}, {"Stealth", 0}}; // User stats
 vector<string> skills; // Stores skills a user can use (may be included with weapons)
 /*Stores a user's equipped items*/map<string, item> equipped = {{"Weapon", item("", "", 0)}, {"Helmet", item("", "", 0)}, {"Breastplate", item("", "", 0)}, {"Gloves", item("", "", 0)}, {"Mask", item("", "", 0)}, {"Artifact 1", item("", "", 0)}, {"Artifact 2", item("", "", 0)}, {"Artifact 3", item("", "", 0)}, {"Artifact 4", item("", "", 0)}, {"Artifact 5", item("", "", 0)}};
 vector<item> ground; // Shows items on the ground
@@ -243,9 +243,9 @@ void unequip(){ // Lets the user unequip/ take off an item
     cin >> option;
     if (option == 'w'){
         if (equipped["Weapon"].getName() != ""){
-            item putBack = item(equipped["Weapon"].getName(), equipped["Weapon"].getType(), equipped["Weapon"].getPower());
-            stat["Strength"] -= equipped["Weapon"].getPower();
-            weapons[putBack]++;
+            cout << "Unequipping weapon: " << equipped["Weapon"].getName() << ".\n";
+            item putBack = equipped["Weapon"];
+            stat["Strength"] -= putBack.getPower();
             if (weapons.find(putBack) != weapons.end()) weapons[putBack]++;
             else weapons[putBack] = 1;
         }
@@ -310,8 +310,9 @@ void unequip(){ // Lets the user unequip/ take off an item
             }
             // cin >> choice;
             else if (o == 0) break;
-            else if (o < 0 || o > gear.size()) { // Runs if choice isn't valid
+            else if (o < 0 || o > c - 1) { // Runs if choice isn't valid
                 cout << "Invalid choice. Please select a valid item number.\n";
+                cout << "DEBUG: " << gear.size();
             }
             else break;
         }
