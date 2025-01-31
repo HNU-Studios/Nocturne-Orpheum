@@ -5,16 +5,15 @@
 #include <limits>
 #include "item.h"
 using namespace std;
-// item Template = item("", "", 0);
 // Inventory arrays
-map<item, int> food;
-map<item, int> weapons;
-map<item, int> gear;
-map<string, int> stat = {{"Strength", 1}, {"Defense", 1}, {"Intelligence", 1}, {"HP", 10}};
-map<string, string> skills;
-map<string, item> equipped = {{"Weapon", item("", "", 0)}, {"Helmet", item("", "", 0)}, {"Breastplate", item("", "", 0)}, {"Gloves", item("", "", 0)}, {"Mask", item("", "", 0)}, {"Artifact 1", item("", "", 0)}, {"Artifact 2", item("", "", 0)}, {"Artifact 3", item("", "", 0)}, {"Artifact 4", item("", "", 0)}, {"Artifact 5", item("", "", 0)}};
-vector<item> ground;
-int c;
+map<item, int> food; // Stores a user's food
+map<item, int> weapons; // Stores a user's unequipped weapons
+map<item, int> gear; // Stores a user's unequipped armour & artifacts
+map<string, int> stat = {{"Strength", 1}, {"Defense", 1}, {"Intelligence", 1}, {"HP", 10}, {"Level", 1}}; // User stats
+vector<string> skills; // Stores skills a user can use (may be included with weapons)
+/*Stores a user's equipped items*/map<string, item> equipped = {{"Weapon", item("", "", 0)}, {"Helmet", item("", "", 0)}, {"Breastplate", item("", "", 0)}, {"Gloves", item("", "", 0)}, {"Mask", item("", "", 0)}, {"Artifact 1", item("", "", 0)}, {"Artifact 2", item("", "", 0)}, {"Artifact 3", item("", "", 0)}, {"Artifact 4", item("", "", 0)}, {"Artifact 5", item("", "", 0)}};
+vector<item> ground; // Shows items on the ground
+int c; // Counter for printing numbers
 void inventory(){ // Functions for printing a user's inventory
     /*Instructions*/ cout << "For food: f\nFor weapons: w\nFor gear: g\nFor skills: s\nFor all items: i\nEnter your option (leave blank to exit this menu): ";
     char option;
@@ -36,8 +35,8 @@ void inventory(){ // Functions for printing a user's inventory
         }
     }
     else if (option == 's'){
-        for (const auto& pair : skills) {
-            cout << pair.first << " x" << pair.second << "\n";
+        for (string skill : skills) {
+            cout << skill << "\n";
         }
     }
     // Print whole inventory
@@ -55,8 +54,8 @@ void inventory(){ // Functions for printing a user's inventory
             cout << pair.first.getName() << " x" << pair.second << "\n";
         }
         cout << "ALL SKILLS:\n";
-        for (const auto& pair : skills) {
-            cout << pair.first << " x" << pair.second << "\n";
+        for (string skill : skills) {
+            cout << skill << " x" << skill << "\n";
         }
     }
 }
@@ -245,6 +244,7 @@ void unequip(){ // Lets the user unequip/ take off an item
     if (option == 'w'){
         if (equipped["Weapon"].getName() != ""){
             item putBack = item(equipped["Weapon"].getName(), equipped["Weapon"].getType(), equipped["Weapon"].getPower());
+            stat["Strength"] -= equipped["Weapon"].getPower();
             weapons[putBack]++;
             if (weapons.find(putBack) != weapons.end()) weapons[putBack]++;
             else weapons[putBack] = 1;
@@ -310,7 +310,7 @@ void unequip(){ // Lets the user unequip/ take off an item
             }
             // cin >> choice;
             else if (o == 0) break;
-            else if (o < 1 || o > weapons.size()) { // Runs if choice isn't valid
+            else if (o < 1 || o > gear.size()) { // Runs if choice isn't valid
                 cout << "Invalid choice. Please select a valid item number.\n";
             }
             else break;
@@ -318,8 +318,8 @@ void unequip(){ // Lets the user unequip/ take off an item
         item putBack = u[o - 1];
         string idk = putBack.getType();
         if (equipped[putBack.getType()].getName() != ""){
-            if (gear.find(putBack) != gear.end()) weapons[putBack]++;
-            else weapons[putBack] = 1;
+            if (gear.find(putBack) != gear.end()) gear[putBack]++;
+            else gear[putBack] = 1;
         }
     }
 }
