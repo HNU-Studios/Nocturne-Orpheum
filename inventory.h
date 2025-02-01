@@ -236,7 +236,7 @@ void equip(){ // Lets the user equip an item
     }
 }
 void unequip(){ // Lets the user unequip/ take off an item
-    cout << "Please select a category of item to equip\n\n";
+    cout << "Please select a category of item to unequip\n\n";
     cout << "For weapon: w\nFor gear/ artifacts: g\nEnter your option (leave blank to exit this menu): ";
     c = 1;
     char option;
@@ -312,8 +312,7 @@ void unequip(){ // Lets the user unequip/ take off an item
             else if (o == 0) break;
             else if (o < 0 || o > c - 1) { // Runs if choice isn't valid
                 cout << "Invalid choice. Please select a valid item number.\n";
-                cout << "DEBUG: " << gear.size();
-            }
+            } 
             else break;
         }
         item putBack = u[o - 1];
@@ -325,4 +324,54 @@ void unequip(){ // Lets the user unequip/ take off an item
             else gear[putBack] = 1;
         }
     }
+}
+item drop(){
+    cout << "Please select a category of item to drop\n\n";
+    cout << "For weapon: w\nFor gear/ artifacts: g\nEnter your option (leave blank to exit this menu): ";
+    c = 1;
+    char option;
+    cin >> option;
+    if (option == 'w'){
+        if (equipped["Weapon"].getName() != ""){
+            cout << "Unequipping weapon: " << equipped["Weapon"].getName() << ".\n";
+            item putBack = equipped["Weapon"];
+            stat["Strength"] -= putBack.getPower();
+            return item(putBack.getName(), putBack.getType(), putBack.getPower());
+        }
+    }
+    if (option == 'g'){
+        c = 1;
+        for (const auto& pair : gear) {
+            cout << c << ": " << pair.first.getName() << " x" << pair.second << "\n";
+            c++;
+        }
+        int o;
+        cout << "Enter an item's number";
+        while (true) {
+            cout << "\nEnter the number of the item you want to unequip (0 to leave): ";
+            if (!(cin >> o)) {
+                // If the input is not an integer, clear the error & ignore invalid input
+                cin.clear(); // Clear error
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore rest of invalid input
+                cout << "Invalid input. Please enter a valid number.\n";
+                continue; // Continue the code
+            }
+            // cin >> choice;
+            else if (o == 0) break;
+            else if (o < 0 || o > c - 1) { // Runs if choice isn't valid
+                cout << "Invalid choice. Please select a valid item number.\n";
+            } 
+            else break;
+        }
+        item putBack = item("", "", 0);
+        if (putBack.getType() == "Helmet" || putBack.getType() == "Breastplate" || putBack.getType() == "Mask") stat["HP"]--;
+        else if (putBack.getType() == "Glove") stat["Strength"]--;
+        string idk = putBack.getType();
+        if (equipped[putBack.getType()].getName() != ""){
+            if (gear.find(putBack) != gear.end()) gear[putBack]++;
+            else gear[putBack] = 1;
+        }
+        return item("", "", 0);
+    }
+    return item("", "", 0);
 }

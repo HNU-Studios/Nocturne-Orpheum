@@ -21,16 +21,29 @@ int main(){
     ground.push_back(dullSword);
     ground.push_back(chippedHelmet);
     while (true){
+        bool b = false;
         char option;
         cout << "Enter an option (? or h for help, q to quit): ";
         cin >> option;
-        if (option == 'i') inventory();
-        else if (option == 'h' || option == '?') help();
-        else if (option == 's') stats();
-        else if (option == 'p') pick();
-        else if (option == 'e') equip();
-        else if (option == 'u') unequip();
-        else if (option == 'q') break;
+        switch (option){
+            case ('h' || '?'):
+                help();
+            case ('i'):
+                inventory();
+            case ('s'):
+                stats();
+            case ('p'):
+                pick();
+            case ('e'):
+                equip();
+            case ('u'):
+                unequip();
+            // case ('d'):
+            //     ground.push_back(drop());
+            case ('q'):
+                b = true; // For some reason, just putting break; here wasn't working, so had to make the boolean b
+        }
+        if (b) break; // breaks using b
     }
     return 0;
 }
