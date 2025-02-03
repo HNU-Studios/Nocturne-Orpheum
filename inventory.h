@@ -9,7 +9,7 @@ using namespace std;
 map<item, int> food; // Stores a user's food
 map<item, int> weapons; // Stores a user's unequipped weapons
 map<item, int> gear; // Stores a user's unequipped armour & artifacts
-map<string, int> stat = {{"Strength", 1}, {"Defense", 1}, {"Intelligence", 1}, {"HP", 10}, {"Level", 1}, {"Charisma", 1}, {"Stealth", 0}}; // User stats
+map<string, int> stat = {{"Strength", 1}, {"Defense", 1}, {"Intelligence", 1}, {"HP", 10}, {"Level", 1}, {"Charisma", 1}, {"Stealth", 0}, {"Current HP", 10}}; // User stats
 vector<string> skills; // Stores skills a user can use (may be included with weapons)
 /*Stores a user's equipped items*/map<string, item> equipped = {{"Weapon", item("", "", 0)}, {"Helmet", item("", "", 0)}, {"Breastplate", item("", "", 0)}, {"Gloves", item("", "", 0)}, {"Mask", item("", "", 0)}, {"Artifact 1", item("", "", 0)}, {"Artifact 2", item("", "", 0)}, {"Artifact 3", item("", "", 0)}, {"Artifact 4", item("", "", 0)}, {"Artifact 5", item("", "", 0)}};
 vector<item> ground; // Shows items on the ground
@@ -183,12 +183,14 @@ void equip(){ // Lets the user equip an item
             if (toEquip.getType() == "Helmet"){
                 equipped["Helmet"] = toEquip; 
                 stat["HP"] += toEquip.getPower();
+                stat["Current HP"] += toEquip.getPower();
                 gear[toEquip]--;
                 if (gear[toEquip] == 0) gear.erase(toEquip);
             }
             else if (toEquip.getType() == "Breastplate"){
                 equipped["Breastplate"] = toEquip; 
                 stat["HP"] += toEquip.getPower();
+                stat["Current HP"] += toEquip.getPower();
                 gear[toEquip]--;
                 if (gear[toEquip] == 0) gear.erase(toEquip);
             }
@@ -201,6 +203,7 @@ void equip(){ // Lets the user equip an item
             else if (toEquip.getType() == "Mask"){
                 equipped["Mask"] = toEquip; 
                 stat["HP"] += toEquip.getPower();
+                stat["Current HP"] += toEquip.getPower();
                 gear[toEquip]--;
                 if (gear[toEquip] == 0) gear.erase(toEquip);
             }

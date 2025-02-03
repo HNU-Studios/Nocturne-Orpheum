@@ -3,7 +3,8 @@
 #include <vector>
 #include <algorithm>
 #include <limits>
-#include "inventory.h"
+// #include "inventory.h"
+#include "sectors.h"
 using namespace std;
 void help(){ // Prints the help menu
     cout << "HELP MENU\n\ni: open inventory\n?/ h: open this help menu\ne: equip an item\nu: unequip an item\ns: view stats\np: pick up an item (shows a menu if multiple)\n\n";
@@ -50,6 +51,11 @@ int main(){
             case ('q'):
                 b = true; // Switch case closes with break, so had to use b to break the actual loop
         }
+        if (stat["Current HP"] == 0){
+            cout << "\n\nYOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\n\n";
+            break;
+        }
+        if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
         if (b) break; // breaks using b
     }
     return 0;
