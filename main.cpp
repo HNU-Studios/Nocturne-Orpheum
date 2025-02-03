@@ -28,20 +28,27 @@ int main(){
         switch (option){
             case ('h' || '?'):
                 help();
+                break;
             case ('i'):
                 inventory();
+                break;
             case ('s'):
                 stats();
+                break;
             case ('p'):
                 pick();
+                break;
             case ('e'):
                 equip();
+                break;
             case ('u'):
                 unequip();
-            // case ('d'):
-            //     ground.push_back(drop());
+                break;
+            case ('d'):
+                drop();
+                break;
             case ('q'):
-                b = true; // For some reason, just putting break; here wasn't working, so had to make the boolean b
+                b = true; // Switch case closes with break, so had to use b to break the actual loop
         }
         if (b) break; // breaks using b
     }

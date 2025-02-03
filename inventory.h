@@ -325,30 +325,75 @@ void unequip(){ // Lets the user unequip/ take off an item
         }
     }
 }
-item drop(){
-    cout << "Please select a category of item to drop\n\n";
-    cout << "For weapon: w\nFor gear/ artifacts: g\nEnter your option (leave blank to exit this menu): ";
-    c = 1;
-    char option;
-    cin >> option;
-    if (option == 'w'){
-        if (equipped["Weapon"].getName() != ""){
-            cout << "Unequipping weapon: " << equipped["Weapon"].getName() << ".\n";
-            item putBack = equipped["Weapon"];
-            stat["Strength"] -= putBack.getPower();
-            return item(putBack.getName(), putBack.getType(), putBack.getPower());
+void drop(){ // Drops an item to the ground
+    cout << "Select a category to drop (w for weapons, g for gear): ";
+    string option;
+    while (true){
+            if (!(cin >> option) || tolower(option[0]) != 'w' || tolower(option[0]) != 'g') {
+                // If the input[0] is not a character or != w or g, clear the error & ignore invalid input
+                cin.clear(); // Clear error
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore rest of invalid input
+                cout << "Invalid input. Please enter a valid option (w for weapon, g for gear).\n";
+                continue; // Continue the code
+            }
+            else break;
         }
-    }
-    if (option == 'g'){
+    char o = tolower(option[0]);
+    if (o == 'w'){
         c = 1;
+        for (const auto &pair : weapons){
+            cout << c << ": " << pair.first.getName() << " x" << pair.second << "\n";
+            c++;
+        }
+        cout << "Select the number of item to drop: ";
+        int itemIndex = 0;
+        // item toDrop;
+        // cin >> itemIndex;
+        while (true){
+            if (!(cin >> itemIndex) || itemIndex > c - 1) {
+                // If the input is not an integer, clear the error & ignore invalid input
+                cin.clear(); // Clear error
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore rest of invalid input
+                cout << "Invalid input. Please enter a valid number. ";
+                continue; // Continue the code
+            }
+            else break;
+        }
+        cout << "\nInput the quantity to drop: ";
+        int numItem;
+        while (true){
+            if (!(cin >> numItem) || numItem <= 0){
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid input. Please enter a positive number. ";
+                continue;
+            }
+            auto it = next(weapons.begin(), itemIndex - 1); 
+            if (it->second < numItem){
+                cout << "You only have " << it->second << it->first.getName() << "'s to drop.";
+                continue;
+            }
+            break; 
+        }
+        auto it = next(weapons.begin(), itemIndex - 1);
+        for (int i = 0; i < numItem; ++i){
+            ground.push_back(it->first);
+        }
+        weapons[it->first] -= numItem;
+        if (weapons[it->first] <= 0){
+            weapons.erase(it);
+        }
+        cout << "Dropped " << numItem << " " << it->first.getName() << "(s) to the ground.\n";
+    }
+    else if (o == 'g'){
         for (const auto& pair : gear) {
             cout << c << ": " << pair.first.getName() << " x" << pair.second << "\n";
             c++;
         }
         int o;
-        cout << "Enter an item's number";
+        // cout << "Enter an item's number to drop: ";
         while (true) {
-            cout << "\nEnter the number of the item you want to unequip (0 to leave): ";
+            cout << "Enter the number of the item you want to drop (0 to leave): ";
             if (!(cin >> o)) {
                 // If the input is not an integer, clear the error & ignore invalid input
                 cin.clear(); // Clear error
@@ -356,22 +401,33 @@ item drop(){
                 cout << "Invalid input. Please enter a valid number.\n";
                 continue; // Continue the code
             }
-            // cin >> choice;
-            else if (o == 0) break;
-            else if (o < 0 || o > c - 1) { // Runs if choice isn't valid
+            if (o == 0) break;
+            else if (o < 1 || o > gear.size()) { // Runs if choice isn't valid
                 cout << "Invalid choice. Please select a valid item number.\n";
-            } 
+            }
             else break;
         }
-        item putBack = item("", "", 0);
-        if (putBack.getType() == "Helmet" || putBack.getType() == "Breastplate" || putBack.getType() == "Mask") stat["HP"]--;
-        else if (putBack.getType() == "Glove") stat["Strength"]--;
-        string idk = putBack.getType();
-        if (equipped[putBack.getType()].getName() != ""){
-            if (gear.find(putBack) != gear.end()) gear[putBack]++;
-            else gear[putBack] = 1;
-        }
-        return item("", "", 0);
+        if (o != 0 && o <= gear.size()){
+            auto it = next(gear.begin(), o - 1);
+            item toDrop = it->first;
+            if (toDrop.getType() == "Helmet" || toDrop.getType() == "Breastplate" || toDrop.getType() == "Mask"){
+                ground.push_back(toDrop);
+                stat["HP"] -= toDrop.getPower();
+                gear[toDrop]--;
+                if (gear[toDrop] == 0) gear.erase(toDrop);
+            }
+            else if (toDrop.getType() == "Gloves"){
+                ground.push_back(toDrop);
+                stat["Strength"] += toDrop.getPower();
+                gear[toDrop]--;
+                if (gear[toDrop] == 0) gear.erase(toDrop);
+            }
+            // Checks for artifact slots and adds to the lowest one. If full, warns the user.
+            else if (toDrop.getType() == "Artifact"){
+                ground.push_back(toDrop);
+                gear[toDrop]--;
+                if (gear[toDrop] == 0) gear.erase(toDrop);
+            }
+        } 
     }
-    return item("", "", 0);
 }
