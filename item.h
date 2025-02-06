@@ -4,10 +4,12 @@ class item {
     std::string name;
     std::string type;
     int power;
+    map<string, int> buffs;
 public:
     // Constructor
     item(std::string n, std::string t, int p) : name(n), type(t), power(p) {}
     item() : name(""), type(""), power(0) {}
+    item(std::string n, std::string t, int p, map<string, int> b) : name(n), type(t), power(p), buffs(b) {}
     // Getter methods
     std::string getName() const {
         return name;
@@ -18,10 +20,7 @@ public:
     int getPower() const {
         return power;
     }
-    // Comparison operator for std::map
     bool operator<(const item& other) const {
-        // Define comparison logic. This example compares items by their name.
         return name < other.name;
-        // You can also add logic to compare by type and power if needed.
     }
 };
