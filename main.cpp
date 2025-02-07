@@ -22,7 +22,7 @@ int main(){
     ground.push_back(dullSword);
     ground.push_back(chippedHelmet);
     ground.push_back(revivalStone);
-    enemy first;
+    enemy first("Test", 1, 1);
     while (true){
         bool b = false;
         char option;
