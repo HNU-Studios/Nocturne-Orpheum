@@ -3,7 +3,6 @@
 #include <vector>
 #include <algorithm>
 #include <limits>
-// #include "inventory.h"
 #include "sectors.h"
 using namespace std;
 void help(){ // Prints the help menu
@@ -21,6 +20,7 @@ int main(){
     cout << "Hello, " << name << ". Welcome to the world.\n\nYou start as a human with all your stats set to 1, HP at 10, but as time goes on, you can level up your stats, learn skills, collect weapons, and find gear.\n\nGear and weapons can also have their own buffs and skills as you get further in the game.\n\nHere, take this [BASIC DULL SWORD] (press p to pick up).\n\n";
     ground.push_back(dullSword);
     ground.push_back(chippedHelmet);
+    ground.push_back(revivalStone);
     while (true){
         bool b = false;
         char option;
@@ -52,8 +52,14 @@ int main(){
                 b = true; // Switch case closes with break, so had to use b to break the actual loop
         }
         if (stat["Current HP"] == 0){
-            cout << "\n\nYOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\n\n";
-            break;
+            if (gear[revivalStone] > 0){
+                cout << "You had the revival stone and have been brought back to life! Welcome back, adventurer.\n";
+                stat["CurrHP"] = stat["HP"];
+            }
+            else{
+                cout << "\n\nYOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\n\n";
+                break;
+            }
         }
         if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
         if (b) break; // breaks using b
