@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <limits>
 #include "sectors.h"
+#include "enemy.h"
 using namespace std;
 void help(){ // Prints the help menu
     cout << "HELP MENU\n\ni: open inventory\n?/ h: open this help menu\ne: equip an item\nu: unequip an item\ns: view stats\np: pick up an item (shows a menu if multiple)\n\n";
@@ -21,6 +22,7 @@ int main(){
     ground.push_back(dullSword);
     ground.push_back(chippedHelmet);
     ground.push_back(revivalStone);
+    enemy first;
     while (true){
         bool b = false;
         char option;
