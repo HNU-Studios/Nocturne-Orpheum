@@ -4,3 +4,4 @@ Please contribute if you'd like! Any help is appreciated. Need help thinking of 
 
 ### Currently working on: Making drop function work while item is equipped
 ### Currently working on: Ability to change sectors
+### Currently working on: Making enemies & a "shop"
