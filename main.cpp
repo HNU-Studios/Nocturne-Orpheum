@@ -27,9 +27,16 @@ int main(){
         bool b = false;
         char option;
         cout << "Enter an option (? or h for help, q to quit): ";
-        cin >> option;
+        if (!(cin >> option)) {
+            // If the input is not an integer, clear the error & ignore invalid input
+            cin.clear(); // Clear error
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore rest of invalid input
+            cout << "Invalid input. Please enter a valid letter. See the help menu for commands (type 'h' for help).\n";
+            continue; // Continue the code
+        }
         switch (option){
-            case ('h' || '?'):
+            case ('h'):
+            case ('?'):
                 help();
                 break;
             case ('i'):
@@ -51,12 +58,13 @@ int main(){
                 drop();
                 break;
             case ('q'):
-                b = true; // Switch case closes with break, so had to use b to break the actual loop
+                cout << "Goodbye, " << name << ".";
+                return 0; // breaks the loop
         }
-        if (stat["Current HP"] == 0){
-            if (gear[revivalStone] > 0){
+        if (stat["Current HP"] <= 0){
+            if (gear.find(revivalStone) != gear.end()){
                 cout << "You had the revival stone and have been brought back to life! Welcome back, adventurer.\n";
-                stat["CurrHP"] = stat["HP"];
+                stat["Current HP"] = stat["HP"];
             }
             else{
                 cout << "\n\nYOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\n\n";
@@ -64,7 +72,6 @@ int main(){
             }
         }
         if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
-        if (b) break; // breaks using b
     }
     return 0;
 }
