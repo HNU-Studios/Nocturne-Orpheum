@@ -1,16 +1,17 @@
 #include <string>
+#include <map>
 #include <iostream>
 class item {
     std::string name;
     std::string type;
     int power;
-    map<string, int> buffs;
+    std::map<std::string, int> buffs;
 public:
     // Constructor
-    item(std::string n, std::string t, int p) : name(n), type(t), power(p) {}
     item() : name(""), type(""), power(0) {}
-    item(std::string n, std::string t, int p, map<string, int> b) : name(n), type(t), power(p), buffs(b) {}
-    item(std::string n, std::string t, int p, map<string, int> b) : name(n), type(t), buffs(b) {}
+    item(std::string n, std::string t, int p) : name(n), type(t), power(p) {}
+    item(std::string n, std::string t, std::map<std::string, int> b) : name(n), type(t), buffs(b) {}
+    item(std::string n, std::string t, int p, std::map<std::string, int> b) : name(n), type(t), power(p), buffs(b) {}
     // Getter methods
     std::string getName() const {
         return name;
