@@ -301,6 +301,10 @@ void unequip(){ // Lets the user unequip/ take off an item
             u.push_back(equipped["Artifact 5"]);
             c++;
         }
+        else{
+            cout << "\nYou have no gear equipped!\n";
+            return;
+        }
         int o;
         while (true) {
             cout << "\nEnter the number of the item you want to unequip (0 to leave): ";
