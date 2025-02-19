@@ -24,7 +24,6 @@ int main(){
     ground.push_back(revivalStone);
     enemy first("Test", 1, 1);
     while (true){
-        bool b = false;
         char option;
         cout << "Enter an option (? or h for help, q to quit): ";
         if (!(cin >> option)) {
@@ -60,6 +59,17 @@ int main(){
             case ('q'):
                 cout << "Goodbye, " << name << ".";
                 return 0; // breaks the loop
+            case ('o'):
+                if (enemies.size() == 0) cout << "There are currently no enemies. You're safe!";
+                else{
+                    int count = 0;
+                    cout << "Enemies currently present\n";
+                    for (enemy i : enemies){
+                        count++;
+                        cout << count << ") Name: " << i.getName() << ", Speed: " << i.getSpeed() << ", Power: " << i.getPower();
+                    }
+                    cout << "\n";
+                }
         }
         if (stat["Current HP"] <= 0){
             if (gear.find(revivalStone) != gear.end()){
