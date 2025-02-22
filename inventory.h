@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <limits>
 #include "items.h"
+#include "enemy.h"
 using namespace std;
 // Inventory arrays
 map<item, int> food; // Stores a user's food
