@@ -5,6 +5,7 @@
 #include <limits>
 #include "items.h"
 #include "enemy.h"
+#define templateItem item("", "", 0);
 using namespace std;
 // Inventory arrays
 map<item, int> food; // Stores a user's food
@@ -121,11 +122,12 @@ void equip(){ // Lets the user equip an item
     // item toEquip = item("", "", 0);
     // c = 1;
     cout << "Please select a category of item to equip\n\n";
-    cout << "For weapons: w\nFor gear/ artifacts: g\nEnter your option (leave blank to exit this menu): ";
+    cout << "For weapons: w\nFor gear/ artifacts: g\nEnter your option (input 'n' to exit this menu): ";
     item toEquip = item("", "", 0);
     c = 1;
     char option;
     cin >> option;
+    if (option == 'n') return;
     if (option == 'w'){
         for (const auto& pair : weapons) {
             cout << c << ": " << pair.first.getName() << " x" << pair.second << "\n";
@@ -211,33 +213,37 @@ void equip(){ // Lets the user equip an item
             }
             // Checks for artifact slots and adds to the lowest one. If full, warns the user.
             else if (toEquip.getType() == "Artifact"){
-                if (equipped["Artifact 5"].getName() != ""){
+                if (equipped["Artifact 5"] != item("", "", 0)){
                     cout << "You have too many artifacts equipped (Max 5).";
                     return;
                 }
-                else {
-                    if (equipped["Artifact 4"].getName() != ""){
-                        equipped["Artifact 5"] = toEquip;
-                        gear[toEquip]--;
-                        if (gear[toEquip] == 0) gear.erase(toEquip);
-                    }
-                    else {
-                        if (equipped["Artifact 3"].getName() != ""){
-                            equipped["Artifact 4"] = toEquip;
-                            gear[toEquip]--;
-                            if (gear[toEquip] == 0) gear.erase(toEquip);
-                        }
-                        else{
-                            if (equipped["Artifact 2"].getName() != ""){
-                                equipped["Artifact 1"] = toEquip;
-                                gear[toEquip]--;
-                                if (gear[toEquip] == 0) gear.erase(toEquip);
-                            }
-                        }
-                    }
+                else if (equipped["Artifact 1"].getName() != ""){
+                    equipped["Artifact 1"] = toEquip;
+                    gear[toEquip]--;
+                    if (gear[toEquip] == 0) gear.erase(toEquip);
+                }
+                else if (equipped["Artifact 2"].getName() != ""){
+                    equipped["Artifact 2"] = toEquip;
+                    gear[toEquip]--;
+                    if (gear[toEquip] == 0) gear.erase(toEquip);
+                }
+                else if (equipped["Artifact 3"].getName() != ""){
+                    equipped["Artifact 3"] = toEquip;
+                    gear[toEquip]--;
+                    if (gear[toEquip] == 0) gear.erase(toEquip);
+                }
+                else if (equipped["Artifact 4"].getName() != ""){
+                    equipped["Artifact 4"] = toEquip;
+                    gear[toEquip]--;
+                    if (gear[toEquip] == 0) gear.erase(toEquip);
+                }
+                else if (equipped["Artifact 5"].getName() != ""){
+                    equipped["Artifact 5"] = toEquip;
+                    gear[toEquip]--;
+                    if (gear[toEquip] == 0) gear.erase(toEquip);
                 }
             }
-        } 
+        }
     }
 }
 void unequip(){ // Lets the user unequip/ take off an item
@@ -303,7 +309,7 @@ void unequip(){ // Lets the user unequip/ take off an item
             u.push_back(equipped["Artifact 5"]);
             c++;
         }
-        else{
+        if (equipped.empty()){
             cout << "\nYou have no gear equipped!\n";
             return;
         }
