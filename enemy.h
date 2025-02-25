@@ -1,6 +1,5 @@
 #include <string>
 #include <map>
-#include "item.h"
 class enemy {
     std::string name;
     int speed;

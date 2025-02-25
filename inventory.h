@@ -3,7 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include <limits>
-#include "item.h"
+#include "items.h"
 #include "enemy.h"
 #define templateItem item("", "", 0)
 using namespace std;
