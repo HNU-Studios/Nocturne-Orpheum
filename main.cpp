@@ -69,6 +69,9 @@ int main(){
                     }
                     cout << "\n";
                 }
+            default:
+                cout << "Invalid input, please try again";
+                break;
         }
         if (stat["Current HP"] <= 0){
             if (gear.find(revivalStone) != gear.end()){
