@@ -25,7 +25,9 @@ public:
     bool operator!=(const item& other) const {
         return name != other.name || type != other.type || power != other.power || buffs != other.buffs;
     }
-
+    bool operator==(const item& other) const {
+        return name == other.name || type == other.type || power == other.power || buffs == other.buffs;
+    }
     bool operator<(const item& other) const {
         return name < other.name;
     }
