@@ -5,4 +5,4 @@ Please contribute if you'd like! Any help is appreciated. Need help thinking of 
 ## Computer fixed! Starting work on this repo again starting Feb 19th 2025
 
 ### Currently working on: Ability to change sectors
-### Currently working on: Making enemies & a "shop"
+### Currently working on: Making a "shop"
