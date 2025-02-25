@@ -59,7 +59,7 @@ int main(){
                 cout << "Goodbye, " << name << ".";
                 return 0; // breaks the loop
             case ('o'):
-                if (enemies.size() == 0) cout << "There are currently no enemies. You're safe!";
+                if (enemies.size() == 0) cout << "There are currently no enemies. You're safe!\n";
                 else{
                     int count = 0;
                     cout << "Enemies currently present\n";

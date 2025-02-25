@@ -13,5 +13,5 @@ public:
     string getName(){return name;}
     int getSpeed(){return speed;}
     int getPower(){return power;}
-    int getLoot(item i){}
+    int getLoot(string i){return loot[i];}
 };
