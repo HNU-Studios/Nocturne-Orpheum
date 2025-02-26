@@ -6,7 +6,7 @@
 #include "sectors.h"
 using namespace std;
 void help(){ // Prints the help menu
-    cout << "HELP MENU\n\ni: open inventory\n?/ h: open this help menu\ne: equip an item\nu: unequip an item\ns: view stats\np: pick up an item (shows a menu if multiple)\n\n";
+    cout << "HELP MENU\n\ni: open inventory\n?/ h: open this help menu\ne: equip an item\nu: unequip an item\ns: view stats\np: pick up an item from the ground\no: detect nearby enemies in your sector\nd: drop an item from your inventory\n\n";
 }
 void stats(){ // Prints a user's stats
     for (const auto& pair : stat) {
