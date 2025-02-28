@@ -14,6 +14,7 @@ void stats(){ // Prints a user's stats
     }
 }
 int main(){
+    sector currentSect = Andris;
     cout << "Welcome, adventurer.\nEnter your name here: ";
     string name;
     cin >> name;
@@ -26,11 +27,11 @@ int main(){
         char option;
         cout << "Enter an option (? or h for help, q to quit): ";
         if (!(cin >> option)) {
-            // If the input is not an integer, clear the error & ignore invalid input
-            cin.clear(); // Clear error
-            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore rest of invalid input
+            // If the input isn't an int, clear it and retry
+            cin.clear(); // Clear err
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore invalid input
             cout << "Invalid input. Please enter a valid letter. See the help menu for commands (type 'h' for help).\n";
-            continue; // Continue the code
+            continue; // continue
         }
         switch (option){
             case ('h'):

@@ -1,3 +1,3 @@
 #include "sector.h"
 vector<item> emptyGround;
-sector Andris = sector("Andris", emptyGround, 1, true);
+sector Andris = sector("Andris", emptyGround, 1);
