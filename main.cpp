@@ -3,6 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include <limits>
+#include <stdlib.h>
 #include "sectors.h"
 using namespace std;
 void help(){ // Prints the help menu
@@ -18,14 +19,15 @@ int main(){
     cout << "Welcome, adventurer.\nEnter your name here: ";
     string name;
     cin >> name;
-    cout << "Hello, " << name << ". Welcome to the world.\n\nYou start as a human with all your stats set to 1, HP at 10, but as time goes on, you can level up your stats, learn skills, collect weapons, and find gear.\n\nGear and weapons can also have their own buffs and skills as you get further in the game.\n\nHere, take this [BASIC DULL SWORD] (press p to pick up).\n\n";
+    cout << "Hello, " << name << ". Welcome to the world.\n\nYou start as a human with all your stats set to 1, HP at 10, but as time goes on, you can level up your stats, learn skills, collect weapons, and find gear.\n\nGear and weapons can also have their own buffs and skills as you get further in the game.\n\nHere, take this [BASIC DULL SWORD] (press p to pick up).\n\n" << flush;
     ground.push_back(dullSword);
     ground.push_back(chippedHelmet);
     ground.push_back(revivalStone);
     enemy first("Test", 1, 1);
     while (true){
         char option;
-        cout << "Enter an option (? or h for help, q to quit): ";
+        system("CLS");
+        cout << "Enter an option (? or h for help, q to quit): " << flush;
         if (!(cin >> option)) {
             // If the input isn't an int, clear it and retry
             cin.clear(); // Clear err
@@ -60,23 +62,23 @@ int main(){
                 cout << "Goodbye, " << name << ".";
                 return 0; // breaks the loop
             case ('o'):
-                if (enemies.size() == 0) cout << "There are currently no enemies. You're safe!\n";
+                if (enemies.size() == 0) cout << "There are currently no enemies. You're safe!\n" << flush;
                 else{
                     int count = 0;
-                    cout << "Enemies currently present\n";
+                    cout << "Enemies currently present\n" << flush;
                     for (enemy i : enemies){
                         count++;
-                        cout << count << ") Name: " << i.getName() << ", Speed: " << i.getSpeed() << ", Power: " << i.getPower();
+                        cout << count << ") Name: " << i.getName() << ", Speed: " << i.getSpeed() << ", Power: " << i.getPower() << flush;
                     }
-                    cout << "\n";
+                    cout << "\n" << flush;
                 }
             default:
-                cout << "Invalid input, please try again";
+                cout << "Invalid input, please try again" << flush;
                 break;
         }
         if (stat["Current HP"] <= 0){
             if (gear.find(revivalStone) != gear.end()){
-                cout << "You had the revival stone and have been brought back to life! Welcome back, adventurer.\n";
+                cout << "You had the revival stone and have been brought back to life! Welcome back, adventurer.\n" << flush;
                 stat["Current HP"] = stat["HP"];
             }
             else{
