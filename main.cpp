@@ -26,7 +26,7 @@ int main(){
     enemy first("Test", 1, 1);
     while (true){
         char option;
-        system("CLS");
+        // system("clear");
         cout << "Enter an option (? or h for help, q to quit): " << flush;
         if (!(cin >> option)) {
             // If the input isn't an int, clear it and retry
