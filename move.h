@@ -36,6 +36,9 @@ char Move(){
             return 'e';
         }
     }
+    else{
+        return ' ';
+    }
     return ' ';
 }
 void getCoords(){

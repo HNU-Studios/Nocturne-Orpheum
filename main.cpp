@@ -17,6 +17,7 @@ void stats(){ // Prints a user's stats
 }
 int main(){
     sector currentSect = Andris;
+    char where;
     cout << "Welcome, adventurer.\nEnter your name here: ";
     string name;
     cin >> name;
@@ -74,10 +75,11 @@ int main(){
                     cout << "\n" << flush;
                 }
             case ('m'):
-                if(Move() == ' '){
+                where = Move();
+                if(where == ' '){
                     cout << "Move complete\n";
                 }
-                else if (Move() == 'n'){
+                else if (where == 'n'){
                     if (currentSect.getNorth() != ""){
                         for (sector i: sects){
                             if (i.getName() == currentSect.getName()){
@@ -87,6 +89,9 @@ int main(){
                     }
                     else cout << "You can't move further north!";
                 }
+                break;
+            case ('t'):
+                cout << currentSect.getNorth() << endl;
                 break;
             case ('w'):
                 cout << "You are currently in " << currentSect.getName() << "\n" << "Your current coordinates are (" << currCoords.first << ", " << currCoords.second << ")." << endl;
