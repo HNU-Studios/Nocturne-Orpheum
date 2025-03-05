@@ -78,8 +78,18 @@ int main(){
                     cout << "Move complete\n";
                 }
                 else if (Move() == 'n'){
-                    if (currentSect)
+                    if (currentSect.getNorth() != ""){
+                        for (sector i: sects){
+                            if (i.getName() == currentSect.getName()){
+                                currentSect = i;
+                            }
+                        }
+                    }
+                    else cout << "You can't move further north!";
                 }
+                break;
+            case ('w'):
+                cout << "You are currently in " << currentSect.getName() << "\n" << "Your current coordinates are (" << currCoords.first << ", " << currCoords.second << ")." << endl;
                 break;
             default:
                 cout << "Invalid input, please try again\n" << flush;
