@@ -5,6 +5,7 @@
 #include <limits>
 #include <stdlib.h>
 #include "sectors.h"
+#include "move.h"
 using namespace std;
 void help(){ // Prints the help menu
     cout << "HELP MENU\n\ni: open inventory\n?/ h: open this help menu\ne: equip an item\nu: unequip an item\ns: view stats\np: pick up an item from the ground\no: detect nearby enemies in your sector\nd: drop an item from your inventory\n\n";
@@ -72,8 +73,16 @@ int main(){
                     }
                     cout << "\n" << flush;
                 }
+            case ('m'):
+                if(Move() == ' '){
+                    cout << "Move complete\n";
+                }
+                else if (Move() == 'n'){
+                    if (currentSect)
+                }
+                break;
             default:
-                cout << "Invalid input, please try again" << flush;
+                cout << "Invalid input, please try again\n" << flush;
                 break;
         }
         if (stat["Current HP"] <= 0){
