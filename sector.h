@@ -23,4 +23,10 @@ class sector{
         string getNorth(){
             return North;
         }
+        void putOnGround(item toPut){
+            Ground.push_back(toPut);
+        }
+        vector<item> getGround(){
+            return Ground;
+        }
 };

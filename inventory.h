@@ -14,7 +14,7 @@ map<item, int> gear; // Stores a user's unequipped armour & artifacts
 map<string, int> stat = {{"Strength", 1}, {"Defense", 1}, {"Intelligence", 1}, {"HP", 10}, {"Level", 1}, {"Charisma", 1}, {"Stealth", 0}, {"Current HP", 10}}; // User stats
 vector<string> skills; // Stores skills a user can use (may be included with weapons)
 /*Stores a user's equipped items*/map<string, item> equipped = {{"Weapon", item("", "", 0)}, {"Helmet", item("", "", 0)}, {"Breastplate", item("", "", 0)}, {"Gloves", item("", "", 0)}, {"Mask", item("", "", 0)}, {"Artifact 1", item("", "", 0)}, {"Artifact 2", item("", "", 0)}, {"Artifact 3", item("", "", 0)}, {"Artifact 4", item("", "", 0)}, {"Artifact 5", item("", "", 0)}};
-vector<item> ground; // Shows items on the ground
+// vector<item> ground; // Shows items on the ground
 vector<enemy> enemies;
 // map<item, int> misc = {{item("Gold"), 0}}; // Stores things like money
 int c; // Counter for printing numbers
@@ -63,7 +63,7 @@ void inventory(){ // Functions for printing a user's inventory
         }
     }
 }
-void pick(){ // Picks up an item from the ground
+void pick(vector<item> ground){ // Picks up an item from the ground
     if (ground.empty()) cout << "There's nothing on the ground right now!\n";
     c = 1;
     for (item i : ground){ // Prints items on the ground
@@ -346,7 +346,7 @@ void unequip(){ // Lets the user unequip/ take off an item
         }
     }
 }
-void drop(){ // Drops an item to the ground
+void drop(vector<item> ground){ // Drops an item to the ground
     cout << "Select a category to drop (w for weapons, g for gear): ";
     char o;
     while (true){
@@ -460,6 +460,6 @@ void drop(){ // Drops an item to the ground
     }
     else{
         cout << "Invalid input, please enter 'w' for weapons or 'g' for gear.";
-        drop();
+        drop(ground);
     }
 }

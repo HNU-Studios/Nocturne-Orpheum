@@ -22,9 +22,9 @@ int main(){
     string name;
     cin >> name;
     cout << "Hello, " << name << ". Welcome to the world.\n\nYou start as a human with all your stats set to 1, HP at 10, but as time goes on, you can level up your stats, learn skills, collect weapons, and find gear.\n\nGear and weapons can also have their own buffs and skills as you get further in the game.\n\nHere, take this [BASIC DULL SWORD] (press p to pick up).\n\n" << flush;
-    ground.push_back(dullSword);
-    ground.push_back(chippedHelmet);
-    ground.push_back(revivalStone);
+    currentSect.putOnGround(dullSword);
+    currentSect.putOnGround(chippedHelmet);
+    currentSect.putOnGround(revivalStone);
     enemy first("Test", 1, 1);
     while (true){
         char option;
@@ -49,7 +49,7 @@ int main(){
                 stats();
                 break;
             case ('p'):
-                pick();
+                pick(currentSect.getGround());
                 break;
             case ('e'):
                 equip();
@@ -58,7 +58,7 @@ int main(){
                 unequip();
                 break;
             case ('d'):
-                drop();
+                drop(currentSect.getGround());
                 break;
             case ('q'):
                 cout << "Goodbye, " << name << ".";
@@ -83,11 +83,13 @@ int main(){
                     if (currentSect.getNorth() != ""){
                         for (sector i: sects){
                             if (i.getName() == currentSect.getNorth()){
+                                cout << "Found town north: " << currentSect.getNorth() << " is the town North of you. TEST: " << i.getName() << endl;
                                 currentSect = i;
+                                break;
                             }
                         }
                     }
-                    else cout << "You can't move further north!";
+                    else cout << "No town found North of you! You are currently as far north as possible in town " << currentSect.getName();;
                 }
                 break;
             case ('t'):
