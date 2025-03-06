@@ -23,6 +23,15 @@ class sector{
         string getNorth(){
             return North;
         }
+        string getSouth(){
+            return South;
+        }
+        string getEast(){
+            return East;
+        }
+        string getWest(){
+            return West;
+        }
         void putOnGround(item toPut){
             Ground.push_back(toPut);
         }

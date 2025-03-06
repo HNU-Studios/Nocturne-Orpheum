@@ -17,14 +17,14 @@ char Move(){
     }
     else if ((toupper(option[0]) == 'D') || (toupper(option[0]) == 'S')){
         currCoords.second--;
-        if (currCoords.second == -1){
+        if (currCoords.second == 0){
             currCoords = {currCoords.first, 1};
             return 's';
         }
     }
     else if ((toupper(option[0]) == 'L') || (toupper(option[0]) == 'W')){
         currCoords.first--;
-        if (currCoords.first == -1){
+        if (currCoords.first == 0){
             currCoords = {1, currCoords.second};
             return 'w';
         }

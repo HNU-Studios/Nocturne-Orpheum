@@ -83,13 +83,49 @@ int main(){
                     if (currentSect.getNorth() != ""){
                         for (sector i: sects){
                             if (i.getName() == currentSect.getNorth()){
-                                cout << "Found town north: " << currentSect.getNorth() << " is the town North of you. TEST: " << i.getName() << endl;
+                                cout << "Found town North: " << currentSect.getNorth() << " is the town North of you." << i.getName() << endl;
                                 currentSect = i;
                                 break;
                             }
                         }
                     }
-                    else cout << "No town found North of you! You are currently as far north as possible in town " << currentSect.getName();;
+                    else cout << "No town found North of you! You are currently as far North as possible in town " << currentSect.getName() << endl;
+                }
+                else if (where == 's'){
+                    if (currentSect.getSouth() != ""){
+                        for (sector i: sects){
+                            if (i.getName() == currentSect.getSouth()){
+                                cout << "Found town South: " << currentSect.getSouth() << " is the town South of you." << endl;
+                                currentSect = i;
+                                break;
+                            }
+                        }
+                    }
+                    else cout << "No town found South of you! You are currently as far South as possible in town " << currentSect.getName() << endl;
+                }
+                else if (where == 'e'){
+                    if (currentSect.getEast() != ""){
+                        for (sector i: sects){
+                            if (i.getName() == currentSect.getEast()){
+                                cout << "Found town East: " << currentSect.getEast() << " is the town East of you." << endl;
+                                currentSect = i;
+                                break;
+                            }
+                        }
+                    }
+                    else cout << "No town found East of you! You are currently as far East as possible in town " << currentSect.getName() << endl;
+                }
+                else if (where == 'w'){
+                    if (currentSect.getWest() != ""){
+                        for (sector i: sects){
+                            if (i.getName() == currentSect.getWest()){
+                                cout << "Found town West: " << currentSect.getWest() << " is the town West of you." << endl;
+                                currentSect = i;
+                                break;
+                            }
+                        }
+                    }
+                    else cout << "No town found West of you! You are currently as far West as possible in town " << currentSect.getName() << endl;
                 }
                 break;
             case ('t'):
