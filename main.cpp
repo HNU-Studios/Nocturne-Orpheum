@@ -82,7 +82,7 @@ int main(){
                 else if (where == 'n'){
                     if (currentSect.getNorth() != ""){
                         for (sector i: sects){
-                            if (i.getName() == currentSect.getName()){
+                            if (i.getName() == currentSect.getNorth()){
                                 currentSect = i;
                             }
                         }
