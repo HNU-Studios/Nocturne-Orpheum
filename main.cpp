@@ -7,29 +7,29 @@
 #include "sectors.h"
 #include "move.h"
 using namespace std;
-void help(){ // Prints the help menu
+void help() { // Prints the help menu
     cout << "HELP MENU\n\ni: open inventory\n?/ h: open this help menu\ne: equip an item\nu: unequip an item\ns: view stats\np: pick up an item from the ground\no: detect nearby enemies in your sector\nd: drop an item from your inventory\n\n";
 }
-void stats(){ // Prints a user's stats
+void stats() { // Prints a user's stats
     for (const auto& pair : stat) {
         cout << pair.first << ": " << pair.second << "\n";
     }
 }
-int main(){
+int main() {
     sector currentSect = Andris;
     char where;
     cout << "Welcome, adventurer.\nEnter your name here: ";
     string name;
     cin >> name;
-    cout << "Hello, " << name << ". Welcome to the world.\n\nYou start as a human with all your stats set to 1, HP at 10, but as time goes on, you can level up your stats, learn skills, collect weapons, and find gear.\n\nGear and weapons can also have their own buffs and skills as you get further in the game.\n\nHere, take this [BASIC DULL SWORD] (press p to pick up).\n\n" << flush;
+    cout << "Hello, " << name << ". Welcome to the world.\n\nYou start as a human with all your stats set to 1, HP at 10, but as time goes on, you can level up your stats, learn skills, collect weapons, and find gear.\n\nGear and weapons can also have their own buffs and skills as you get further in the game.\n\nHere, take this [BASIC DULL SWORD] (press p to pick up).\n\n";
     currentSect.putOnGround(dullSword);
     currentSect.putOnGround(chippedHelmet);
     currentSect.putOnGround(revivalStone);
     enemy first("Test", 1, 1);
-    while (true){
+    while (true) {
         char option;
         // system("clear");
-        cout << "Enter an option (? or h for help, q to quit): " << flush;
+        cout << "Enter an option (? or h for help, q to quit): ";
         if (!(cin >> option)) {
             // If the input isn't an int, clear it and retry
             cin.clear(); // Clear err
@@ -37,7 +37,7 @@ int main(){
             cout << "Invalid input. Please enter a valid letter. See the help menu for commands (type 'h' for help).\n";
             continue; // continue
         }
-        switch (option){
+        switch (option) {
             case ('h'):
             case ('?'):
                 help();
@@ -64,25 +64,25 @@ int main(){
                 cout << "Goodbye, " << name << ".";
                 return 0; // breaks the loop
             case ('o'):
-                if (enemies.size() == 0) cout << "There are currently no enemies. You're safe!\n" << flush;
+                if (enemies.size() == 0) cout << "There are currently no enemies. You're safe!\n";
                 else{
                     int count = 0;
-                    cout << "Enemies currently present\n" << flush;
-                    for (enemy i : enemies){
+                    cout << "Enemies currently present\n";
+                    for (enemy i : enemies) {
                         count++;
-                        cout << count << ") Name: " << i.getName() << ", Speed: " << i.getSpeed() << ", Power: " << i.getPower() << flush;
+                        cout << count << ") Name: " << i.getName() << ", Speed: " << i.getSpeed() << ", Power: " << i.getPower();
                     }
-                    cout << "\n" << flush;
+                    cout << "\n";
                 }
             case ('m'):
                 where = Move();
-                if(where == ' '){
+                if(where == ' ') {
                     cout << "Move complete\n";
                 }
-                else if (where == 'n'){
-                    if (currentSect.getNorth() != ""){
-                        for (sector i: sects){
-                            if (i.getName() == currentSect.getNorth()){
+                else if (where == 'n') {
+                    if (currentSect.getNorth() != "") {
+                        for (sector i: sects) {
+                            if (i.getName() == currentSect.getNorth()) {
                                 cout << "Found town North: " << currentSect.getNorth() << " is the town North of you." << i.getName() << endl;
                                 currentSect = i;
                                 break;
@@ -91,10 +91,10 @@ int main(){
                     }
                     else cout << "No town found North of you! You are currently as far North as possible in town " << currentSect.getName() << endl;
                 }
-                else if (where == 's'){
-                    if (currentSect.getSouth() != ""){
-                        for (sector i: sects){
-                            if (i.getName() == currentSect.getSouth()){
+                else if (where == 's') {
+                    if (currentSect.getSouth() != "") {
+                        for (sector i: sects) {
+                            if (i.getName() == currentSect.getSouth()) {
                                 cout << "Found town South: " << currentSect.getSouth() << " is the town South of you." << endl;
                                 currentSect = i;
                                 break;
@@ -103,10 +103,10 @@ int main(){
                     }
                     else cout << "No town found South of you! You are currently as far South as possible in town " << currentSect.getName() << endl;
                 }
-                else if (where == 'e'){
-                    if (currentSect.getEast() != ""){
-                        for (sector i: sects){
-                            if (i.getName() == currentSect.getEast()){
+                else if (where == 'e') {
+                    if (currentSect.getEast() != "") {
+                        for (sector i: sects) {
+                            if (i.getName() == currentSect.getEast()) {
                                 cout << "Found town East: " << currentSect.getEast() << " is the town East of you." << endl;
                                 currentSect = i;
                                 break;
@@ -115,10 +115,10 @@ int main(){
                     }
                     else cout << "No town found East of you! You are currently as far East as possible in town " << currentSect.getName() << endl;
                 }
-                else if (where == 'w'){
-                    if (currentSect.getWest() != ""){
-                        for (sector i: sects){
-                            if (i.getName() == currentSect.getWest()){
+                else if (where == 'w') {
+                    if (currentSect.getWest() != "") {
+                        for (sector i: sects) {
+                            if (i.getName() == currentSect.getWest()) {
                                 cout << "Found town West: " << currentSect.getWest() << " is the town West of you." << endl;
                                 currentSect = i;
                                 break;
@@ -127,6 +127,7 @@ int main(){
                     }
                     else cout << "No town found West of you! You are currently as far West as possible in town " << currentSect.getName() << endl;
                 }
+                else if (where == 'S') break;
                 break;
             case ('t'):
                 cout << currentSect.getNorth() << endl;
@@ -135,12 +136,12 @@ int main(){
                 cout << "You are currently in " << currentSect.getName() << "\n" << "Your current coordinates are (" << currCoords.first << ", " << currCoords.second << ")." << endl;
                 break;
             default:
-                cout << "Invalid input, please try again\n" << flush;
+                cout << "Invalid input, please try again\n";
                 break;
         }
-        if (stat["Current HP"] <= 0){
-            if (gear.find(revivalStone) != gear.end()){
-                cout << "You had the revival stone and have been brought back to life! Welcome back, adventurer.\n" << flush;
+        if (stat["Current HP"] <= 0) {
+            if (gear.find(revivalStone) != gear.end()) {
+                cout << "You had the revival stone and have been brought back to life! Welcome back, adventurer.\n";
                 stat["Current HP"] = stat["HP"];
             }
             else{

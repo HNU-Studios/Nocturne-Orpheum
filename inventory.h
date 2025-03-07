@@ -63,7 +63,7 @@ void inventory(){ // Functions for printing a user's inventory
         }
     }
 }
-void pick(vector<item> ground){ // Picks up an item from the ground
+void pick(vector<item> &ground){ // Picks up an item from the ground
     if (ground.empty()) cout << "There's nothing on the ground right now!\n";
     c = 1;
     for (item i : ground){ // Prints items on the ground

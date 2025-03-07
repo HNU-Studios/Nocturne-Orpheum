@@ -37,7 +37,8 @@ char Move(){
         }
     }
     else{
-        return ' ';
+        cout << "That isn't a valid direction!";
+        return 'S';
     }
     return ' ';
 }
