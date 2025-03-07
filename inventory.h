@@ -63,7 +63,7 @@ void inventory(){ // Functions for printing a user's inventory
         }
     }
 }
-void pick(vector<item> &ground){ // Picks up an item from the ground
+void pick(vector<item> ground){ // Picks up an item from the ground
     if (ground.empty()) cout << "There's nothing on the ground right now!\n";
     c = 1;
     for (item i : ground){ // Prints items on the ground
@@ -73,7 +73,7 @@ void pick(vector<item> &ground){ // Picks up an item from the ground
         c++;
     }
     int choice;
-    while (true) {
+    while (true) { // Bug in this loop somewhere
         cout << "Enter the number of the item you want to pick up (0 to leave): ";
         if (!(cin >> choice)) {
             // If the input is not an integer, clear the error & ignore invalid input
@@ -107,7 +107,7 @@ void pick(vector<item> &ground){ // Picks up an item from the ground
         else gear[selected]++;
         cout << "Picked up gear: " << selected.getName() << "\n";
     }
-    ground.erase(ground.begin() + (choice - 1));
+    ground.erase(ground.begin() + (choice - 1)); // Most likely here
     if (ground.empty()) cout << "There's nothing left on the ground.\n";
     else {
         cout << "Items left on the ground: ";
