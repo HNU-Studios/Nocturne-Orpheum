@@ -1,15 +1,14 @@
 #include "inventory.h"
-using namespace std;
 class sector{
-    string Name;
+    std::string Name;
     vector<item> Ground;
     int MinLevel;
     // bool in;
     int size;
-    string North = "";
-    string South = "";
-    string East = "";
-    string West = "";
+    std::string North = "";
+    std::string South = "";
+    std::string East = "";
+    std::string West = "";
     public:
         
         // sector(string n, vector<item> g, int level, bool In): Name(n), Ground(g), MinLevel(level), in(In){};
@@ -17,19 +16,19 @@ class sector{
         sector(string n, vector<item> g, int level, int s): Name(n), Ground(g), MinLevel(level), size(s){};
         sector(string n, vector<item> g, int level, string N, string S, string E, string W): Name(n), Ground(g), MinLevel(level), size(5), North(N), South(S), East(E), West(W)/*, in(false)*/{};
         sector(string n, vector<item> g, int level, int s, string N, string S, string E, string W): Name(n), Ground(g), MinLevel(level), size(s), North(N), South(S), East(E), West(W){};
-        string getName(){
+        std::string getName(){
             return Name;
         }
-        string getNorth(){
+        std::string getNorth(){
             return North;
         }
-        string getSouth(){
+        std::string getSouth(){
             return South;
         }
-        string getEast(){
+        std::string getEast(){
             return East;
         }
-        string getWest(){
+        std::string getWest(){
             return West;
         }
         void putOnGround(item toPut){
