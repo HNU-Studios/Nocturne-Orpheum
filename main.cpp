@@ -74,6 +74,7 @@ int main() {
                     }
                     cout << "\n";
                 }
+            break;
             case ('m'):
                 where = Move();
                 if(where == ' ') {
@@ -128,7 +129,7 @@ int main() {
                     else cout << "No town found West of you! You are currently as far West as possible in town " << currentSect.getName() << endl;
                 }
                 else if (where == 'S') break;
-                break;
+            break;
             case ('t'):
                 cout << currentSect.getNorth() << endl;
                 break;

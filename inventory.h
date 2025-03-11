@@ -107,7 +107,7 @@ void pick(vector<item> ground){ // Picks up an item from the ground
         else gear[selected]++;
         cout << "Picked up gear: " << selected.getName() << "\n";
     }
-    ground.erase(ground.begin() + (choice - 1)); // Most likely here
+    ground.erase((ground.begin() + (choice - 1))); // Most likely here
     if (ground.empty()) cout << "There's nothing left on the ground.\n";
     else {
         cout << "Items left on the ground: ";
