@@ -8,7 +8,7 @@
 #include "Shop.h"
 using namespace std;
 void help() { // Prints the help menu
-    cout << "HELP MENU\n\nq: quit game\ns: show your stats\nm: move around\ni: inventory\nw: show what sector you're in\nr: detect enemies with the radar\np: pick an item up from the ground\nd: drop an item to the ground\ne: equip an equippable item from your inventory\nu: unequip an equipped item\n\n";
+    cout << "HELP MENU\n\nS or $: show the shop\nq: quit game\ns: show your stats\nm: move around\ni: inventory\nw: show what sector you're in\nr: detect enemies with the radar\np: pick an item up from the ground\nd: drop an item to the ground\ne: equip an equippable item from your inventory\nu: unequip an equipped item\n\n";
 }
 void stats() { // Prints a user's stats
     for (const auto& pair : stat) {
