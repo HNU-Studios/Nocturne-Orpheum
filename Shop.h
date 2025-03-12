@@ -10,19 +10,19 @@ void shop(){
     int count = 1;
     if (op == 'w'){
         for (item i: Weapons){
-            cout << count << i.getName() << ": " << i.getPower() << " gold" << endl;
+            cout << count << ") " << i.getName() << ": " << i.getPower() << " gold" << endl;
             count++;
         }
     }
     if (op == 'g'){
         for (item i: Gear){
-            cout << count << i.getName() << ": " << i.getPower() << " gold" << endl;
+            cout << count << ") " << i.getName() << ": " << i.getPower() << " gold" << endl;
             count++;
         }
     }
     if (op == 's'){
         for (item i: Specials){
-            cout << count << i.getName() << ": " << i.getPower() << " gold" << endl;
+            cout << count << ") " << i.getName() << ": " << i.getPower() << " gold" << endl;
             count++;
         }
     }
