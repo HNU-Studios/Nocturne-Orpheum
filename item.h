@@ -6,12 +6,15 @@ class item {
     std::string type;
     int power;
     std::map<std::string, int> buffs;
+    bool hasSet;
 public:
     // Constructor
     item() : name(""), type(""), power(0) {}
     item(std::string n, std::string t, int p) : name(n), type(t), power(p) {}
     item(std::string n, std::string t, std::map<std::string, int> b) : name(n), type(t), buffs(b) {}
     item(std::string n, std::string t, int p, std::map<std::string, int> b) : name(n), type(t), power(p), buffs(b) {}
+    item(std::string n, std::string t, int p, std::map<std::string, int> b, bool h) : name(n), type(t), power(p), buffs(b), hasSet(h) {}
+    item(std::string n, std::string t, int p, bool h) : name(n), type(t), power(p), hasSet(h) {}
     // Getter methods
     std::string getName() const {
         return name;

@@ -4,8 +4,8 @@
 #include <algorithm>
 #include <limits>
 #include <stdlib.h>
-#include "sectors.h"
 #include "move.h"
+#include "Shop.h"
 using namespace std;
 void help() { // Prints the help menu
     cout << "HELP MENU\n\nq: quit game\ns: show your stats\nm: move around\ni: inventory\nw: show what sector you're in\nr: detect enemies with the radar\np: pick an item up from the ground\nd: drop an item to the ground\ne: equip an equippable item from your inventory\nu: unequip an equipped item\n\n";
@@ -133,6 +133,9 @@ int main() {
             case ('w'):
                 cout << "You are currently in " << currentSect.getName() << "\n" << "Your current coordinates are (" << currCoords.first << ", " << currCoords.second << ")." << endl;
                 break;
+            case('S'):
+            case('$'):
+                shop();
             default:
                 cout << "Invalid input, please try again\n";
                 break;
