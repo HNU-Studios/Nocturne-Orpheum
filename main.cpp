@@ -8,7 +8,7 @@
 #include "move.h"
 using namespace std;
 void help() { // Prints the help menu
-    cout << "HELP MENU\n\ni: open inventory\n?/ h: open this help menu\ne: equip an item\nu: unequip an item\ns: view stats\np: pick up an item from the ground\no: detect nearby enemies in your sector\nd: drop an item from your inventory\n\n";
+    cout << "HELP MENU\n\nq: quit game\ns: show your stats\nm: move around\ni: inventory\nw: show what sector you're in\nr: detect enemies with the radar\np: pick an item up from the ground\nd: drop an item to the ground\ne: equip an equippable item from your inventory\nu: unequip an equipped item\n\n";
 }
 void stats() { // Prints a user's stats
     for (const auto& pair : stat) {
@@ -63,7 +63,7 @@ int main() {
             case ('q'):
                 cout << "Goodbye, " << name << ".";
                 return 0; // breaks the loop
-            case ('o'):
+            case ('r'):
                 if (enemies.size() == 0) cout << "There are currently no enemies. You're safe!\n";
                 else{
                     int count = 0;
@@ -130,9 +130,6 @@ int main() {
                 }
                 else if (where == 'S') break;
             break;
-            case ('t'):
-                cout << currentSect.getNorth() << endl;
-                break;
             case ('w'):
                 cout << "You are currently in " << currentSect.getName() << "\n" << "Your current coordinates are (" << currCoords.first << ", " << currCoords.second << ")." << endl;
                 break;
