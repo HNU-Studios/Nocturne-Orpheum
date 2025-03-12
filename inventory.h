@@ -16,7 +16,7 @@ vector<string> skills; // Stores skills a user can use (may be included with wea
 /*Stores a user's equipped items*/map<string, item> equipped = {{"Weapon", item("", "", 0)}, {"Helmet", item("", "", 0)}, {"Breastplate", item("", "", 0)}, {"Gloves", item("", "", 0)}, {"Mask", item("", "", 0)}, {"Artifact 1", item("", "", 0)}, {"Artifact 2", item("", "", 0)}, {"Artifact 3", item("", "", 0)}, {"Artifact 4", item("", "", 0)}, {"Artifact 5", item("", "", 0)}};
 // vector<item> ground; // Shows items on the ground
 vector<enemy> enemies;
-// map<item, int> misc = {{item("Gold"), 0}}; // Stores things like money
+map<item, int> misc = {{item("Gold", "Misc", 1), 0}}; // Stores things like money
 int c; // Counter for printing numbers
 void inventory(){ // Functions for printing a user's inventory
     /*Instructions*/ cout << "For food: f\nFor weapons: w\nFor gear: g\nFor skills: s\nFor all items: i\nEnter your option (leave blank to exit this menu): ";
