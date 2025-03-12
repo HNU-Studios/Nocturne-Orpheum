@@ -1,13 +1,14 @@
-cout << "HELP MENU\n\ni: open inventory\n?/ h: open this help menu\ne: equip an item\nu: unequip an item\ns: view stats\np: pick up an item from the ground\no: detect nearby enemies in your sector\nd: drop an item from your inventory\n\n";
-?/h: help
-i: inventory (done)
-s: stats (done)
-p: pick (done)
-e: equip
-u: unequip
-d: drop (done)
-q: quit (done)
-r: detect enemies (radar) (done)
-m: move (done)
-w: where are you (done)
-HELP MENU\n\nq: quit game\ns: show your stats\nm: move around\ni: inventory\nw: show what sector you're in\nr: detect enemies with the radar\np: pick an item up from the ground\nd: drop an item to the ground\ne: equip an equippable item from your inventory\nu: unequip an equipped item\n\n
+THIS FILE IS EXTRA INFO, GOING PAST THE HELP MENU AND README.
+Notes for me:
+    ?/h: help
+    i: inventory (done)
+    s: stats (done)
+    p: pick (done)
+    e: equip
+    u: unequip
+    d: drop (done)
+    q: quit (done)
+    r: detect enemies (radar) (done)
+    m: move (done)
+    w: where are you (done)
+    HELP MENU\n\nq: quit game\ns: show your stats\nm: move around\ni: inventory\nw: show what sector you're in\nr: detect enemies with the radar\np: pick an item up from the ground\nd: drop an item to the ground\ne: equip an equippable item from your inventory\nu: unequip an equipped item\n\n
