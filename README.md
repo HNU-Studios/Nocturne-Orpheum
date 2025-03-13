@@ -8,7 +8,7 @@ Please contribute if you'd like! Any help is appreciated. Need help thinking of 
 ####     Mac & Linux: ``cd ~/Downloads/Zandris``
 ####     Windows: ``cd C:\Users\[your username]\Downloads\Zandris``
 #### Compile the game with ``make`` in the directory after downloading and extracting the ZIP file.
-#### Run ``./bin/game`` to start the game (runs in terminal)
+#### Run ``./game`` to start the game (runs in terminal)
 #### Follow the instructions in the game, and have fun!
 
 ### Known bugs: None (just fixed issue where pick didn't erase from ground, stupid mistake lmao)
