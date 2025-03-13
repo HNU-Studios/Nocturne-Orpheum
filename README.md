@@ -11,6 +11,4 @@ Please contribute if you'd like! Any help is appreciated. Need help thinking of 
 #### Run ``./bin/game`` to start the game (runs in terminal)
 #### Follow the instructions in the game, and have fun!
 
-## Computer fixed! Starting work on this repo again starting Feb 19th 2025
-
 ### Known bugs: None (just fixed issue where pick didn't erase from ground, stupid mistake lmao)
