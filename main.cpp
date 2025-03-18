@@ -7,26 +7,19 @@
 #include "move.h"
 #include "Shop.h"
 using namespace std;
+sector currentSect = Andris;
+char where;
+string name;
 void help() { // Prints the help menu
-    cout << "HELP MENU\n\nS or $: show the shop\nq: quit game\ns: show your stats\nm: move around\ni: inventory\nw: show what sector you're in\nr: detect enemies with the radar\np: pick an item up from the ground\nd: drop an item to the ground\ne: equip an equippable item from your inventory\nu: unequip an equipped item\n\n";
+    cout << "HELP MENU\n\nc: continue the story\nS or $: show the shop\nq: quit game\ns: show your stats\nm: move around\ni: inventory\nw: show what sector you're in\nr: detect enemies with the radar\np: pick an item up from the ground\nd: drop an item to the ground\ne: equip an equippable item from your inventory\nu: unequip an equipped item\n\n";
 }
 void stats() { // Prints a user's stats
     for (const auto& pair : stat) {
         cout << pair.first << ": " << pair.second << "\n";
     }
 }
-int main() {
-    sector currentSect = Andris;
-    char where;
-    cout << "Welcome, adventurer.\nEnter your name here: ";
-    string name;
-    cin >> name;
-    cout << "Hello, " << name << ". Welcome to the world.\n\nYou start as a human with all your stats set to 1, HP at 10, but as time goes on, you can level up your stats, learn skills, collect weapons, and find gear.\n\nGear and weapons can also have their own buffs and skills as you get further in the game.\n\nHere, take this [BASIC DULL SWORD] (press p to pick up).\n\n";
-    currentSect.putOnGround(dullSword);
-    currentSect.putOnGround(chippedHelmet);
-    currentSect.putOnGround(revivalStone);
-    enemy first("Test", 1, 1);
-    while (true) {
+void decision(){
+    while (true){
         char option;
         // system("clear");
         cout << "Enter an option (? or h for help, q to quit): ";
@@ -38,6 +31,9 @@ int main() {
             continue; // continue
         }
         switch (option) {
+            case ('c'):
+                return;
+                break;
             case ('h'):
             case ('?'):
                 help();
@@ -62,7 +58,7 @@ int main() {
                 break;
             case ('q'):
                 cout << "Goodbye, " << name << ".";
-                return 0; // breaks the loop
+                return; // breaks the loop
             case ('r'):
                 if (enemies.size() == 0) cout << "There are currently no enemies. You're safe!\n";
                 else{
@@ -140,6 +136,18 @@ int main() {
                 cout << "Invalid input, please try again\n";
                 break;
         }
+    }
+}
+int main() {
+    cout << "Welcome, adventurer.\nEnter your name here: ";
+    cin >> name;
+    cout << "Hello, " << name << ". Welcome to the world.\n\nYou start as a human with all your stats set to 1, HP at 10, but as time goes on, you can level up your stats, learn skills, collect weapons, and find gear.\n\nGear and weapons can also have their own buffs and skills as you get further in the game.\n\nHere, take this [BASIC DULL SWORD] (press p to pick up).\n\n";
+    currentSect.putOnGround(dullSword);
+    currentSect.putOnGround(chippedHelmet);
+    currentSect.putOnGround(revivalStone);
+    enemy first("Test", 1, 1);
+    while (true) {
+        decision();
         if (stat["Current HP"] <= 0) {
             if (gear.find(revivalStone) != gear.end()) {
                 cout << "You had the revival stone and have been brought back to life! Welcome back, adventurer.\n";
