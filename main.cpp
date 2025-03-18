@@ -10,6 +10,7 @@ using namespace std;
 sector currentSect = Andris;
 char where;
 string name;
+bool b = false;
 void help() { // Prints the help menu
     cout << "HELP MENU\n\nc: continue the story\nS or $: show the shop\nq: quit game\ns: show your stats\nm: move around\ni: inventory\nw: show what sector you're in\nr: detect enemies with the radar\np: pick an item up from the ground\nd: drop an item to the ground\ne: equip an equippable item from your inventory\nu: unequip an equipped item\n\n";
 }
@@ -22,7 +23,7 @@ void decision(){
     while (true){
         char option;
         // system("clear");
-        cout << "Enter an option (? or h for help, q to quit): ";
+        cout << "Enter an option (? or h for help, c to continue story, q to quit): ";
         if (!(cin >> option)) {
             // If the input isn't an int, clear it and retry
             cin.clear(); // Clear err
@@ -57,7 +58,8 @@ void decision(){
                 drop(currentSect.getGround());
                 break;
             case ('q'):
-                cout << "Goodbye, " << name << ".";
+                cout << "Goodbye, " << name << "." << endl;
+                b = true;
                 return; // breaks the loop
             case ('r'):
                 if (enemies.size() == 0) cout << "There are currently no enemies. You're safe!\n";
@@ -159,6 +161,7 @@ int main() {
             }
         }
         if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
+        if (b) break;
     }
     return 0;
 }
