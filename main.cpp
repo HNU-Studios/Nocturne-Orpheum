@@ -134,6 +134,7 @@ void decision(){
             case('S'):
             case('$'):
                 shop();
+		break;
             default:
                 cout << "Invalid input, please try again\n";
                 break;
@@ -149,6 +150,7 @@ int main() {
     currentSect.putOnGround(revivalStone);
     enemy first("Test", 1, 1);
     while (true) {
+	it (b) break;
         decision();
         if (stat["Current HP"] <= 0) {
             if (gear.find(revivalStone) != gear.end()) {
@@ -161,7 +163,7 @@ int main() {
             }
         }
         if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
-        if (b) break;
+        // if (b) break;
     }
     return 0;
 }
