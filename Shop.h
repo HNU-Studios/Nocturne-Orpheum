@@ -31,7 +31,7 @@ void shop(){
         return;
     }
     cout << "Enter the number of the item to purchase: ";
-    int i;
+    long unsigned int i;
     cin >> i;
     if (op == 'w'){
         if (i - 1 < Weapons.size()){

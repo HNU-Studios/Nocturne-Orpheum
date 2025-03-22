@@ -64,6 +64,7 @@ void inventory(){ // Functions for printing a user's inventory
     }
 }
 void pick(vector<item>& ground){ // Picks up an item from the ground
+    // long unsigned int gSize = ground.size();
     if (ground.empty()) cout << "There's nothing on the ground right now!\n";
     c = 1;
     for (item i : ground){ // Prints items on the ground
@@ -72,7 +73,7 @@ void pick(vector<item>& ground){ // Picks up an item from the ground
         cout << "Currently on the ground:\n" << c << ": " << i.getName() << " [" << itemType << "]" << "\n";
         c++;
     }
-    int choice;
+    long unsigned int choice;
     while (true) { // Bug in this loop somewhere
         cout << "Enter the number of the item you want to pick up (0 to leave): ";
         if (!(cin >> choice)) {
@@ -111,7 +112,7 @@ void pick(vector<item>& ground){ // Picks up an item from the ground
     if (ground.empty()) cout << "There's nothing left on the ground.\n";
     else {
         cout << "Items left on the ground: ";
-        for (int i = 0; i < ground.size(); i++) {
+        for (long unsigned int i = 0; i < ground.size(); i++) {
             string itemType = ground[i].getType();
             transform(itemType.begin(), itemType.end(), itemType.begin(), ::toupper);
             cout << i + 1 << ": " << ground[i].getName() << " [" << itemType << "]\n";
@@ -134,7 +135,7 @@ void equip(){ // Lets the user equip an item
             cout << c << ": " << pair.first.getName() << " x" << pair.second << "\n";
             c++;
         }
-        int o;
+        long unsigned int o;
         while (true) {
             cout << "Enter the number of the item you want to equip (0 to leave): ";
             if (!(cin >> o)) {
@@ -165,7 +166,7 @@ void equip(){ // Lets the user equip an item
             cout << c << ": " << pair.first.getName() << " x" << pair.second << "\n";
             c++;
         }
-        int o;
+        long unsigned int o;
         cout << "Enter an item's number";
         while (true) {
             cout << "Enter the number of the item you want to pick up (0 to leave): ";
@@ -364,7 +365,7 @@ void drop(vector<item> ground){ // Drops an item to the ground
         cout << "1) Equipped weapon: " << equipped["Weapon"].getName() << "\n";
         for (const auto &pair : weapons){
             cout << c + 1 << ": " << pair.first.getName() << " x" << pair.second << "\n";
-            c;
+            c++;
         }
         cout << "Select the number of item to drop: ";
         int itemIndex = 0;
@@ -418,7 +419,7 @@ void drop(vector<item> ground){ // Drops an item to the ground
             cout << c << ": " << pair.first.getName() << " x" << pair.second << "\n";
             c++;
         }
-        int o;
+        long unsigned int o;
         // cout << "Enter an item's number to drop: ";
         while (true) {
             cout << "Enter the number of the item you want to drop (0 to leave): ";
