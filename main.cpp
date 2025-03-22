@@ -150,7 +150,7 @@ int main() {
     currentSect.putOnGround(revivalStone);
     enemy first("Test", 1, 1);
     while (true) {
-	it (b) break;
+	if (b) break;
         decision();
         if (stat["Current HP"] <= 0) {
             if (gear.find(revivalStone) != gear.end()) {
