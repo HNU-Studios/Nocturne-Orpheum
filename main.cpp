@@ -23,7 +23,7 @@ void decision(){
     while (true){
         char option;
         // system("clear");
-        cout << "Enter an option (? or h for help, c to continue story, q to quit): ";
+        cout << "\nEnter an option (? or h for help, c to continue story, q to quit): ";
         if (!(cin >> option)) {
             // If the input isn't an int, clear it and retry
             cin.clear(); // Clear err
