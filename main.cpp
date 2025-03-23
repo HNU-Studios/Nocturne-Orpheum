@@ -19,7 +19,7 @@ void stats() { // Prints a user's stats
         cout << pair.first << ": " << pair.second << "\n";
     }
 }
-void decision(){
+char decision(){
     while (true){
         char option;
         // system("clear");
@@ -32,35 +32,36 @@ void decision(){
             continue; // continue
         }
         switch (option) {
+	    case ('a'):
+		cout << "Enemy attacked!";
+		return option;
             case ('c'):
-                return;
-                break;
+                return option;
             case ('h'):
             case ('?'):
                 help();
-                break;
+                return option;
             case ('i'):
                 inventory();
-                break;
+                return option;
             case ('s'):
                 stats();
-                break;
+                return option;
             case ('p'):
                 pick(currentSect.getGround());
-                break;
+                return option;
             case ('e'):
                 equip();
-                break;
+                return option;
             case ('u'):
                 unequip();
-                break;
+                return option;
             case ('d'):
                 drop(currentSect.getGround());
-                break;
+                return option;
             case ('q'):
                 cout << "Goodbye, " << name << "." << endl;
-                b = true;
-                return; // breaks the loop
+                return option;
             case ('r'):
                 if (enemies.size() == 0) cout << "There are currently no enemies. You're safe!\n";
                 else{
@@ -72,7 +73,7 @@ void decision(){
                     }
                     cout << "\n";
                 }
-            break;
+            	return option;
             case ('m'):
                 where = Move();
                 if(where == ' ') {
@@ -84,7 +85,7 @@ void decision(){
                             if (i.getName() == currentSect.getNorth()) {
                                 cout << "Found town North: " << currentSect.getNorth() << " is the town North of you." << i.getName() << endl;
                                 currentSect = i;
-                                break;
+                                return option;
                             }
                         }
                     }
@@ -96,7 +97,7 @@ void decision(){
                             if (i.getName() == currentSect.getSouth()) {
                                 cout << "Found town South: " << currentSect.getSouth() << " is the town South of you." << endl;
                                 currentSect = i;
-                                break;
+                                return option;
                             }
                         }
                     }
@@ -108,7 +109,7 @@ void decision(){
                             if (i.getName() == currentSect.getEast()) {
                                 cout << "Found town East: " << currentSect.getEast() << " is the town East of you." << endl;
                                 currentSect = i;
-                                break;
+                                return option;
                             }
                         }
                     }
@@ -120,24 +121,24 @@ void decision(){
                             if (i.getName() == currentSect.getWest()) {
                                 cout << "Found town West: " << currentSect.getWest() << " is the town West of you." << endl;
                                 currentSect = i;
-                                break;
+                                return option;
                             }
                         }
                     }
                     else cout << "No town found West of you! You are currently as far West as possible in town " << currentSect.getName() << endl;
                 }
-                else if (where == 'S') break;
-            break;
+                else if (where == 'S') return option;
+            return option;
             case ('w'):
                 cout << "You are currently in " << currentSect.getName() << "\n" << "Your current coordinates are (" << currCoords.first << ", " << currCoords.second << ")." << endl;
-                break;
+                return option;
             case('S'):
             case('$'):
                 shop();
-		break;
+		return option;
             default:
                 cout << "Invalid input, please try again\n";
-                break;
+                return option;
         }
     }
 }
@@ -150,8 +151,14 @@ int main() {
     currentSect.putOnGround(revivalStone);
     enemy first("Test", 1, 1);
     while (true) {
-	if (b) break;
-        decision();
+        // if (decision() == 'q') break;
+	while (decision() != 'c') {
+		if (decision() == 'q') return 0;
+	}
+	cout << "\nWatch it! There's an ememy ahead.";
+	if (equipped["Weapon"] == item("", "", 0)) cout << endl << "You don't have a weapon equipped! If you haven't picked up a weapon, try using p to pick find one. If you have, use e to equip your weapon.";
+	else cout << endl << "You have a weapon! Use 'a' to attack the enemy!";
+	if (decision() == 'q') break;
         if (stat["Current HP"] <= 0) {
             if (gear.find(revivalStone) != gear.end()) {
                 cout << "You had the revival stone and have been brought back to life! Welcome back, adventurer.\n";
