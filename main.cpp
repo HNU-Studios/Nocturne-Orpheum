@@ -3,7 +3,6 @@
 #include <vector>
 #include <algorithm>
 #include <limits>
-#include <stdlib.h>
 #include "move.h"
 #include "Shop.h"
 using namespace std;
@@ -152,13 +151,13 @@ int main() {
     enemy first("Test", 1, 1);
     while (true) {
         // if (decision() == 'q') break;
-	while (decision() != 'c') {
-		if (decision() == 'q') return 0;
-	}
-	cout << "\nWatch it! There's an ememy ahead.";
-	if (equipped["Weapon"] == item("", "", 0)) cout << endl << "You don't have a weapon equipped! If you haven't picked up a weapon, try using p to pick find one. If you have, use e to equip your weapon.";
-	else cout << endl << "You have a weapon! Use 'a' to attack the enemy!";
-	if (decision() == 'q') break;
+        while (decision() != 'c') {
+            if (decision() == 'q') return 0;
+        }
+        cout << "\nWatch it! There's an ememy ahead.";
+        if (equipped["Weapon"] == item("", "", 0)) cout << endl << "You don't have a weapon equipped! If you haven't picked up a weapon, try using p to pick find one. If you have, use e to equip your weapon.";
+        else cout << endl << "You have a weapon! Use 'a' to attack the enemy!";
+        if (decision() == 'q') break;
         if (stat["Current HP"] <= 0) {
             if (gear.find(revivalStone) != gear.end()) {
                 cout << "You had the revival stone and have been brought back to life! Welcome back, adventurer.\n";
@@ -169,8 +168,7 @@ int main() {
                 break;
             }
         }
-        if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
-        // if (b) break;
+        if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];        
     }
     return 0;
 }
