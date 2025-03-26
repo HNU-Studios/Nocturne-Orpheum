@@ -5,6 +5,7 @@ class sector{
     int MinLevel;
     // bool in;
     int size;
+    vector<enemy> enemiesG;
     std::string North = "";
     std::string South = "";
     std::string East = "";
@@ -34,8 +35,14 @@ class sector{
         void putOnGround(item toPut){
             Ground.push_back(toPut);
         }
+        void putOnGround(enemy toPut){
+            enemiesG.push_back(toPut);
+        }
         vector<item>& getGround(){
             return Ground;
+        }
+        vector<enemy>& getEnemies(){
+            return enemiesG;
         }
         void changeGround(){
             pick(getGround());

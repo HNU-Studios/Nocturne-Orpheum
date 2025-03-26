@@ -18,8 +18,8 @@ void stats() { // Prints a user's stats
         cout << pair.first << ": " << pair.second << "\n";
     }
 }
-char decision(){
-    while (true){
+char decision() {
+    while (true) {
         char option;
         // system("clear");
         cout << "\nEnter an option (? or h for help, c to continue story, q to quit): ";
@@ -32,7 +32,38 @@ char decision(){
         }
         switch (option) {
 	        case ('a'):
-                cout << "Enemy attacked!";
+                cout << "Tip! You can scan for enemies without attacking them using your radar! Type 'r' to use it\n";
+                if (currentSect.getEnemies().size() == 0) cout << "There are currently no enemies in this sector. Try using 'm' to move!";
+                else {
+                    int c = 1;
+                    cout << "Current enemies: ";
+                    for (enemy i: currentSect.getEnemies()){
+                        cout << endl << c << ") NAME: " << i.getName() << ", ATK: "<< i.getPower() << ", HP: " << i.getHp();
+                        c++;
+                    }
+                    cout << "\nEnter the number of the enemy to attack: ";
+                    int en;
+                    while (true) {
+                        if (!(cin >> en) || en > (c - 1)) {
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                            cout << "Invalid input. Please enter a valid number.\n";
+                            continue;
+                        }
+                        else break;
+                    }
+                    cout << "\nAttacking " << currentSect.getEnemies()[en - 1].getName() << " staring with HP " << currentSect.getEnemies()[en - 1].getHp() << " and you have " << stat["Strength"] << " attack power, along with " << stat["HP"] << " health.\n";
+                    currentSect.getEnemies()[en - 1].setHp(currentSect.getEnemies()[en - 1].getHp() - stat["Strength"]);
+                    cout << "\nEnemies new health: " << currentSect.getEnemies()[en - 1].getHp();
+                    stat["HP"]--;
+                    cout << "\nYour new health: " << stat["HP"];
+                    if (currentSect.getEnemies()[en - 1].getHp() == 0){
+                        cout << "You've killed " << currentSect.getEnemies()[en - 1].getName() << "!";
+                        currentSect.getEnemies().erase(currentSect.getEnemies().begin() + (en - 1));
+                    }
+                    return option;
+                }
+                cout << "";
                 return option;
             case ('c'):
                 return option;
@@ -62,13 +93,13 @@ char decision(){
                 cout << "Goodbye, " << name << "." << endl;
                 return option;
             case ('r'):
-                if (enemies.size() == 0) cout << "There are currently no enemies. You're safe!\n";
-                else{
+                if (currentSect.getEnemies().size() == 0) cout << "There are currently no enemies. You're safe!\n";
+                else {
                     int count = 0;
                     cout << "Enemies currently present\n";
-                    for (enemy i : enemies) {
+                    for (enemy i : currentSect.getEnemies()) {
                         count++;
-                        cout << count << ") Name: " << i.getName() << ", Speed: " << i.getSpeed() << ", Power: " << i.getPower();
+                        cout << endl << count << ") Name: " << i.getName() << ", Speed: " << i.getSpeed() << ", Power: " << i.getPower() << ", Health: " << i.getHp();
                     }
                     cout << "\n";
                 }
@@ -149,6 +180,9 @@ int main() {
     currentSect.putOnGround(chippedHelmet);
     currentSect.putOnGround(revivalStone);
     enemy first("Test", 1, 1);
+    enemy second("Other Test", 1, 1);
+    currentSect.putOnGround(first);
+    currentSect.putOnGround(second);
     while (true) {
         // if (decision() == 'q') break;
         while (decision() != 'c') {
@@ -163,7 +197,7 @@ int main() {
                 cout << "You had the revival stone and have been brought back to life! Welcome back, adventurer.\n";
                 stat["Current HP"] = stat["HP"];
             }
-            else{
+            else {
                 cout << "\n\nYOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\n\n";
                 break;
             }
