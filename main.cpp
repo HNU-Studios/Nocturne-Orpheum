@@ -31,9 +31,9 @@ char decision(){
             continue; // continue
         }
         switch (option) {
-	    case ('a'):
-		cout << "Enemy attacked!";
-		return option;
+	        case ('a'):
+                cout << "Enemy attacked!";
+                return option;
             case ('c'):
                 return option;
             case ('h'):
