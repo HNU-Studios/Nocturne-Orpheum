@@ -3,6 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include <limits>
+#include <ctime>
 #include "move.h"
 #include "Shop.h"
 using namespace std;
@@ -10,6 +11,19 @@ sector currentSect = Andris;
 char where;
 string name;
 bool b = false;
+double randomNum() {
+    time_t timer;
+    struct tm y2k = {};
+    y2k.tm_hour = 0;   
+    y2k.tm_min = 0; 
+    y2k.tm_sec = 0;
+    y2k.tm_year = 100; 
+    y2k.tm_mon = 0;
+    y2k.tm_mday = 1;
+    time(&timer);
+    double seconds = difftime(timer, mktime(&y2k));
+    return (seconds - static_cast<long>(seconds)); 
+}
 void help() { // Prints the help menu
     cout << "HELP MENU\n\nc: continue the story\nS or $: show the shop\nq: quit game\ns: show your stats\nm: move around\ni: inventory\nw: show what sector you're in\nr: detect enemies with the radar\np: pick an item up from the ground\nd: drop an item to the ground\ne: equip an equippable item from your inventory\nu: unequip an equipped item\n\n";
 }
@@ -52,20 +66,54 @@ char decision() {
                         }
                         else break;
                     }
-                    cout << "\nAttacking " << currentSect.getEnemies()[en - 1].getName() << " staring with HP " << currentSect.getEnemies()[en - 1].getHp() << " and you have " << stat["Strength"] << " attack power, along with " << stat["HP"] << " health.\n";
-                    currentSect.getEnemies()[en - 1].setHp(currentSect.getEnemies()[en - 1].getHp() - stat["Strength"]);
-                    cout << "\nEnemies new health: " << currentSect.getEnemies()[en - 1].getHp();
-                    stat["HP"]--;
-                    cout << "\nYour new health: " << stat["HP"];
+                    cout << "\nAttacking " << currentSect.getEnemies()[en - 1].getName() << " staring with HP " << currentSect.getEnemies()[en - 1].getHp() << " and you have " << stat["Strength"] << " attack power, along with " << stat["Current HP"] << " health.\n";
+                    if (randomNum() < 0.5){
+                        currentSect.getEnemies()[en - 1].setHp(currentSect.getEnemies()[en - 1].getHp() - stat["Strength"]);
+                        cout << "\nYou hit the enemy! Enemies new health: " << currentSect.getEnemies()[en - 1].getHp();
+                    }
+                    else {
+                        cout << "/nYou missed the enemy!";
+                    }
+                    if (randomNum() < 0.5) {
+                        stat["Current HP"]--;
+                        cout << "\nYou got hit! Your new health: " << stat["Current HP"];
+                    }
+                    else {
+                        cout << "\nThe enemy missed you!";
+                    }
                     if (currentSect.getEnemies()[en - 1].getHp() == 0){
-                        cout << "You've killed " << currentSect.getEnemies()[en - 1].getName() << "!";
+                        cout << "\nYou've killed " << currentSect.getEnemies()[en - 1].getName() << "!";
                         currentSect.getEnemies().erase(currentSect.getEnemies().begin() + (en - 1));
+                    }
+                    if (stat["Current HP"] <= 0) {
+                        if (equipped["Artifact 1"] != revivalStone || equipped["Artifact 2"] != revivalStone || equipped["Artifact 3"] != revivalStone || equipped["Artifact 4"] != revivalStone || equipped["Artifact 5"] != revivalStone) {
+                            cout << "\nYou had the revival stone and have been brought back to life! Welcome back, adventurer.\n";
+                            stat["Current HP"] = stat["HP"];
+                        }
+                        else {
+                            cout << "\n\nYOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\n\n";
+                            return 'q';
+                        }
                     }
                     return option;
                 }
                 cout << "";
+                if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];     
                 return option;
             case ('c'):
+                if (stat["Current HP"] <= 0) {
+                    if (stat["Current HP"] <= 0) {
+                        if (equipped["Artifact 1"] != revivalStone || equipped["Artifact 2"] != revivalStone || equipped["Artifact 3"] != revivalStone || equipped["Artifact 4"] != revivalStone || equipped["Artifact 5"] != revivalStone) {
+                            cout << "You had the revival stone and have been brought back to life! Welcome back, adventurer.\n";
+                            stat["Current HP"] = stat["HP"];
+                        }
+                        else {
+                            cout << "\n\nYOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\n\n";
+                            return 'q';
+                        }
+                    }
+                }
+                if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];     
                 return option;
             case ('h'):
             case ('?'):
@@ -193,13 +241,13 @@ int main() {
         else cout << endl << "You have a weapon! Use 'a' to attack the enemy!";
         if (decision() == 'q') break;
         if (stat["Current HP"] <= 0) {
-            if (gear.find(revivalStone) != gear.end()) {
+            if (equipped["Artifact 1"] != revivalStone || equipped["Artifact 2"] != revivalStone || equipped["Artifact 3"] != revivalStone || equipped["Artifact 4"] != revivalStone || equipped["Artifact 5"] != revivalStone) {
                 cout << "You had the revival stone and have been brought back to life! Welcome back, adventurer.\n";
                 stat["Current HP"] = stat["HP"];
             }
             else {
                 cout << "\n\nYOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\n\n";
-                break;
+                return 'q';
             }
         }
         if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];        
