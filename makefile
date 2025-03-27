@@ -1,10 +1,11 @@
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
 	CXX := g++
-ifeq ($(UNAME_S),Darwin)
+else ifeq ($(UNAME_S),Darwin)
 	CXX := clang++
-ifeq ($(UNAME_S),Windows_NT)
+else ifeq ($(UNAME_S),Windows_NT)
 	CXX := g++
+endif
 CXX := g++
 CXXFLAGS := -Wall -Wextra -pedantic -std=c++11
 SRC_DIR := .
