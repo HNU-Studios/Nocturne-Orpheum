@@ -81,7 +81,7 @@ char decision() {
                     else {
                         cout << "\nThe enemy missed you!";
                     }
-                    if (currentSect.getEnemies()[en - 1].getHp() == 0){
+                    if (currentSect.getEnemies()[en - 1].getHp() <= 0){
                         cout << "\nYou've killed " << currentSect.getEnemies()[en - 1].getName() << "!";
                         currentSect.getEnemies().erase(currentSect.getEnemies().begin() + (en - 1));
                     }
