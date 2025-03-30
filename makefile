@@ -7,7 +7,7 @@ else ifeq ($(UNAME_S),Windows_NT)
 	CXX := g++
 endif
 CXX := g++
-CXXFLAGS := -Wall -Wextra -pedantic -std=c++11
+CXXFLAGS := -Wall -Wextra -pedantic -std=c++17
 SRC_DIR := .
 BUILD_DIR := build
 SRCS := $(wildcard $(SRC_DIR)/*.cpp)
