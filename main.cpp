@@ -3,7 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include <limits>
-#include <ctime>
+#include <random>
 #include "move.h"
 #include "Shop.h"
 using namespace std;
@@ -12,17 +12,13 @@ char where;
 string name;
 bool b = false;
 double randomNum() {
-    time_t timer;
-    struct tm y2k = {};
-    y2k.tm_hour = 0;   
-    y2k.tm_min = 0; 
-    y2k.tm_sec = 0;
-    y2k.tm_year = 100; 
-    y2k.tm_mon = 0;
-    y2k.tm_mday = 1;
-    time(&timer);
-    double seconds = difftime(timer, mktime(&y2k));
-    return (seconds - static_cast<long>(seconds)); 
+    random_device rd; 
+    mt19937 gen(rd());
+    double min = 0;
+    double max = 1;
+    uniform_int_distribution<> distrib(min, max);
+    double random_number = distrib(gen);
+    return random_number;
 }
 void help() { // Prints the help menu
     cout << "HELP MENU\n\nc: continue the story\nS or $: show the shop\nq: quit game\ns: show your stats\nm: move around\ni: inventory\nw: show what sector you're in\nr: detect enemies with the radar\np: pick an item up from the ground\nd: drop an item to the ground\ne: equip an equippable item from your inventory\nu: unequip an equipped item\n\n";
@@ -46,6 +42,7 @@ char decision() {
         }
         switch (option) {
 	        case ('a'):
+                
                 cout << "Tip! You can scan for enemies without attacking them using your radar! Type 'r' to use it\n";
                 if (currentSect.getEnemies().size() == 0) cout << "There are currently no enemies in this sector. Try using 'm' to move!";
                 else {
@@ -66,19 +63,21 @@ char decision() {
                         }
                         else break;
                     }
+                    double r = randomNum();
                     cout << "\nAttacking " << currentSect.getEnemies()[en - 1].getName() << " staring with HP " << currentSect.getEnemies()[en - 1].getHp() << " and you have " << stat["Strength"] << " attack power, along with " << stat["Current HP"] << " health.\n";
-                    if (randomNum() < 0.5){
+                    if (r < 0.5){
                         currentSect.getEnemies()[en - 1].setHp(currentSect.getEnemies()[en - 1].getHp() - stat["Strength"]);
                         cout << "\nYou hit the enemy! Enemies new health: " << currentSect.getEnemies()[en - 1].getHp();
                     }
                     else {
-                        cout << "/nYou missed the enemy!";
+                        cout << "\nYou missed the enemy!";
                     }
-                    if (randomNum() < 0.5) {
+                    cout << r << " test rand num" << endl;
+                    if (r < 0.5) {
                         stat["Current HP"]--;
                         cout << "\nYou got hit! Your new health: " << stat["Current HP"];
                     }
-                    else {
+                    else if (r > 0.5) {
                         cout << "\nThe enemy missed you!";
                     }
                     if (currentSect.getEnemies()[en - 1].getHp() <= 0){
@@ -137,7 +136,7 @@ char decision() {
             case ('d'):
                 drop(currentSect.getGround());
                 return option;
-            case ('q'):
+            case ('q'): // Sometimes doesn't close, idk why
                 cout << "Goodbye, " << name << "." << endl;
                 return option;
             case ('r'):
@@ -220,7 +219,7 @@ char decision() {
         }
     }
 }
-int main() {
+int main() { // Story starts from here, core functionality is in the decision() function and other header files, ilke inventory.h or move.h
     cout << "Welcome, adventurer.\nEnter your name here: ";
     cin >> name;
     cout << "Hello, " << name << ". Welcome to the world.\n\nYou start as a human with all your stats set to 1, HP at 10, but as time goes on, you can level up your stats, learn skills, collect weapons, and find gear.\n\nGear and weapons can also have their own buffs and skills as you get further in the game.\n\nHere, take this [BASIC DULL SWORD] (press p to pick up).\n\n";
@@ -229,10 +228,28 @@ int main() {
     currentSect.putOnGround(revivalStone);
     enemy first("Test", 1, 1);
     enemy second("Other Test", 1, 1);
-    currentSect.putOnGround(first);
-    currentSect.putOnGround(second);
     while (true) {
         // if (decision() == 'q') break;
+        while (decision() != 'c') {
+            if (decision() == 'q') return 0;
+        }
+        currentSect.putOnGround(first);
+        currentSect.putOnGround(second);
+        cout << "\nWatch it! There's an ememy ahead.";
+        if (equipped["Weapon"] == item("", "", 0)) cout << endl << "You don't have a weapon equipped! If you haven't picked up a weapon, try using p to pick find one. If you have, use e to equip your weapon.";
+        else cout << endl << "You have a weapon! Use 'a' to attack the enemy!";
+        if (decision() == 'q') break;
+        if (stat["Current HP"] <= 0) {
+            if (equipped["Artifact 1"] != revivalStone || equipped["Artifact 2"] != revivalStone || equipped["Artifact 3"] != revivalStone || equipped["Artifact 4"] != revivalStone || equipped["Artifact 5"] != revivalStone) {
+                cout << "You had the revival stone and have been brought back to life! Welcome back, adventurer.\n";
+                stat["Current HP"] = stat["HP"];
+            }
+            else {
+                cout << "\n\nYOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\n\n";
+                return 'q';
+            }
+        }
+        if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
         while (decision() != 'c') {
             if (decision() == 'q') return 0;
         }
@@ -250,7 +267,7 @@ int main() {
                 return 'q';
             }
         }
-        if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];        
+        if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];    
     }
     return 0;
 }
