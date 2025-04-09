@@ -67,12 +67,13 @@ char decision() {
                     cout << "\nAttacking " << currentSect.getEnemies()[en - 1].getName() << " staring with HP " << currentSect.getEnemies()[en - 1].getHp() << " and you have " << stat["Strength"] << " attack power, along with " << stat["Current HP"] << " health.\n";
                     if (r < 0.5){
                         currentSect.getEnemies()[en - 1].setHp(currentSect.getEnemies()[en - 1].getHp() - stat["Strength"]);
+                        if (currentSect.getEnemies()[en - 1].getHp() < 0) currentSect.getEnemies()[en - 1].setHp(0);
                         cout << "\nYou hit the enemy! Enemies new health: " << currentSect.getEnemies()[en - 1].getHp();
                     }
                     else {
                         cout << "\nYou missed the enemy!";
                     }
-                    cout << r << " test rand num" << endl;
+                    r = randomNum();
                     if (r < 0.5) {
                         stat["Current HP"]--;
                         cout << "\nYou got hit! Your new health: " << stat["Current HP"];
@@ -246,16 +247,14 @@ int main() { // Story starts from here, core functionality is in the decision() 
             }
             else {
                 cout << "\n\nYOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\n\n";
-                return 'q';
+                return 0;
             }
         }
         if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
         while (decision() != 'c') {
             if (decision() == 'q') return 0;
         }
-        cout << "\nWatch it! There's an ememy ahead.";
-        if (equipped["Weapon"] == item("", "", 0)) cout << endl << "You don't have a weapon equipped! If you haven't picked up a weapon, try using p to pick find one. If you have, use e to equip your weapon.";
-        else cout << endl << "You have a weapon! Use 'a' to attack the enemy!";
+        cout << "\nGood job. You've defeated your first enemy. If you want to relax your arms, use 'u' to unequip your weapon! This is optional, of course.\nIf you'd like to move around, use 'm' and pick a direction.";
         if (decision() == 'q') break;
         if (stat["Current HP"] <= 0) {
             if (equipped["Artifact 1"] != revivalStone || equipped["Artifact 2"] != revivalStone || equipped["Artifact 3"] != revivalStone || equipped["Artifact 4"] != revivalStone || equipped["Artifact 5"] != revivalStone) {
@@ -264,7 +263,7 @@ int main() { // Story starts from here, core functionality is in the decision() 
             }
             else {
                 cout << "\n\nYOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\n\n";
-                return 'q';
+                return 0;
             }
         }
         if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];    
