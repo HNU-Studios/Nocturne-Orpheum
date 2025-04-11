@@ -4,8 +4,8 @@
 #include <algorithm>
 #include <limits>
 #include <random>
-#include "move.h"
-#include "Shop.h"
+#include "./headers/move.h"
+#include "./headers/Shop.h"
 using namespace std;
 sector currentSect = Andris;
 char where;
