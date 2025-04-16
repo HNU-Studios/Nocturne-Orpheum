@@ -21,7 +21,7 @@ double randomNum() {
     return random_number;
 }
 void help() { // Prints the help menu
-    cout << "HELP MENU\n\nc: continue the story\nS or $: show the shop\nq: quit game\ns: show your stats\nm: move around\ni: inventory\nw: show what sector you're in\nr: detect enemies with the radar\np: pick an item up from the ground\nd: drop an item to the ground\ne: equip an equippable item from your inventory\nu: unequip an equipped item\n\n";
+    cout << "HELP MENU\n\nMAIN FUNCTIONS:\nc: continue the story\nq: quit game\ns: show your stats\n\nINVENTORY FUNCTIONS:\ni: show inventory\np: pick an item up from the ground\nd: drop an item to the ground\ne: equip an equippable item from your inventory\nu: unequip an equipped item\nS or $: show the shop\n\nLOCATION FUNCTIONS:\nm: move around\nw: show what sector you're in\n\nENEMIES:\na: attack enemies\nr: detect enemies with the radar\n";
 }
 void stats() { // Prints a user's stats
     for (const auto& pair : stat) {

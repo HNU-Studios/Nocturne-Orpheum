@@ -8,8 +8,9 @@ Notes for me:
     u: unequip
     d: drop (done)
     q: quit (done)
+    a: attack enemies (done)
     r: detect enemies (radar) (done)
     m: move (done)
     w: where are you (done)
     c: continues story
-    HELP MENU\n\nc: continue story\nq: quit game\ns: show your stats\nm: move around\ni: inventory\nw: show what sector you're in\nr: detect enemies with the radar\np: pick an item up from the ground\nd: drop an item to the ground\ne: equip an equippable item from your inventory\nu: unequip an equipped item\n\n
+    HELP MENU\n\nc: continue the story\nS or $: show the shop\nq: quit game\ns: show your stats\nm: move around\ni: inventory\nw: show what sector you're in\nENEMIES:\na: attack enemies\nr: detect enemies with the radar\np: pick an item up from the ground\nd: drop an item to the ground\ne: equip an equippable item from your inventory\nu: unequip an equipped item\n\n
