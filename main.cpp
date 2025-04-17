@@ -75,7 +75,7 @@ char decision() {
                     }
                     r = randomNum();
                     if (r < 0.5) {
-                        stat["Current HP"]--;
+                        stat["Current HP"] -= currentSect.getEnemies()[en - 1].getHp();
                         cout << "\nYou got hit! Your new health: " << stat["Current HP"];
                     }
                     else if (r > 0.5) {
@@ -228,7 +228,7 @@ int main() { // Story starts from here, core functionality is in the decision() 
     currentSect.putOnGround(chippedHelmet);
     currentSect.putOnGround(revivalStone);
     enemy first("Test", 1, 1);
-    enemy second("Other Test", 1, 1);
+    enemy second("Other Test", 1, 5);
     while (true) {
         // if (decision() == 'q') break;
         while (decision() != 'c') {
@@ -257,7 +257,7 @@ int main() { // Story starts from here, core functionality is in the decision() 
         cout << "\nGood job. You've defeated your first enemy. If you want to relax your arms, use 'u' to unequip your weapon! This is optional, of course.\nIf you'd like to move around, use 'm' and pick a direction.";
         if (decision() == 'q') break;
         if (stat["Current HP"] <= 0) {
-            if (equipped["Artifact 1"] != revivalStone || equipped["Artifact 2"] != revivalStone || equipped["Artifact 3"] != revivalStone || equipped["Artifact 4"] != revivalStone || equipped["Artifact 5"] != revivalStone) {
+            if (equipped["Artifact 1"] == revivalStone || equipped["Artifact 2"] == revivalStone || equipped["Artifact 3"] == revivalStone || equipped["Artifact 4"] == revivalStone || equipped["Artifact 5"] == revivalStone) {
                 cout << "You had the revival stone and have been brought back to life! Welcome back, adventurer.\n";
                 stat["Current HP"] = stat["HP"];
             }
