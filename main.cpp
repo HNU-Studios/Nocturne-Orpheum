@@ -230,16 +230,25 @@ int main() { // Story starts from here, core functionality is in the decision() 
     enemy first("Test", 1, 1);
     enemy second("Other Test", 1, 5);
     while (true) {
-        // if (decision() == 'q') break;
-        while (decision() != 'c') {
-            if (decision() == 'q') return 0;
+        while (true) {
+            char d = decision();
+            if (d == 'q') return 0;
+            if (d == 'c') break;
         }
         currentSect.putOnGround(first);
         currentSect.putOnGround(second);
         cout << "\nWatch it! There's an ememy ahead.";
         if (equipped["Weapon"] == item("", "", 0)) cout << endl << "You don't have a weapon equipped! If you haven't picked up a weapon, try using p to pick find one. If you have, use e to equip your weapon.";
         else cout << endl << "You have a weapon! Use 'a' to attack the enemy!";
-        if (decision() == 'q') break;
+        // if (decision() == 'q') return 0;
+        // while (decision() != 'c') {
+        //     if (decision() == 'q') return 0;
+        // }
+        while (true) {
+            char d = decision();
+            if (d == 'q') return 0;
+            if (d == 'c') break;
+        }
         if (stat["Current HP"] <= 0) {
             if (equipped["Artifact 1"] != revivalStone || equipped["Artifact 2"] != revivalStone || equipped["Artifact 3"] != revivalStone || equipped["Artifact 4"] != revivalStone || equipped["Artifact 5"] != revivalStone) {
                 cout << "You had the revival stone and have been brought back to life! Welcome back, adventurer.\n";
@@ -251,11 +260,18 @@ int main() { // Story starts from here, core functionality is in the decision() 
             }
         }
         if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
-        while (decision() != 'c') {
-            if (decision() == 'q') return 0;
+        while (true) {
+            char d = decision();
+            if (d == 'q') return 0;
+            if (d == 'c') break;
         }
+        if (decision() == 'q') return 0;
         cout << "\nGood job. You've defeated your first enemy. If you want to relax your arms, use 'u' to unequip your weapon! This is optional, of course.\nIf you'd like to move around, use 'm' and pick a direction.";
-        if (decision() == 'q') break;
+        while (true) {
+            char d = decision();
+            if (d == 'q') return 0;
+            if (d == 'c') break;
+        }
         if (stat["Current HP"] <= 0) {
             if (equipped["Artifact 1"] == revivalStone || equipped["Artifact 2"] == revivalStone || equipped["Artifact 3"] == revivalStone || equipped["Artifact 4"] == revivalStone || equipped["Artifact 5"] == revivalStone) {
                 cout << "You had the revival stone and have been brought back to life! Welcome back, adventurer.\n";
