@@ -223,7 +223,7 @@ char decision() {
 int main() { // Story starts from here, core functionality is in the decision() function and other header files, ilke inventory.h or move.h
     cout << "Welcome, adventurer.\nEnter your name here: ";
     cin >> name;
-    cout << "Hello, " << name << ". Welcome to the world.\n\nYou start as a human with all your stats set to 1, HP at 10, but as time goes on, you can level up your stats, learn skills, collect weapons, and find gear.\n\nGear and weapons can also have their own buffs and skills as you get further in the game.\n\nHere, take this [BASIC DULL SWORD] (press p to pick up).\n\n";
+    cout << "Hello, " << name << ". Welcome to the world.\n\nYou start as a human with all your stats set to 1, HP at 10, but as time goes on, you can level up your stats, learn skills, collect weapons, and find gear.\n\nGear and weapons can also have their own buffs and skills as you get further in the game.\n\nHere, take this [BASIC DULL SWORD], [CHIPPED HELMET], and [REVIVAL STONE] (press p to pick up).\n\n";
     currentSect.putOnGround(dullSword);
     currentSect.putOnGround(chippedHelmet);
     currentSect.putOnGround(revivalStone);
