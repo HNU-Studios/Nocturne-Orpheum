@@ -5,14 +5,15 @@
 #include <limits>
 #include "items.h"
 #include "enemy.h"
+#include "skill.h"
 #define templateItem item("", "", 0)
 using namespace std;
 // Inventory arrays
 map<item, int> food; // Stores a user's food
 map<item, int> weapons; // Stores a user's unequipped weapons
 map<item, int> gear; // Stores a user's unequipped armour & artifacts
-map<string, int> stat = {{"Strength", 1}, {"Defense", 1}, {"Intelligence", 1}, {"HP", 10}, {"Level", 1}, {"Charisma", 1}, {"Stealth", 0}, {"Current HP", 10}}; // User stats
-vector<string> skills; // Stores skills a user can use (may be included with weapons)
+map<string, int> stat = {{"Strength", 1}, {"Defense", 1}, {"Intelligence", 1}, {"HP", 10}, {"Level", 1}, {"Charisma", 1}, {"Stealth", 0}, {"Current HP", 10}, {"Divinity", 0}}; // User stats
+vector<skill> skills = {}; // Stores skills a user can use (may be included with weapons)
 /*Stores a user's equipped items*/map<string, item> equipped = {{"Weapon", item("", "", 0)}, {"Helmet", item("", "", 0)}, {"Breastplate", item("", "", 0)}, {"Gloves", item("", "", 0)}, {"Mask", item("", "", 0)}, {"Artifact 1", item("", "", 0)}, {"Artifact 2", item("", "", 0)}, {"Artifact 3", item("", "", 0)}, {"Artifact 4", item("", "", 0)}, {"Artifact 5", item("", "", 0)}};
 // vector<item> ground; // Shows items on the ground
 vector<enemy> enemies;
@@ -39,8 +40,8 @@ void inventory(){ // Functions for printing a user's inventory
         }
     }
     else if (option == 's'){
-        for (string skill : skills) {
-            cout << skill << "\n";
+        for (skill skill : skills) {
+            cout << skill.getName() << "\n";
         }
     }
     // Print whole inventory
@@ -58,8 +59,49 @@ void inventory(){ // Functions for printing a user's inventory
             cout << pair.first.getName() << " x" << pair.second << "\n";
         }
         cout << "ALL SKILLS:\n";
-        for (string skill : skills) {
-            cout << skill << " x" << skill << "\n";
+        for (skill skill : skills) {
+            cout << skill.getName() << "\n";
+        }
+    }
+}
+void inventory(char option){
+    if (option == 'f'){
+        for (auto pair : food) {
+            cout << pair.first.getName() << " x" << pair.second << "\n";
+        }
+    }
+    else if (option == 'w'){
+        for (const auto& pair : weapons) {
+            cout << pair.first.getName() << " x" << pair.second << "\n";
+        }
+    }
+    else if (option == 'g'){
+        for (const auto& pair : gear) {
+            cout << pair.first.getName() << " x" << pair.second << "\n";
+        }
+    }
+    else if (option == 's'){
+        for (skill skill : skills) {
+            cout << skill.getName() << "\n";
+        }
+    }
+    // Print whole inventory
+    else if(option == 'i'){
+        cout << "ALL FOOD:\n";
+        for (const auto& pair : food) {
+            cout << pair.first.getName() << " x" << pair.second << "\n";
+        }
+        cout << "ALL WEAPONS:\n";
+        for (const auto& pair : weapons) {
+            cout << pair.first.getName() << " x" << pair.second << "\n";
+        }
+        cout << "ALL GEAR:\n";
+        for (const auto& pair : gear) {
+            cout << pair.first.getName() << " x" << pair.second << "\n";
+        }
+        cout << "ALL SKILLS:\n";
+        for (skill skill : skills) {
+            cout << skill.getName() << "\n";
         }
     }
 }
