@@ -42,7 +42,8 @@ char decision() {
         }
         switch (option) {
 	        case ('a'):
-                
+                long unsigned int* skillChoice;
+                *skillChoice = 0;
                 cout << "Tip! You can scan for enemies without attacking them using your radar! Type 'r' to use it\n";
                 if (currentSect.getEnemies().size() == 0) cout << "There are currently no enemies in this sector. Try using 'm' to move!";
                 else {
@@ -62,6 +63,62 @@ char decision() {
                             continue;
                         }
                         else break;
+                    }
+                    cout << "\nSkills avaliable: " << endl;
+                    for (long unsigned int i = 0; i < skills.size(); i++) {
+                        cout << i + 1 << ": " << skills[i].getName() << ", a " << skills[i].getKind() << " type skill with " << skills[i].getUses() << " uses left and " << skills[i].getPower() << " power.\n";
+                    }
+                    cout << "Use a skill? (y/n)";
+                    char* temp = new char;
+                    cin >> *temp;
+                    if (toupper(*temp) == 'Y') {
+                        delete temp;
+                        temp = nullptr;
+                        int* skillChoice = new int;
+                        while (true) {
+                            cout << "What skill would you like to use? Please enter the number from the list.\n";
+                            cin >> *skillChoice;
+                            if (*skillChoice > skills.size() + 1 || *skillChoice <= 0) {
+                                cout << "That isn't a valid skill :(\n";
+                            }
+                            else {
+                                break;
+                            }
+                        }
+                        if (skills[*skillChoice - 1].getKind() == "Attack") {
+                            if (randomNum() > 0.5) {
+                                currentSect.getEnemies()[en - 1].setHp(currentSect.getEnemies()[en - 1].getHp() - 1);
+                            }
+                        }
+                        else if (skills[*skillChoice - 1].getKind() == "Health") {
+                            stat["Current HP"]++;
+                            if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
+                        }
+                        else if (skills[*skillChoice - 1].getKind() == "Defense") {
+                            stat["Defense"]++;
+                        }
+                        else if (skills[*skillChoice - 1].getKind() == "Divine") {
+                            stat["Divinity"]++;
+                        }
+                        else if (skills[*skillChoice - 1].getKind() == "Magic") {
+                            stat["Intelligence"]++;
+                        }
+                        else if (skills[*skillChoice - 1].getKind() == "Charisma") {
+                            stat["Charisma"]++;
+                        }
+                        else if (skills[*skillChoice - 1].getKind() == "Stealth") {
+                            stat["Stealth"]++;
+                        }
+                    }
+                    else {
+                        delete temp;
+                        temp = nullptr;
+                        if (equipped["Weapon"] != item("", "", 0)) {
+                            cout << "Not using a skill, only using your currently equipped weapon, " << equipped["Weapon"].getName() << ".\n";
+                        }
+                        else {
+                            cout << "Not using a skill, only using your strength.\n";
+                        }
                     }
                     double r = randomNum();
                     cout << "\nAttacking " << currentSect.getEnemies()[en - 1].getName() << " staring with HP " << currentSect.getEnemies()[en - 1].getHp() << " and you have " << stat["Strength"] << " attack power, along with " << stat["Current HP"] << " health.\n";
@@ -98,8 +155,11 @@ char decision() {
                     return option;
                 }
                 cout << "";
-                if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];     
+                if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
+                delete skillChoice;
+                skillChoice = nullptr; // We love killing our variables :3
                 return option;
+                break;
             case ('c'):
                 if (stat["Current HP"] <= 0) {
                     if (stat["Current HP"] <= 0) {
@@ -240,10 +300,6 @@ int main() { // Story starts from here, core functionality is in the decision() 
         cout << "\nWatch it! There's an ememy ahead.";
         if (equipped["Weapon"] == item("", "", 0)) cout << endl << "You don't have a weapon equipped! If you haven't picked up a weapon, try using p to pick find one. If you have, use e to equip your weapon.";
         else cout << endl << "You have a weapon! Use 'a' to attack the enemy!";
-        // if (decision() == 'q') return 0;
-        // while (decision() != 'c') {
-        //     if (decision() == 'q') return 0;
-        // }
         while (true) {
             char d = decision();
             if (d == 'q') return 0;
