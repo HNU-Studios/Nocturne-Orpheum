@@ -64,60 +64,62 @@ char decision() {
                         }
                         else break;
                     }
-                    cout << "\nSkills avaliable: " << endl;
-                    for (long unsigned int i = 0; i < skills.size(); i++) {
-                        cout << i + 1 << ": " << skills[i].getName() << ", a " << skills[i].getKind() << " type skill with " << skills[i].getUses() << " uses left and " << skills[i].getPower() << " power.\n";
-                    }
-                    cout << "Use a skill? (y/n)";
-                    char* temp = new char;
-                    cin >> *temp;
-                    if (toupper(*temp) == 'Y') {
-                        delete temp;
-                        temp = nullptr;
-                        int* skillChoice = new int;
-                        while (true) {
-                            cout << "What skill would you like to use? Please enter the number from the list.\n";
-                            cin >> *skillChoice;
-                            if (*skillChoice > skills.size() + 1 || *skillChoice <= 0) {
-                                cout << "That isn't a valid skill :(\n";
+                    if (skills.size() != 0) {
+                        cout << "\nSkills avaliable: " << endl;
+                        for (long unsigned int i = 0; i < skills.size(); i++) {
+                            cout << i + 1 << ": " << skills[i].getName() << ", a " << skills[i].getKind() << " type skill with " << skills[i].getUses() << " uses left and " << skills[i].getPower() << " power.\n";
+                        }
+                        cout << "Use a skill? (y/n)";
+                        char* temp = new char;
+                        cin >> *temp;
+                        if (toupper(*temp) == 'Y') {
+                            delete temp;
+                            temp = nullptr;
+                            int* skillChoice = new int;
+                            while (true) {
+                                cout << "What skill would you like to use? Please enter the number from the list.\n";
+                                cin >> *skillChoice;
+                                if (*skillChoice > skills.size() + 1 || *skillChoice <= 0) {
+                                    cout << "That isn't a valid skill :(\n";
+                                }
+                                else {
+                                    break;
+                                }
                             }
-                            else {
-                                break;
+                            if (skills[*skillChoice - 1].getKind() == "Attack") {
+                                if (randomNum() > 0.5) {
+                                    currentSect.getEnemies()[en - 1].setHp(currentSect.getEnemies()[en - 1].getHp() - 1);
+                                }
                             }
-                        }
-                        if (skills[*skillChoice - 1].getKind() == "Attack") {
-                            if (randomNum() > 0.5) {
-                                currentSect.getEnemies()[en - 1].setHp(currentSect.getEnemies()[en - 1].getHp() - 1);
+                            else if (skills[*skillChoice - 1].getKind() == "Health") {
+                                stat["Current HP"]++;
+                                if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
                             }
-                        }
-                        else if (skills[*skillChoice - 1].getKind() == "Health") {
-                            stat["Current HP"]++;
-                            if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
-                        }
-                        else if (skills[*skillChoice - 1].getKind() == "Defense") {
-                            stat["Defense"]++;
-                        }
-                        else if (skills[*skillChoice - 1].getKind() == "Divine") {
-                            stat["Divinity"]++;
-                        }
-                        else if (skills[*skillChoice - 1].getKind() == "Magic") {
-                            stat["Intelligence"]++;
-                        }
-                        else if (skills[*skillChoice - 1].getKind() == "Charisma") {
-                            stat["Charisma"]++;
-                        }
-                        else if (skills[*skillChoice - 1].getKind() == "Stealth") {
-                            stat["Stealth"]++;
-                        }
-                    }
-                    else {
-                        delete temp;
-                        temp = nullptr;
-                        if (equipped["Weapon"] != item("", "", 0)) {
-                            cout << "Not using a skill, only using your currently equipped weapon, " << equipped["Weapon"].getName() << ".\n";
+                            else if (skills[*skillChoice - 1].getKind() == "Defense") {
+                                stat["Defense"]++;
+                            }
+                            else if (skills[*skillChoice - 1].getKind() == "Divine") {
+                                stat["Divinity"]++;
+                            }
+                            else if (skills[*skillChoice - 1].getKind() == "Magic") {
+                                stat["Intelligence"]++;
+                            }
+                            else if (skills[*skillChoice - 1].getKind() == "Charisma") {
+                                stat["Charisma"]++;
+                            }
+                            else if (skills[*skillChoice - 1].getKind() == "Stealth") {
+                                stat["Stealth"]++;
+                            }
                         }
                         else {
-                            cout << "Not using a skill, only using your strength.\n";
+                            delete temp;
+                            temp = nullptr;
+                            if (equipped["Weapon"] != item("", "", 0)) {
+                                cout << "Not using a skill, only using your currently equipped weapon, " << equipped["Weapon"].getName() << ".\n";
+                            }
+                            else {
+                                cout << "Not using a skill, only using your strength.\n";
+                            }
                         }
                     }
                     double r = randomNum();
