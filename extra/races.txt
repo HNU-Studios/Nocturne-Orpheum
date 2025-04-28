@@ -7,11 +7,15 @@ Parent class:
             Info
             Etc...
 
+EVERY CLASS THAT ISN'T A BASE CLASS HAS THEIR OWN "OP" ABILITY!!
+You're able to upgrade from base classes after level 20, and if you want to switch classes, you get to do so at a cost (check the shop in the game!)
+
 Humans:
     Base class, no special stat boosts, but you get compatibility with all abilities.
     Priest:
         No compatibility with corruption/ dark abilities, but you get a boost with healing and some select magic abilities.
     Berserker:
+        Get buffs on strength type abilities, and you get access to a special set of abilites.
 
 Elves:
     Base class, get buffs with elf type abilities. Any abilities from a different race get slight debuffs.
