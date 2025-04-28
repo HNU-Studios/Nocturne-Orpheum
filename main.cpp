@@ -9,7 +9,7 @@
 using namespace std;
 sector currentSect = Andris;
 char where;
-string name;
+string name, race;
 bool b = false;
 double randomNum() {
     random_device rd; 
@@ -135,6 +135,7 @@ char decision() {
                     r = randomNum();
                     if (r < 0.5) {
                         stat["Current HP"] -= currentSect.getEnemies()[en - 1].getHp();
+                        if (stat["Current HP"] < 0) stat["Current HP"] = 0;
                         cout << "\nYou got hit! Your new health: " << stat["Current HP"];
                     }
                     else if (r > 0.5) {
@@ -145,12 +146,22 @@ char decision() {
                         currentSect.getEnemies().erase(currentSect.getEnemies().begin() + (en - 1));
                     }
                     if (stat["Current HP"] <= 0) {
-                        if (equipped["Artifact 1"] != revivalStone || equipped["Artifact 2"] != revivalStone || equipped["Artifact 3"] != revivalStone || equipped["Artifact 4"] != revivalStone || equipped["Artifact 5"] != revivalStone) {
+                        if (equipped["Artifact 1"] == revivalStone || equipped["Artifact 2"] == revivalStone || equipped["Artifact 3"] == revivalStone || equipped["Artifact 4"] == revivalStone || equipped["Artifact 5"] == revivalStone) {
                             cout << "\nYou had the revival stone and have been brought back to life! Welcome back, adventurer.\n";
                             stat["Current HP"] = stat["HP"];
                         }
                         else {
-                            cout << "\n\n\x1b[31;41YOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\x1b[0m\n\n";
+                            cout << "\n\n"
+                                << "\x1b[1;31;41m\n\n"
+                                << "=======================================\n"
+                                << "               YOU DIED               \n"
+                                << "=======================================\n"
+                                << "\x1b[0m\n\n"
+                                << "\x1b[1m"
+                                << "You can play again, but will not retain any of your stuff.\n"
+                                << "Good job on this run, " << name << "."
+                                << "\x1b[0m";
+
                             return 'q';
                         }
                     }
@@ -165,12 +176,22 @@ char decision() {
             case ('c'):
                 if (stat["Current HP"] <= 0) {
                     if (stat["Current HP"] <= 0) {
-                        if (equipped["Artifact 1"] != revivalStone || equipped["Artifact 2"] != revivalStone || equipped["Artifact 3"] != revivalStone || equipped["Artifact 4"] != revivalStone || equipped["Artifact 5"] != revivalStone) {
+                        if (equipped["Artifact 1"] == revivalStone || equipped["Artifact 2"] == revivalStone || equipped["Artifact 3"] == revivalStone || equipped["Artifact 4"] == revivalStone || equipped["Artifact 5"] == revivalStone) {
                             cout << "You had the revival stone and have been brought back to life! Welcome back, adventurer.\n";
                             stat["Current HP"] = stat["HP"];
                         }
                         else {
-                            cout << "\n\n\x1b[31;41YOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\x1b[0m\n\n";
+                            cout << "\n\n"
+                                << "\x1b[1;31;41m\n\n"
+                                << "=======================================\n"
+                                << "               YOU DIED               \n"
+                                << "=======================================\n"
+                                << "\x1b[0m\n\n"
+                                << "\x1b[1m"
+                                << "You can play again, but will not retain any of your stuff.\n"
+                                << "Good job on this run, " << name << "."
+                                << "\x1b[0m";
+
                             return 'q';
                         }
                     }
@@ -285,6 +306,15 @@ char decision() {
 int main() { // Story starts from here, core functionality is in the decision() function and other header files, ilke inventory.h or move.h
     cout << "Welcome, adventurer.\nEnter your name here: ";
     cin >> name;
+    cout << "Please choose a class. For information about classes, type \"help\"";
+    while (true) {
+        cin >> race;
+        if (race == "help") {
+            cout << "This information is also avaliable in the \"extra\" directory where you downloaded the game to. If downloaded to your downloads, it would be in Downloads/zandris/extra/races.txt.";
+            cout << "\nEVERY CLASS THAT ISN'T A BASE CLASS HAS THEIR OWN \"OP\" ABILITY!!\nYou're able to upgrade from base classes after level 20, and if you want to switch classes, you get to do so at a cost (check the shop in the game!)\nChoose a class to see it's information.\nAvaliable classes (type the number or the name of the class):\n1) Human\n2) Elf\n3) Wizard\nMore classes will be added, and each of these base classes have a subclass";
+        }
+        break;
+    }
     cout << "Hello, " << name << ". Welcome to the world.\n\nYou start as a human with all your stats set to 1, HP at 10, but as time goes on, you can level up your stats, learn skills, collect weapons, and find gear.\n\nGear and weapons can also have their own buffs and skills as you get further in the game.\n\nHere, take this [BASIC DULL SWORD], [CHIPPED HELMET], and [REVIVAL STONE] (press p to pick up).\n\n";
     currentSect.putOnGround(dullSword);
     currentSect.putOnGround(chippedHelmet);
@@ -308,12 +338,22 @@ int main() { // Story starts from here, core functionality is in the decision() 
             if (d == 'c') break;
         }
         if (stat["Current HP"] <= 0) {
-            if (equipped["Artifact 1"] != revivalStone || equipped["Artifact 2"] != revivalStone || equipped["Artifact 3"] != revivalStone || equipped["Artifact 4"] != revivalStone || equipped["Artifact 5"] != revivalStone) {
+            if (equipped["Artifact 1"] == revivalStone || equipped["Artifact 2"] == revivalStone || equipped["Artifact 3"] == revivalStone || equipped["Artifact 4"] == revivalStone || equipped["Artifact 5"] == revivalStone) {
                 cout << "You had the revival stone and have been brought back to life! Welcome back, adventurer.\n";
                 stat["Current HP"] = stat["HP"];
             }
             else {
-                cout << "\n\n\x1b[31;41YOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\x1b[0m\n\n";
+                cout << "\n\n"
+                    << "\x1b[1;31;41m\n\n"
+                    << "=======================================\n"
+                    << "               YOU DIED               \n"
+                    << "=======================================\n"
+                    << "\x1b[0m\n\n"
+                    << "\x1b[1m"
+                    << "You can play again, but will not retain any of your stuff.\n"
+                    << "Good job on this run, " << name << "."
+                    << "\x1b[0m";
+
                 return 0;
             }
         }
@@ -336,7 +376,15 @@ int main() { // Story starts from here, core functionality is in the decision() 
                 stat["Current HP"] = stat["HP"];
             }
             else {
-                cout << "\n\n\x1b[31;41YOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\x1b[0m\n\n";
+                cout << "\x1b[1;31;41m\n\n"
+                    << "=======================================\n"
+                    << "               YOU DIED               \n"
+                    << "=======================================\n"
+                    << "\x1b[0m\n\n"
+                    << "\x1b[1m"
+                    << "You can play again, but will not retain any of your stuff.\n"
+                    << "Good job on this run, " << name << "."
+                    << "\x1b[0m";
                 return 0;
             }
         }
