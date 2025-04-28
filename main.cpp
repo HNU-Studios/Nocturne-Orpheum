@@ -40,10 +40,10 @@ char decision() {
             cout << "Invalid input. Please enter a valid letter. See the help menu for commands (type 'h' for help).\n";
             continue; // continue
         }
+        long unsigned int* skillChoice = nullptr;
         switch (option) {
 	        case ('a'):
-                long unsigned int* skillChoice;
-                *skillChoice = 0;
+                // *skillChoice = 0;
                 cout << "Tip! You can scan for enemies without attacking them using your radar! Type 'r' to use it\n";
                 if (currentSect.getEnemies().size() == 0) cout << "There are currently no enemies in this sector. Try using 'm' to move!";
                 else {
@@ -150,7 +150,7 @@ char decision() {
                             stat["Current HP"] = stat["HP"];
                         }
                         else {
-                            cout << "\n\nYOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\n\n";
+                            cout << "\n\n\x1b[31;41YOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\x1b[0m\n\n";
                             return 'q';
                         }
                     }
@@ -170,7 +170,7 @@ char decision() {
                             stat["Current HP"] = stat["HP"];
                         }
                         else {
-                            cout << "\n\nYOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\n\n";
+                            cout << "\n\n\x1b[31;41YOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\x1b[0m\n\n";
                             return 'q';
                         }
                     }
@@ -313,7 +313,7 @@ int main() { // Story starts from here, core functionality is in the decision() 
                 stat["Current HP"] = stat["HP"];
             }
             else {
-                cout << "\n\nYOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\n\n";
+                cout << "\n\n\x1b[31;41YOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\x1b[0m\n\n";
                 return 0;
             }
         }
@@ -336,7 +336,7 @@ int main() { // Story starts from here, core functionality is in the decision() 
                 stat["Current HP"] = stat["HP"];
             }
             else {
-                cout << "\n\nYOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\n\n";
+                cout << "\n\n\x1b[31;41YOU DIED\nYou can play again, but will not retain any of your stuff. Good job on this run, " << name << ".\x1b[0m\n\n";
                 return 0;
             }
         }
