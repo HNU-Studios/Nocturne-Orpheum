@@ -1,0 +1,26 @@
+STRUCTURE
+Parent class:
+    Info
+    Sub class:
+        Info
+        Sub class:
+            Info
+            Etc...
+
+Humans:
+    Base class, no special stat boosts, but you get compatibility with all abilities.
+    Priest:
+        No compatibility with corruption/ dark abilities, but you get a boost with healing and some select magic abilities.
+    Berserker:
+
+Elves:
+    Base class, get buffs with elf type abilities. Any abilities from a different race get slight debuffs.
+    High Elf:
+        You get access to special abilities, and your "nature affinity" gets boosted, meaning natural abilites get buffs, but you're weaker against things with a higher rank than you due to a sense of pride.
+    Dark Elf:
+        You get access to special abilites, and your "darkness affinity" gets boosted, but you're weaker against things with light abilities due to a bond with the spirit of darkness.
+
+Wizards:
+    Higher magic affinity, but you're debuffed with close range combat.
+    Warlock:
+        You get to choose a speciality and get buffs on spells of that type, this can only be changed if you develop a debuff or loose affinity for a type of magic, and once changed, cannot be changed back until you loose the debuff and gain a debuff for your new specialty. All conflicting types of magic are severly debuffed.
