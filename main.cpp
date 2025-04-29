@@ -159,8 +159,7 @@ char decision() {
                                 << "\x1b[0m\n\n"
                                 << "\x1b[1m"
                                 << "You can play again, but will not retain any of your stuff.\n"
-                                << "Good job on this run, " << name << "."
-                                << "\x1b[0m";
+                                << "Good job on this run, " << name << ".\x1b[0m";
 
                             return 'q';
                         }
@@ -189,8 +188,7 @@ char decision() {
                                 << "\x1b[0m\n\n"
                                 << "\x1b[1m"
                                 << "You can play again, but will not retain any of your stuff.\n"
-                                << "Good job on this run, " << name << "."
-                                << "\x1b[0m";
+                                << "Good job on this run, " << name << ".\x1b[0m";
 
                             return 'q';
                         }
@@ -351,8 +349,7 @@ int main() { // Story starts from here, core functionality is in the decision() 
                     << "\x1b[0m\n\n"
                     << "\x1b[1m"
                     << "You can play again, but will not retain any of your stuff.\n"
-                    << "Good job on this run, " << name << "."
-                    << "\x1b[0m";
+                    << "Good job on this run, " << name << ".\x1b[0m";
 
                 return 0;
             }
@@ -383,8 +380,7 @@ int main() { // Story starts from here, core functionality is in the decision() 
                     << "\x1b[0m\n\n"
                     << "\x1b[1m"
                     << "You can play again, but will not retain any of your stuff.\n"
-                    << "Good job on this run, " << name << "."
-                    << "\x1b[0m";
+                    << "Good job on this run, " << name << ".\x1b[0m";
                 return 0;
             }
         }
