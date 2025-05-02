@@ -4,6 +4,8 @@
 #include <algorithm>
 #include <limits>
 #include <random>
+#include <ncurses.h>
+
 #include "./headers/move.h"
 #include "./headers/Shop.h"
 using namespace std;
@@ -156,11 +158,12 @@ char decision() {
                                 << "=======================================\n"
                                 << "               YOU DIED               \n"
                                 << "=======================================\n"
-                                << "\x1b[0m\n\n"
+                                << "\x1b[0m"
+                                << " \n\n"
                                 << "\x1b[1m"
                                 << "You can play again, but will not retain any of your stuff.\n"
-                                << "Good job on this run, " << name << ".\x1b[0m";
-
+                                << "Good job on this run, " << name << ".\x1b[0m"
+                                << " ";
                             return 'q';
                         }
                     }
@@ -185,10 +188,12 @@ char decision() {
                                 << "=======================================\n"
                                 << "               YOU DIED               \n"
                                 << "=======================================\n"
-                                << "\x1b[0m\n\n"
+                                << "\x1b[0m"
+                                << " \n\n"
                                 << "\x1b[1m"
                                 << "You can play again, but will not retain any of your stuff.\n"
-                                << "Good job on this run, " << name << ".\x1b[0m";
+                                << "Good job on this run, " << name << ".\x1b[0m"
+                                << " ";
 
                             return 'q';
                         }
@@ -301,9 +306,16 @@ char decision() {
         }
     }
 }
+string tolower(string s) { // Overloading tolower because apparantly it can't take a string?
+    string s2 = "";
+    for (char c: s) {
+        s2 += tolower(c);
+    }
+    return s2;
+}
 int main() { // Story starts from here, core functionality is in the decision() function and other header files, ilke inventory.h or move.h
     cout << "Welcome, adventurer.\nEnter your name here: ";
-    cin >> name;
+    getline(cin, name);
     cout << "Please choose a class. For information about classes, type \"help\"";
     while (true) {
         cin >> race;
@@ -311,7 +323,10 @@ int main() { // Story starts from here, core functionality is in the decision() 
             cout << "This information is also avaliable in the \"extra\" directory where you downloaded the game to. If downloaded to your downloads, it would be in Downloads/zandris/extra/races.txt.";
             cout << "\nEVERY CLASS THAT ISN'T A BASE CLASS HAS THEIR OWN \"OP\" ABILITY!!\nYou're able to upgrade from base classes after level 20, and if you want to switch classes, you get to do so at a cost (check the shop in the game!)\nChoose a class to see it's information.\nAvaliable classes (type the number or the name of the class):\n1) Human\n2) Elf\n3) Wizard\nMore classes will be added, and each of these base classes have a subclass";
         }
-        break;
+        else if (tolower(race) == "elf") {
+            
+            break;
+        }
     }
     cout << "Hello, " << name << ". Welcome to the world.\n\nYou start as a human with all your stats set to 1, HP at 10, but as time goes on, you can level up your stats, learn skills, collect weapons, and find gear.\n\nGear and weapons can also have their own buffs and skills as you get further in the game.\n\nHere, take this [BASIC DULL SWORD], [CHIPPED HELMET], and [REVIVAL STONE] (press p to pick up).\n\n";
     currentSect.putOnGround(dullSword);
@@ -346,10 +361,12 @@ int main() { // Story starts from here, core functionality is in the decision() 
                     << "=======================================\n"
                     << "               YOU DIED               \n"
                     << "=======================================\n"
-                    << "\x1b[0m\n\n"
+                    << "\x1b[0m"
+                    << " \n\n"
                     << "\x1b[1m"
                     << "You can play again, but will not retain any of your stuff.\n"
-                    << "Good job on this run, " << name << ".\x1b[0m";
+                    << "Good job on this run, " << name << ".\x1b[0m"
+                    << " ";
 
                 return 0;
             }
@@ -373,14 +390,17 @@ int main() { // Story starts from here, core functionality is in the decision() 
                 stat["Current HP"] = stat["HP"];
             }
             else {
-                cout << "\x1b[1;31;41m\n\n"
+                cout << "\n\n"
+                    << "\x1b[1;31;41m\n\n"
                     << "=======================================\n"
                     << "               YOU DIED               \n"
                     << "=======================================\n"
-                    << "\x1b[0m\n\n"
+                    << "\x1b[0m"
+                    << " \n\n"
                     << "\x1b[1m"
                     << "You can play again, but will not retain any of your stuff.\n"
-                    << "Good job on this run, " << name << ".\x1b[0m";
+                    << "Good job on this run, " << name << ".\x1b[0m"
+                    << " ";
                 return 0;
             }
         }
