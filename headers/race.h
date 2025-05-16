@@ -8,5 +8,8 @@ class race {
         int getAtk() {
             return buffs["ATK"];
         }
+        int getGenMult() {
+            return buffs["Multiplier"];
+        }
         
 };
