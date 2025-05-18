@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <limits>
 #include <random>
-#include <ncurses.h>
+// #include <ncurses.h>
 
 #include "../headers/move.h"
 #include "../headers/Shop.h"
@@ -78,7 +78,7 @@ char decision() {
                         if (toupper(*temp) == 'Y') {
                             delete temp;
                             temp = nullptr;
-                            int* skillChoice = new int;
+                            long unsigned int* skillChoice = new long unsigned int;
                             while (true) {
                                 cout << "What skill would you like to use? Please enter the number from the list.\n";
                                 cin >> *skillChoice;
