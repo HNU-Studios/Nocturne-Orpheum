@@ -36,3 +36,4 @@ Pillar:
     If you finish the quests for every single pillar (very hard due to restrictions placed as you unlock them) you become a sort of "God"
     Unlocking a pillar gives you divine energy and gives access to divine spells for your "throne," each throne corresponding to each pillar
     Each pillar comes from an aspect of the "God's" power.
+    This path locks off some powers as you go. For example, unlocking the power of intent makes it hard to unlock emotion, since logic (intent) and emotion are not intertwined.

@@ -322,7 +322,7 @@ int main() { // Story starts from here, core functionality is in the decision() 
         cin >> race;
         if (race == "help") {
             cout << "This information is also avaliable in the \"extra\" directory where you downloaded the game to. If downloaded to your downloads, it would be in Downloads/zandris/extra/races.txt.";
-            cout << "\nEVERY CLASS THAT ISN'T A BASE CLASS HAS THEIR OWN \"OP\" ABILITY!!\nYou're able to upgrade from base classes after level 20, and if you want to switch classes, you get to do so at a cost (check the shop in the game!)\nChoose a class to see it's information.\nAvaliable classes (type the number or the name of the class):\n1) Human\n2) Elf\n3) Wizard\nMore classes will be added, and each of these base classes have a subclass";
+            cout << "\nEVERY CLASS THAT IS NOT A BASE CLASS HAS THEIR OWN \"OP\" ABILITY!!\nYou're able to upgrade from base classes after level 20, and if you want to switch classes, you get to do so at a cost (check the shop in the game!)\nChoose a class to see it's information.\nAvaliable classes (type the number or the name of the class):\n1) Human\n2) Elf\n3) Wizard\nMore classes will be added, and each of these base classes have a subclass";
         }
         else if (tolower(race) == "elf") {
             
@@ -333,7 +333,7 @@ int main() { // Story starts from here, core functionality is in the decision() 
             break;
         }
         else if (tolower(race) == "pillar") {
-
+            
             break;
         }
     }
