@@ -332,7 +332,7 @@ int main() { // Story starts from here, core functionality is in the decision() 
             
             break;
         }
-        else if (tolower(race) == "wizard") {
+        else if (tolower(race) == "pillar") {
 
             break;
         }
