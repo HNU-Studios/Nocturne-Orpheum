@@ -8,6 +8,7 @@
 
 #include "../headers/move.h"
 #include "../headers/Shop.h"
+#include "../headers/story.h"
 using namespace std;
 sector currentSect = Andris;
 char where;
@@ -327,6 +328,14 @@ int main() { // Story starts from here, core functionality is in the decision() 
             
             break;
         }
+        else if (tolower(race) == "human") {
+            
+            break;
+        }
+        else if (tolower(race) == "wizard") {
+
+            break;
+        }
     }
     cout << "Hello, " << name << ". Welcome to the world.\n\nYou start as a human with all your stats set to 1, HP at 10, but as time goes on, you can level up your stats, learn skills, collect weapons, and find gear.\n\nGear and weapons can also have their own buffs and skills as you get further in the game.\n\nHere, take this [BASIC DULL SWORD], [CHIPPED HELMET], and [REVIVAL STONE] (press p to pick up).\n\n";
     currentSect.putOnGround(dullSword);
@@ -342,7 +351,7 @@ int main() { // Story starts from here, core functionality is in the decision() 
         }
         currentSect.putOnGround(first);
         currentSect.putOnGround(second);
-        cout << "\nWatch it! There's an ememy ahead.";
+        cout << story[0];
         if (equipped["Weapon"] == item("", "", 0)) cout << endl << "You don't have a weapon equipped! If you haven't picked up a weapon, try using p to pick find one. If you have, use e to equip your weapon.";
         else cout << endl << "You have a weapon! Use 'a' to attack the enemy!";
         while (true) {

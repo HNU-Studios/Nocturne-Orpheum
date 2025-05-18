@@ -16,6 +16,10 @@ Humans:
         No compatibility with corruption/ dark abilities, but you get a boost with healing and some select magic abilities.
     Berserker:
         Get buffs on strength type abilities, and you get access to a special set of abilites.
+    Wizards:
+        Higher magic affinity, but you're debuffed with close range combat.
+        Warlock:
+            You get to choose a speciality and get buffs on spells of that type, this can only be changed if you develop a debuff or loose affinity for a type of magic, and once changed, cannot be changed back until you loose the debuff and gain a debuff for your new specialty. All conflicting types of magic are severly debuffed.
 
 Elves:
     Base class, get buffs with elf type abilities. Any abilities from a different race get slight debuffs.
@@ -24,7 +28,11 @@ Elves:
     Dark Elf:
         You get access to special abilites, and your "darkness affinity" gets boosted, but you're weaker against things with light abilities due to a bond with the spirit of darkness.
 
-Wizards:
-    Higher magic affinity, but you're debuffed with close range combat.
-    Warlock:
-        You get to choose a speciality and get buffs on spells of that type, this can only be changed if you develop a debuff or loose affinity for a type of magic, and once changed, cannot be changed back until you loose the debuff and gain a debuff for your new specialty. All conflicting types of magic are severly debuffed.
+Pillar:
+    This class requires a prerequisite to unlock it's true power. 
+    You can select this class, but you will start off as a basic wizard. 
+    You will be destined to be a pillar of one of the seven aspects of life: intent, possibility, existence, emotion, belief, memory, time
+    As you complete quests, you get closer to one of the pillars. The moment you meet the requirements for one of the pillar, you unlock it and the rest are locked off
+    If you finish the quests for every single pillar (very hard due to restrictions placed as you unlock them) you become a sort of "God"
+    Unlocking a pillar gives you divine energy and gives access to divine spells for your "throne," each throne corresponding to each pillar
+    Each pillar comes from an aspect of the "God's" power.
