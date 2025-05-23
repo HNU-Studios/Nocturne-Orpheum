@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <limits>
 #include <random>
-// #include <ncurses.h>
+#include <GLFW/glfw3.h>
 
 #include "../headers/move.h"
 #include "../headers/Shop.h"
@@ -351,7 +351,7 @@ int main() { // Story starts from here, core functionality is in the decision() 
         }
         currentSect.putOnGround(first);
         currentSect.putOnGround(second);
-        cout << story[0];
+        cout << "\nWatch it, there's an enemy ahead!" << endl;
         if (equipped["Weapon"] == item("", "", 0)) cout << endl << "You don't have a weapon equipped! If you haven't picked up a weapon, try using p to pick find one. If you have, use e to equip your weapon.";
         else cout << endl << "You have a weapon! Use 'a' to attack the enemy!";
         while (true) {
