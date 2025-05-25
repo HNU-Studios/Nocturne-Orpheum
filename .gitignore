@@ -1,5 +1,6 @@
-game
+src/game
 game.zip
-main
-build
-../main.s
+src/main
+src/build/main.o
+src/build/*
+main.s
