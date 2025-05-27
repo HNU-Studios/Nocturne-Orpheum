@@ -56,7 +56,7 @@ char decision() {
                         cout << endl << c << ") NAME: " << i.getName() << ", ATK: "<< i.getPower() << ", HP: " << i.getHp();
                         c++;
                     }
-                    cout << "\nEnter the number of the enemy to attack: ";
+                    cout << "\nEnter the number of the enemy to attack (0 to cancel): ";
                     int en;
                     while (true) {
                         if (!(cin >> en) || en > (c - 1)) {
@@ -67,6 +67,7 @@ char decision() {
                         }
                         else break;
                     }
+                    if (en <= 0) return 'a';
                     if (skills.size() != 0) {
                         cout << "\nSkills avaliable: " << endl;
                         for (long unsigned int i = 0; i < skills.size(); i++) {
@@ -150,7 +151,7 @@ char decision() {
                     }
                     if (stat["Current HP"] <= 0) {
                         if (equipped["Artifact 1"] == revivalStone || equipped["Artifact 2"] == revivalStone || equipped["Artifact 3"] == revivalStone || equipped["Artifact 4"] == revivalStone || equipped["Artifact 5"] == revivalStone) {
-                            cout << "\nYou had the revival stone and have been brought back to life! Welcome back, adventurer.\n";
+                            cout << "\nYou had the revival stone and have been brought back to life! Welcome back, " << name << ".\n";
                             stat["Current HP"] = stat["HP"];
                         }
                         else {
@@ -180,7 +181,7 @@ char decision() {
                 if (stat["Current HP"] <= 0) {
                     if (stat["Current HP"] <= 0) {
                         if (equipped["Artifact 1"] == revivalStone || equipped["Artifact 2"] == revivalStone || equipped["Artifact 3"] == revivalStone || equipped["Artifact 4"] == revivalStone || equipped["Artifact 5"] == revivalStone) {
-                            cout << "You had the revival stone and have been brought back to life! Welcome back, adventurer.\n";
+                            cout << "You had the revival stone and have been brought back to life! Welcome back, " << name << ".\n";
                             stat["Current HP"] = stat["HP"];
                         }
                         else {
@@ -361,7 +362,7 @@ int main() { // Story starts from here, core functionality is in the decision() 
         }
         if (stat["Current HP"] <= 0) {
             if (equipped["Artifact 1"] == revivalStone || equipped["Artifact 2"] == revivalStone || equipped["Artifact 3"] == revivalStone || equipped["Artifact 4"] == revivalStone || equipped["Artifact 5"] == revivalStone) {
-                cout << "You had the revival stone and have been brought back to life! Welcome back, adventurer.\n";
+                cout << "You had the revival stone and have been brought back to life! Welcome back, " << name << ".\n";
                 stat["Current HP"] = stat["HP"];
             }
             else {
@@ -395,7 +396,7 @@ int main() { // Story starts from here, core functionality is in the decision() 
         }
         if (stat["Current HP"] <= 0) {
             if (equipped["Artifact 1"] == revivalStone || equipped["Artifact 2"] == revivalStone || equipped["Artifact 3"] == revivalStone || equipped["Artifact 4"] == revivalStone || equipped["Artifact 5"] == revivalStone) {
-                cout << "You had the revival stone and have been brought back to life! Welcome back, adventurer.\n";
+                cout << "You had the revival stone and have been brought back to life! Welcome back, " << name << ".\n";
                 stat["Current HP"] = stat["HP"];
             }
             else {
