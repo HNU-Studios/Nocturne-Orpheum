@@ -11,4 +11,9 @@ Please contribute if you'd like! Any help is appreciated. Need help thinking of 
 #### Run ``./game`` to start the game (runs in terminal)
 #### Follow the instructions in the game, and have fun!
 
+### Todo:
+    1) Add story!!!
+    2) Add graphics (OpenGL or SFML)
+    3) Add quests (./headers/quest.h)
+
 ### Known bugs: None (just fixed issue where pick didn't erase from ground, stupid mistake lmao)
