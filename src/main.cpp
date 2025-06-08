@@ -6,9 +6,9 @@
 #include <random>
 #include <GLFW/glfw3.h>
 
-#include "../headers/move.h"
-#include "../headers/Shop.h"
-#include "../headers/story.h"
+#include <headers/move.h>
+#include <headers/Shop.h>
+#include <headers/story.h>
 using namespace std;
 sector currentSect = Andris;
 char where;
