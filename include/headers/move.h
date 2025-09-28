@@ -42,6 +42,43 @@ char Move(){
     }
     return ' ';
 }
+char Move(char option) {
+  if ((toupper(option) == 'U') || (toupper(option) == 'N')){
+    cout << "Current coords before moving: " << currCoords.first << ", " << currCoords.second << ".\n";
+    currCoords.second++;
+    if(currCoords.second == 6) {
+      cout << "Hit north boundary!\n";
+      currCoords = {currCoords.first, 1};
+      return 'n';
+    }
+  }
+  else if ((toupper(option) == 'D') || (toupper(option) == 'S')){
+    currCoords.second--;
+    if (currCoords.second == 0){
+      currCoords = {currCoords.first, 5};
+      return 's';
+    }
+  }
+  else if ((toupper(option) == 'L') || (toupper(option) == 'W')){
+    currCoords.first--;
+    if (currCoords.first == 0){
+      currCoords = {5, currCoords.second};
+      return 'w';
+    }
+  }
+  else if ((toupper(option) == 'R') || (toupper(option) == 'E')){
+    currCoords.first++;
+    if (currCoords.first == 6){
+      currCoords = {1, currCoords.second};
+      return 'e';
+    }
+  }
+  else{
+    cout << "That isn't a valid direction!";
+    return 'S';
+  }
+  return ' ';
+}
 void getCoords(){
     cout << "Your current coordinates are (" << currCoords.first << ", " << currCoords.second << ").";
 }

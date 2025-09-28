@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <limits>
 #include <random>
-#include <GLFW/glfw3.h>
+// #include <GLFW/glfw3.h>
 
 #include <headers/move.h>
 #include <headers/Shop.h>
@@ -24,7 +24,7 @@ double randomNum() {
     return random_number;
 }
 void help() { // Prints the help menu
-    cout << "HELP MENU\n\nMAIN FUNCTIONS:\nc: continue the story\nq: quit game\ns: show your stats\n\nINVENTORY FUNCTIONS:\ni: show inventory\np: pick an item up from the ground\nd: drop an item to the ground\ne: equip an equippable item from your inventory\nu: unequip an equipped item\nS or $: show the shop\n\nLOCATION FUNCTIONS:\nm: move around\nw: show what sector you're in\n\nENEMIES:\na: attack enemies\nr: detect enemies with the radar\n";
+    cout << "HELP MENU\n\nMAIN FUNCTIONS:\nc: continue the story\nq: quit game\ns: show your stats\n\nINVENTORY FUNCTIONS:\ni: show inventory\np: pick an item up from the ground\nd: drop an item to the ground\ne: equip an equippable item from your inventory\nu: unequip an equipped item\n$: show the shop\n\nLOCATION FUNCTIONS:\nm: move around\nw: show what sector you're in\nN: move north\nS: move south\nE: move east\n W: move west\n\nENEMIES:\na: attack enemies\nr: detect enemies with the radar\n";
 }
 void stats() { // Prints a user's stats
     for (const auto& pair : stat) {
@@ -196,7 +196,6 @@ char decision() {
                                 << "You can play again, but will not retain any of your stuff.\n"
                                 << "Good job on this run, " << name << ".\x1b[0m"
                                 << " ";
-
                             return 'q';
                         }
                     }
@@ -240,6 +239,70 @@ char decision() {
                     cout << "\n";
                 }
             	return option;
+            case ('N'):
+              where = Move('N');
+              if (where == ' ') cout << "Move complete\n";
+              else if (where == 'n') {
+                if (currentSect.getNorth() != "") {
+                  for (sector i: sects) {
+                    if (i.getName() == currentSect.getNorth()) {
+                      cout << "Found town North: " << currentSect.getNorth() << " is the town North of you." << i.getName() << endl;
+                      currentSect = i;
+                      return option;
+                    }
+                  }
+                }
+                else cout << "No town found North of you! You are currently as far North as possible in town " << currentSect.getName() << endl;
+              }
+              break;
+            case ('S'):
+              where = Move('S');
+              if (where == ' ') cout << "Move complete";
+              else if (where == 's') {
+                if (currentSect.getSouth() != "") {
+                  for (sector i: sects) {
+                    if (i.getName() == currentSect.getSouth()) {
+                      cout << "Found town South: " << currentSect.getSouth() << " is the town South of you." << endl;
+                      currentSect = i;
+                      return option;
+                    }
+                  }
+                }
+                else cout << "No town found South of you! You are currently as far South as possible in town " << currentSect.getName() << endl;
+              }
+              break;
+            case ('E'):
+              where = Move('E');
+              if (where == ' ') cout << "Move complete";
+              else if (where == 'e') {
+                if (currentSect.getEast() != "") {
+                  for (sector i: sects) {
+                    if (i.getName() == currentSect.getEast()) {
+                      cout << "Found town East: " << currentSect.getEast() << " is the town East of you." << endl;
+                      currentSect = i;
+                      return option;
+                    }
+                  }
+                }
+                else cout << "No town found East of you! You are currently as far East as possible in town " << currentSect.getName() << endl;
+              }
+              break;
+            case ('W'):
+              where = Move('W');
+              if (where == ' ') cout << "Move complete";
+              else if (where == 'w') {
+                if (currentSect.getWest() != "") {
+                  for (sector i: sects) {
+                    if (i.getName() == currentSect.getWest()) {
+                      cout << "Found town West: " << currentSect.getWest() << " is the town West of you." << endl;
+                      currentSect = i;
+                      return option;
+                    }
+                  }
+                }
+                else cout << "No town found West of you! You are currently as far West as possible in town " << currentSect.getName() << endl;
+              }
+              break;
             case ('m'):
                 where = Move();
                 if(where == ' ') {
@@ -298,7 +361,6 @@ char decision() {
             case ('w'):
                 cout << "You are currently in " << currentSect.getName() << "\n" << "Your current coordinates are (" << currCoords.first << ", " << currCoords.second << ")." << endl;
                 return option;
-            case('S'):
             case('$'):
                 shop();
 		return option;
@@ -318,7 +380,7 @@ string tolower(string s) { // Overloading tolower because apparantly it can't ta
 int main() { // Story starts from here, core functionality is in the decision() function and other header files, ilke inventory.h or move.h
     cout << "Welcome, adventurer.\nEnter your name here: ";
     getline(cin, name);
-    cout << "Please choose a class. For information about classes, type \"help\"";
+    /* cout << "Please choose a class. For information about classes, type \"help\"";
     while (true) {
         cin >> race;
         if (race == "help") {
@@ -337,7 +399,7 @@ int main() { // Story starts from here, core functionality is in the decision() 
             
             break;
         }
-    }
+    } */ 
     cout << "Hello, " << name << ". Welcome to the world.\n\nYou start as a human with all your stats set to 1, HP at 10, but as time goes on, you can level up your stats, learn skills, collect weapons, and find gear.\n\nGear and weapons can also have their own buffs and skills as you get further in the game.\n\nHere, take this [BASIC DULL SWORD], [CHIPPED HELMET], and [REVIVAL STONE] (press p to pick up).\n\n";
     currentSect.putOnGround(dullSword);
     currentSect.putOnGround(chippedHelmet);

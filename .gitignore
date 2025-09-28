@@ -4,3 +4,7 @@ src/main
 src/build/main.o
 src/build/*
 main.s
+build/*
+*.xcf
+textGame
+
