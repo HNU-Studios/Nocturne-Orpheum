@@ -1,60 +1,58 @@
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include <SFML/Graphics.hpp>
 #include <iostream>
-#include "shader_loader.h"
-void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
-    glViewport(0, 0, width, height);
+#include <cmath>
+bool isMoving() {
+  return (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W));
 }
-
-void processInput(GLFWwindow* window) {
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
-}
-
 int main() {
-    // Initialize GLFW
-    if (!glfwInit()) {
-        std::cerr << "Failed to initialize GLFW\n";
-        return -1;
+  sf::RenderWindow window(sf::VideoMode({800, 600}), "Zandris");
+  sf::Texture placeholder ("assets/crate.png", false, sf::IntRect({1, 1}, {750, 550}));
+  sf::Texture texture("assets/chest.png", false, sf::IntRect({1, 1}, {40, 32}));
+  sf::Sprite sprite(texture);
+  sf::Sprite heart(placeholder);
+  float normalSpeed = 1.f, sprintSpeed = 5.f, speed = 1.f, stamina = 10.f;
+  bool isSprinting = false, recharging = false;
+  while (window.isOpen()) {
+    isSprinting = sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift) && !recharging;
+    // speed = isSprinting ? sprintSpeed : normalSpeed;
+    if (!isSprinting && stamina < 10) stamina += 0.000001f;
+    std::cout << stamina << " stamina left. " << speed << " is the current speed.\n";
+    while (const std::optional event = window.pollEvent()) {
+      if (isSprinting && isMoving()) stamina -= 0.03f;
+      if (event -> is<sf::Event::Closed>()) window.close();
+      else if (const auto* key = event -> getIf<sf::Event::KeyPressed>()) {
+        speed = isSprinting ? sprintSpeed : normalSpeed;
+        stamina = (speed == sprintSpeed) ? (stamina - 0.1) : (stamina + 0.1);
+        if (stamina > 10.f) stamina = 10.f;
+        if (stamina <= 0) {
+          speed = normalSpeed;
+          stamina = 0;
+          isSprinting = false;
+          recharging = true;
+        }
+        if (stamina >= 2) recharging = false;
+        if (key -> scancode == sf::Keyboard::Scancode::Escape) window.close();
+      }
+      else if (event -> is<sf::Event::FocusLost>())
+        std::cout << "Come back :(\n";
+      else if (event -> is<sf::Event::FocusGained>())
+        std::cout << "Welcome back :D\n";
+      sf::Vector2f direction(0.f, 0.f);
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::A)) direction.x -= speed;
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::D)) direction.x += speed;
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::W)) direction.y -= speed;
+      if (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::S)) direction.y += speed;
+      float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+      if (length != 0.f) {
+        direction.x /= length;
+        direction.y /= length;
+      }
+      sprite.move(direction * speed);
+      heart.setPosition({780.f, 550.f});
+      window.clear(sf::Color::Black);
+      window.draw(heart);
+      window.draw(sprite);
+      window.display();
     }
-
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    GLFWwindow* window = glfwCreateWindow(800, 600, "Zandris", nullptr, nullptr);
-    if (!window) {
-        std::cerr << "Failed to create GLFW window\n";
-        glfwTerminate();
-        return -1;
-    }
-    glfwMakeContextCurrent(window);
-
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        std::cerr << "Failed to initialize GLAD\n";
-        return -1;
-    }
-
-    glViewport(0, 0, 800, 600);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    unsigned int shaderProgram = createShaderProgram(
-        "assets/shaders/basic.vert",
-        "assets/shaders/basic.frag"
-    );
-    glUseProgram(shaderProgram);
-    // Render loop
-    while (!glfwWindowShouldClose(window)) {
-        processInput(window);
-
-        // Clear the screen with teal color
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-
-        glfwSwapBuffers(window);
-        glfwPollEvents();
-    }
-
-    glfwTerminate();
-    return 0;
+  }
 }
-

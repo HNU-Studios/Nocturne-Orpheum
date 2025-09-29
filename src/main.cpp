@@ -9,7 +9,8 @@
 #include <headers/move.h>
 #include <headers/Shop.h>
 #include <headers/story.h>
-using namespace std;
+#include <headers/npc.h>
+// #include <headers/helpers.h>
 sector currentSect = Andris;
 char where;
 string name, race;
@@ -30,6 +31,13 @@ void stats() { // Prints a user's stats
     for (const auto& pair : stat) {
         cout << pair.first << ": " << pair.second << "\n";
     }
+}
+string tolower(string s) { // Overloading tolower because apparantly it can't take a string?
+    string s2 = "";
+    for (char c: s) {
+        s2 += tolower(c);
+    }
+    return s2;
 }
 char decision() {
     while (true) {
@@ -370,13 +378,6 @@ char decision() {
         }
     }
 }
-string tolower(string s) { // Overloading tolower because apparantly it can't take a string?
-    string s2 = "";
-    for (char c: s) {
-        s2 += tolower(c);
-    }
-    return s2;
-}
 int main() { // Story starts from here, core functionality is in the decision() function and other header files, ilke inventory.h or move.h
     cout << "Welcome, adventurer.\nEnter your name here: ";
     getline(cin, name);
@@ -400,83 +401,97 @@ int main() { // Story starts from here, core functionality is in the decision() 
             break;
         }
     } */ 
-    cout << "Hello, " << name << ". Welcome to the world.\n\nYou start as a human with all your stats set to 1, HP at 10, but as time goes on, you can level up your stats, learn skills, collect weapons, and find gear.\n\nGear and weapons can also have their own buffs and skills as you get further in the game.\n\nHere, take this [BASIC DULL SWORD], [CHIPPED HELMET], and [REVIVAL STONE] (press p to pick up).\n\n";
-    currentSect.putOnGround(dullSword);
-    currentSect.putOnGround(chippedHelmet);
-    currentSect.putOnGround(revivalStone);
-    enemy first("Test", 1, 1);
-    enemy second("Other Test", 1, 5);
-    while (true) {
-        while (true) {
-            char d = decision();
-            if (d == 'q') return 0;
-            if (d == 'c') break;
-        }
-        currentSect.putOnGround(first);
-        currentSect.putOnGround(second);
-        cout << "\nWatch it, there's an enemy ahead!" << endl;
-        if (equipped["Weapon"] == item("", "", 0)) cout << endl << "You don't have a weapon equipped! If you haven't picked up a weapon, try using p to pick find one. If you have, use e to equip your weapon.";
-        else cout << endl << "You have a weapon! Use 'a' to attack the enemy!";
-        while (true) {
-            char d = decision();
-            if (d == 'q') return 0;
-            if (d == 'c') break;
-        }
-        if (stat["Current HP"] <= 0) {
-            if (equipped["Artifact 1"] == revivalStone || equipped["Artifact 2"] == revivalStone || equipped["Artifact 3"] == revivalStone || equipped["Artifact 4"] == revivalStone || equipped["Artifact 5"] == revivalStone) {
-                cout << "You had the revival stone and have been brought back to life! Welcome back, " << name << ".\n";
-                stat["Current HP"] = stat["HP"];
-            }
-            else {
-                cout << "\n\n"
-                    << "\x1b[1;31;41m\n\n"
-                    << "=======================================\n"
-                    << "               YOU DIED               \n"
-                    << "=======================================\n"
-                    << "\x1b[0m"
-                    << " \n\n"
-                    << "\x1b[1m"
-                    << "You can play again, but will not retain any of your stuff.\n"
-                    << "Good job on this run, " << name << ".\x1b[0m"
-                    << " ";
-
-                return 0;
-            }
-        }
-        if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
-        while (true) {
-            char d = decision();
-            if (d == 'q') return 0;
-            if (d == 'c') break;
-        }
-        if (decision() == 'q') return 0;
-        cout << "\nGood job. You've defeated your first enemy. If you want to relax your arms, use 'u' to unequip your weapon! This is optional, of course.\nIf you'd like to move around, use 'm' and pick a direction.";
-        while (true) {
-            char d = decision();
-            if (d == 'q') return 0;
-            if (d == 'c') break;
-        }
-        if (stat["Current HP"] <= 0) {
-            if (equipped["Artifact 1"] == revivalStone || equipped["Artifact 2"] == revivalStone || equipped["Artifact 3"] == revivalStone || equipped["Artifact 4"] == revivalStone || equipped["Artifact 5"] == revivalStone) {
-                cout << "You had the revival stone and have been brought back to life! Welcome back, " << name << ".\n";
-                stat["Current HP"] = stat["HP"];
-            }
-            else {
-                cout << "\n\n"
-                    << "\x1b[1;31;41m\n\n"
-                    << "=======================================\n"
-                    << "               YOU DIED               \n"
-                    << "=======================================\n"
-                    << "\x1b[0m"
-                    << " \n\n"
-                    << "\x1b[1m"
-                    << "You can play again, but will not retain any of your stuff.\n"
-                    << "Good job on this run, " << name << ".\x1b[0m"
-                    << " ";
-                return 0;
-            }
-        }
-        if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];    
+    
+    std::cout << "Would you like to start the tutorial or skip to the story? (For tutorial, type \"t\", for the story, type \"s\"): ";
+    std::string op = "";
+    std::getline(std::cin, op);
+    while (tolower(op[0]) != 't' && tolower(op[0]) != 's') {
+      cout << "You entered " << op << ".\n";
+      cout << "Please enter either 't' for the tutorial or 's' to skip to the story: ";
+      cin >> op;
     }
-    return 0;
+    if (tolower(op[0]) == 't') {
+      cout << "Hello, " << name << ". Welcome to the world.\n\nYou start as a human with all your stats set to 1, HP at 10, but as time goes on, you can level up your stats, learn skills, collect weapons, and find gear.\n\nGear and weapons can also have their own buffs and skills as you get further in the game.\n\nHere, take this [BASIC DULL SWORD], [CHIPPED HELMET], and [REVIVAL STONE] (press p to pick up).\n\n";
+      currentSect.putOnGround(dullSword);
+      currentSect.putOnGround(chippedHelmet);
+      currentSect.putOnGround(revivalStone);
+      enemy first("Test", 1, 1);
+      enemy second("Other Test", 1, 5);
+      while (true) {
+        char d = decision();
+        if (d == 'q') return 0;
+        if (d == 'c') break;
+      }
+      currentSect.putOnGround(first);
+      currentSect.putOnGround(second);
+      cout << "\nWatch it, there's an enemy ahead!" << endl;
+      if (equipped["Weapon"] == item("", "", 0)) cout << endl << "You don't have a weapon equipped! If you haven't picked up a weapon, try using p to pick find one. If you have, use e to equip your weapon.";
+      else cout << endl << "You have a weapon! Use 'a' to attack the enemy!";
+      while (true) {
+        char d = decision();
+        if (d == 'q') return 0;
+        if (d == 'c') break;
+      }
+      if (stat["Current HP"] <= 0) {
+        if (equipped["Artifact 1"] == revivalStone || equipped["Artifact 2"] == revivalStone || equipped["Artifact 3"] == revivalStone || equipped["Artifact 4"] == revivalStone || equipped["Artifact 5"] == revivalStone) {
+          cout << "You had the revival stone and have been brought back to life! Welcome back, " << name << ".\n";
+          stat["Current HP"] = stat["HP"];
+        }
+      else {
+        cout << "\n\n"
+            << "\x1b[1;31;41m\n\n"
+            << "=======================================\n"
+            << "               YOU DIED               \n"
+            << "=======================================\n"
+            << "\x1b[0m"
+            << " \n\n"
+            << "\x1b[1m"
+            << "You can play again, but will not retain any of your stuff.\n"
+            << "Good job on this run, " << name << ".\x1b[0m"
+            << " ";
+        return 0;
+      }
+    }
+    if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
+    while (true) {
+      char d = decision();
+      if (d == 'q') return 0;
+      if (d == 'c') break;
+    }
+    if (decision() == 'q') return 0;
+    cout << "\nGood job. You've defeated your first enemy. If you want to relax your arms, use 'u' to unequip your weapon! This is optional, of course.\nIf you'd like to move around, use 'm' and pick a direction.";
+    while (true) {
+      char d = decision();
+      if (d == 'q') return 0;
+      if (d == 'c') break;
+    }
+    if (stat["Current HP"] <= 0) {
+      if (equipped["Artifact 1"] == revivalStone || equipped["Artifact 2"] == revivalStone || equipped["Artifact 3"] == revivalStone || equipped["Artifact 4"] == revivalStone || equipped["Artifact 5"] == revivalStone) {
+        cout << "You had the revival stone and have been brought back to life! Welcome back, " << name << ".\n";
+        stat["Current HP"] = stat["HP"];
+      }
+      else {
+        cout << "\n\n"
+            << "\x1b[1;31;41m\n\n"
+            << "=======================================\n"
+            << "               YOU DIED               \n"
+            << "=======================================\n"
+            << "\x1b[0m"
+            << " \n\n"
+            << "\x1b[1m"
+            << "You can play again, but will not retain any of your stuff.\n"
+            << "Good job on this run, " << name << ".\x1b[0m"
+            << " ";
+        return 0;
+      }
+    }
+    if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
+  }
+  cout << "Alright, looks like you know the controls. Now, welcome to Zandris. You may have lost your memory after the collapse of Orpheus, so allow me to clue you in.\nThe sky you see above you is actually the ocean K'ver, and those stars are living leviathans. They've been docile until now, so we don't know what their intentions are, but at least they give us light.\nMost people, including you, have been corrupted by the side effects of magic and Orpheus collapsing. You, however, are special, patient 0. You can earn your memories back. However, it won't be easy. To start with, give this voice in your head a name, will you?\n";
+  cout << "Enter your guide's name. This cannot be changed later on, so choose carefully!: ";
+  cin.ignore();
+  getline(cin, name);
+  npc* guide = new npc(name, "guide");
+  cout << "Huh, " << guide -> getName() << ", I like that! Thanks! Now, let's get to it.\n";
+  return 0;
 }
