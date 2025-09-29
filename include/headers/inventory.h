@@ -19,6 +19,12 @@ vector<skill> skills = {}; // Stores skills a user can use (may be included with
 vector<enemy> enemies;
 map<item, int> misc = {{item("Gold", "Misc", 1), 0}}; // Stores things like money
 int c; // Counter for printing numbers
+
+void clearInv() { // Function to clear the player's inventory 
+  food = {};
+  weapons = {};
+  gear = {};
+}
 void inventory(){ // Functions for printing a user's inventory
     /*Instructions*/ cout << "For food: f\nFor weapons: w\nFor gear: g\nFor skills: s\nFor all items: i\nEnter your option (leave blank to exit this menu): ";
     char option;

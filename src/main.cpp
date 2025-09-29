@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <limits>
 #include <random>
+#include <chrono>
+#include <thread>
 
 // Custom header files here
 #include <headers/move.h>
@@ -15,9 +17,15 @@
 // Creating variables & setting info
 sector currentSect = Andris;
 char where;
-string name, race;
+string name = "NAME";
 bool b = false;
-int lives = 5; // Starting the user off with 5 lives, this IS changable. Check ../extra/lore.txt to see how
+int lives = 5, seconds = 2; // Starting the user off with 5 lives, this IS changable. Check ../extra/lore.txt to see how
+               
+// Helper function to sleep for a certain amount of milliseconds
+void sleep(int time) {
+  std::this_thread::sleep_for(std::chrono::milliseconds(time)); // I am NOT typing this whole thing over and over, that's why I made it a function
+}
+
 // Helper function to get random number (used in attack)
 double randomNum() {
     random_device rd; 
@@ -41,6 +49,29 @@ void stats() {
     }
 }
 
+// Change game settings like name, seconds to wait, etc
+void settings() {
+  int op;
+  std::cout << "Choose a value to change:\n1) General settings\n2)Player info\n3) Controls\nEnter a number: ";
+  while (!(std::cin >> op) || op < 0 || op > 3) {
+    std::cout << "Invalid input, enter a value from 1-3. 0 to cancel: ";
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  }
+  switch (op) {
+    case (1):
+      cout << "General settings:\n1) Change time between text clears\n2) Save current game progress (working on making this automatic)";
+      break;
+    case (2):
+      cout << "Player info:\n1) Change name";
+      break;
+    case (3):
+      cout << "Controls:\n";
+      cout << "Current controls:\n";
+      help();
+  }
+}
+
 // Overloading tolower since it only takes a character, not a string smh
 string tolower(string s) {
     string s2 = "";
@@ -54,7 +85,6 @@ string tolower(string s) {
 char decision() {
     while (true) {
         char option;
-        // system("clear");
         cout << "\nEnter an option (? or h for help, c to continue story, q to quit): ";
         if (!(cin >> option)) {
             // If the input isn't an int, clear it and retry
@@ -383,6 +413,10 @@ char decision() {
                 return option;
             case('$'): // Opens shop (not complete)
                 shop();
+                return option;
+            case('o'):
+              settings();
+              return option;
 		return option;
             default: // Self explanatory
                 cout << "Invalid input, please try again\n";
@@ -393,36 +427,21 @@ char decision() {
 
 // Main game loop w/ story
 int main() { // Story starts from here, core functionality is in the decision() function and other header files, ilke inventory.h or move.h
+    cout << "Please enter a speed from 1 - 20. The lower the speed, the faster text will erase from the screen.\nIt will be easier to read at higher numbers, but the game will move faster at a lower number.\nYou can change this later in the game options.\nEnter a value now: ";
+    while (!(cin >> seconds) || seconds < 1 || seconds > 20) {
+      std::cout << "Please enter a valid number from 1 - 20 seconds: ";
+      std::cin.clear(); std::cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
+    }
+    std::cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
     cout << "Welcome, adventurer.\nEnter your name here: ";
     getline(cin, name);
-    /* cout << "Please choose a class. For information about classes, type \"help\"";
-    while (true) {
-        cin >> race;
-        if (race == "help") {
-            cout << "This information is also avaliable in the \"extra\" directory where you downloaded the game to. If downloaded to your downloads, it would be in Downloads/zandris/extra/races.txt.";
-            cout << "\nEVERY CLASS THAT IS NOT A BASE CLASS HAS THEIR OWN \"OP\" ABILITY!!\nYou're able to upgrade from base classes after level 20, and if you want to switch classes, you get to do so at a cost (check the shop in the game!)\nChoose a class to see it's information.\nAvaliable classes (type the number or the name of the class):\n1) Human\n2) Elf\n3) Wizard\nMore classes will be added, and each of these base classes have a subclass";
-        }
-        else if (tolower(race) == "elf") {
-            
-            break;
-        }
-        else if (tolower(race) == "human") {
-            
-            break;
-        }
-        else if (tolower(race) == "pillar") {
-            
-            break;
-        }
-    } */ 
-    
     std::cout << "Would you like to start the tutorial or skip to the story? (For tutorial, type \"t\", for the story, type \"s\"): ";
     std::string op = "";
     std::getline(std::cin, op);
     while (tolower(op[0]) != 't' && tolower(op[0]) != 's') {
       cout << "You entered " << op << ".\n";
       cout << "Please enter either 't' for the tutorial or 's' to skip to the story: ";
-      cin >> op;
+      std::getline(std::cin, op);
     }
     if (tolower(op[0]) == 't') {
       cout << "Hello, " << name << ". Welcome to the world.\n\nYou start as a human with all your stats set to 1, HP at 10, but as time goes on, you can level up your stats, learn skills, collect weapons, and find gear.\n\nGear and weapons can also have their own buffs and skills as you get further in the game.\n\nHere, take this [BASIC DULL SWORD], [CHIPPED HELMET], and [REVIVAL STONE] (press p to pick up).\n\n";
@@ -467,12 +486,11 @@ int main() { // Story starts from here, core functionality is in the decision() 
       }
     }
     if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
-    while (true) {
+    /* while (true) {
       char d = decision();
       if (d == 'q') return 0;
       if (d == 'c') break;
-    }
-    if (decision() == 'q') return 0;
+    } */
     cout << "\nGood job. You've defeated your first enemy. If you want to relax your arms, use 'u' to unequip your weapon! This is optional, of course.\nIf you'd like to move around, use 'm' and pick a direction.";
     while (true) {
       char d = decision();
@@ -500,12 +518,25 @@ int main() { // Story starts from here, core functionality is in the decision() 
       }
     }
     if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
+    cout << "TUTORIAL FINISHED\n";
+    clearInv();
+    stat["Current HP"] = stat["HP"];
   }
-  cout << "Alright, looks like you know the controls. Now, welcome to Zandris. You may have lost your memory after the collapse of Orpheus, so allow me to clue you in.\nThe sky you see above you is actually the ocean K'ver, and those stars are living leviathans. They've been docile until now, so we don't know what their intentions are, but at least they give us light.\nMost people, including you, have been corrupted by the side effects of magic and Orpheus collapsing. You, however, are special, patient 0. You can earn your memories back. However, it won't be easy. To start with, give this voice in your head a name, will you?\n";
+  cout << "Alright, looks like you know the controls. Now, welcome to Zandris. You may have lost your memory after the collapse of Orpheum, so allow me to clue you in.\nThe sky you see above you is actually the ocean K'ver, and those stars are living leviathans. They've been docile until now, so we don't know what their intentions are, but at least they give us light.\nMost people, including you, have been corrupted by the side effects of magic and Orpheum collapsing. You, however, are special, patient 0. You can earn your memories back. However, it won't be easy. To start with, give this voice in your head a name, will you?\n";
   cout << "Enter your guide's name. This cannot be changed later on, so choose carefully!: ";
-  cin.ignore();
+  // cin.ignore();
   getline(cin, name);
   npc* guide = new npc(name, "guide");
   cout << "Huh, " << guide -> getName() << ", I like that! Thanks! Now, let's get to it.\n";
+  cout << "Firstly, here's something cool. Let's go back about a few hours, shall we?\n"; // If you look in ../extra/lore.txt, you'll see that a cutscene is mentioned at the beginning. Since I'm limited by this text based game, I'm just typing it out.
+  sleep(seconds * 1500); // Longer wait since this is a LOT of text
+  cout << "\033[2J"; // Clear screen (multiplatform, system("CLS | clear") is annoying)
+  cout << "\033[1;1H"; // Move cursor to the top left of the screen
+  cout << "Hmm, let's see here...\nTo start Project Orpheum, which was being developed in this very lab... if you can still call it that, was an attempt to link this world to a higher dimension using magic, and it worked. There were, however, adverse effects.\nIf you look above you, the leviathans that once lit up our world no longer have their light.\nThat's just one effect of the bridge between the 2 worlds. The major effect is... UNAUTHORIZED. REVERTING STATE.\n";
+  while (true) {
+    char d = decision();
+    if (d == 'q') return 0;
+    if (d == 'c') break;
+  }
   return 0;
 }
