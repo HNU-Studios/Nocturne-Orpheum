@@ -1,20 +1,24 @@
+// Header files in the std namespace
 #include <iostream>
 #include <map>
 #include <vector>
 #include <algorithm>
 #include <limits>
 #include <random>
-// #include <GLFW/glfw3.h>
 
+// Custom header files here
 #include <headers/move.h>
 #include <headers/Shop.h>
 #include <headers/story.h>
 #include <headers/npc.h>
-// #include <headers/helpers.h>
+
+// Creating variables & setting info
 sector currentSect = Andris;
 char where;
 string name, race;
 bool b = false;
+int lives = 5; // Starting the user off with 5 lives, this IS changable. Check ../extra/lore.txt to see how
+// Helper function to get random number (used in attack)
 double randomNum() {
     random_device rd; 
     mt19937 gen(rd());
@@ -24,21 +28,29 @@ double randomNum() {
     double random_number = distrib(gen);
     return random_number;
 }
-void help() { // Prints the help menu
+
+// Help manu, idk why I didn't just put this in the switch case but wtvr
+void help() {
     cout << "HELP MENU\n\nMAIN FUNCTIONS:\nc: continue the story\nq: quit game\ns: show your stats\n\nINVENTORY FUNCTIONS:\ni: show inventory\np: pick an item up from the ground\nd: drop an item to the ground\ne: equip an equippable item from your inventory\nu: unequip an equipped item\n$: show the shop\n\nLOCATION FUNCTIONS:\nm: move around\nw: show what sector you're in\nN: move north\nS: move south\nE: move east\n W: move west\n\nENEMIES:\na: attack enemies\nr: detect enemies with the radar\n";
 }
-void stats() { // Prints a user's stats
+
+// Returns the user's stats (this also could've been put in the switch case)
+void stats() {
     for (const auto& pair : stat) {
         cout << pair.first << ": " << pair.second << "\n";
     }
 }
-string tolower(string s) { // Overloading tolower because apparantly it can't take a string?
+
+// Overloading tolower since it only takes a character, not a string smh
+string tolower(string s) {
     string s2 = "";
     for (char c: s) {
         s2 += tolower(c);
     }
     return s2;
 }
+
+// Switch case for the user to preform actions
 char decision() {
     while (true) {
         char option;
@@ -53,7 +65,7 @@ char decision() {
         }
         long unsigned int* skillChoice = nullptr;
         switch (option) {
-	        case ('a'):
+	        case ('a'): // Attack enemies
                 // *skillChoice = 0;
                 cout << "Tip! You can scan for enemies without attacking them using your radar! Type 'r' to use it\n";
                 if (currentSect.getEnemies().size() == 0) cout << "There are currently no enemies in this sector. Try using 'm' to move!";
@@ -185,7 +197,7 @@ char decision() {
                 skillChoice = nullptr; // We love killing our variables :3
                 return option;
                 break;
-            case ('c'):
+            case ('c'): // Continue the story
                 if (stat["Current HP"] <= 0) {
                     if (stat["Current HP"] <= 0) {
                         if (equipped["Artifact 1"] == revivalStone || equipped["Artifact 2"] == revivalStone || equipped["Artifact 3"] == revivalStone || equipped["Artifact 4"] == revivalStone || equipped["Artifact 5"] == revivalStone) {
@@ -210,32 +222,32 @@ char decision() {
                 }
                 if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];     
                 return option;
-            case ('h'):
-            case ('?'):
+            case ('h'): // Fallthhrough to next case (both of these are valid for help menu)
+            case ('?'): // Returns the help menu
                 help();
                 return option;
-            case ('i'):
+            case ('i'): // Check ../include/headers/inventory.h for this function
                 inventory();
                 return option;
-            case ('s'):
+            case ('s'): // Returns user's stata
                 stats();
                 return option;
-            case ('p'):
+            case ('p'): // Picks up item from the ground (this is also in ../include/headers/inventory.h)
                 pick(currentSect.getGround());
                 return option;
-            case ('e'):
+            case ('e'): // This is ALSO in ../include/headers/inventory.h
                 equip();
                 return option;
-            case ('u'):
+            case ('u'): // I wonder where this could be... maybe ../include/headers/inventory.h?
                 unequip();
                 return option;
-            case ('d'):
+            case ('d'): // Yep, also in ../include/headers/inventory.h
                 drop(currentSect.getGround());
                 return option;
-            case ('q'): // Sometimes doesn't close, idk why
+            case ('q'): // Quits the game 
                 cout << "Goodbye, " << name << "." << endl;
                 return option;
-            case ('r'):
+            case ('r'): // Radar to scan for enemies in the current sector
                 if (currentSect.getEnemies().size() == 0) cout << "There are currently no enemies. You're safe!\n";
                 else {
                     int count = 0;
@@ -247,7 +259,7 @@ char decision() {
                     cout << "\n";
                 }
             	return option;
-            case ('N'):
+            case ('N'): // Move north but faster than m > n
               where = Move('N');
               if (where == ' ') cout << "Move complete\n";
               else if (where == 'n') {
@@ -263,7 +275,7 @@ char decision() {
                 else cout << "No town found North of you! You are currently as far North as possible in town " << currentSect.getName() << endl;
               }
               break;
-            case ('S'):
+            case ('S'): // Move south but faster than m > s
               where = Move('S');
               if (where == ' ') cout << "Move complete";
               else if (where == 's') {
@@ -279,7 +291,7 @@ char decision() {
                 else cout << "No town found South of you! You are currently as far South as possible in town " << currentSect.getName() << endl;
               }
               break;
-            case ('E'):
+            case ('E'): // Move east but faster than m > e
               where = Move('E');
               if (where == ' ') cout << "Move complete";
               else if (where == 'e') {
@@ -295,7 +307,7 @@ char decision() {
                 else cout << "No town found East of you! You are currently as far East as possible in town " << currentSect.getName() << endl;
               }
               break;
-            case ('W'):
+            case ('W'): // Move west but faster than m > w
               where = Move('W');
               if (where == ' ') cout << "Move complete";
               else if (where == 'w') {
@@ -311,7 +323,7 @@ char decision() {
                 else cout << "No town found West of you! You are currently as far West as possible in town " << currentSect.getName() << endl;
               }
               break;
-            case ('m'):
+            case ('m'): // Move function (allows using u(p), d(own), l(eft), r(ight) instead of n, s, e, w)
                 where = Move();
                 if(where == ' ') {
                     cout << "Move complete\n";
@@ -366,18 +378,20 @@ char decision() {
                 }
                 else if (where == 'S') return option;
             return option;
-            case ('w'):
+            case ('w'): // Checks where the user is
                 cout << "You are currently in " << currentSect.getName() << "\n" << "Your current coordinates are (" << currCoords.first << ", " << currCoords.second << ")." << endl;
                 return option;
-            case('$'):
+            case('$'): // Opens shop (not complete)
                 shop();
 		return option;
-            default:
+            default: // Self explanatory
                 cout << "Invalid input, please try again\n";
                 return option;
         }
     }
 }
+
+// Main game loop w/ story
 int main() { // Story starts from here, core functionality is in the decision() function and other header files, ilke inventory.h or move.h
     cout << "Welcome, adventurer.\nEnter your name here: ";
     getline(cin, name);

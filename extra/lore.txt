@@ -1,4 +1,23 @@
 Lore!
-- Set in a Lord of the Rings type place
-- Races have all been in disagreement, but some have tried to patch it, while others loathe other races
-- 
+The "Zandris"" trilogy
+
+Premise
+- The corrupt government is revolted against by collegiate society as a whole, spearheaded by Professor Lyran Nevel
+- Project Orpheum is started, an effort to reconnect this world to the realm of the gods and reintroduce magic to the world
+- Things go horribly wrong. Magic corrupts everyone, causing them to lose their minds and bodies (some slower, more pained than others). 
+  - Corruption had already started during the link, but our MC was the only one near the machine when it started
+  - A drop of their blood had gotten into the machine, blending with the link’s corruption and making them one of the only ones who could resist it
+  - A specific pattern of their biological signature resonated with the corruption, making all who have this pattern, or close to it, immune.
+  - This brings rise to the idea of corruption resistance (all playable characters will have some factor of resistance)
+- The Royal houses crumble from within, meaningless wars started on every front.
+  - What’s worse, the more that die, the worse everyone else deteriorates
+- Lyran Nevel is no exception to this rule. His mind is fractured, his memories of this world lost, seemingly forever.
+  - We follow our hero’s journey through a dying world in his effort to save a hell of his own creation
+
+Chapter One: "Nocturne: Orpheum"
+- The hero is woken up by a voice in his head
+- When they wake up (following the collapse of Orpheum), we see the symbol of Orpheum in their eyes briefly, showing that it’s fully integrated with them
+- They see the destruction around them, and a memory flashes back. The first fragment we get to see.
+  - This cutscene isn’t very descriptive, it just introduces the fragments. It shows what happened moments before the meltdown.
+  - The blood dropping will be visible, but the cutscene won’t focus on it. It’ll just sorta happen. Depends on the player to see it or not.
+
