@@ -9,8 +9,11 @@ int lives = 5, seconds = 2; // Starting the user off with 5 lives, this IS chang
 
 // Helper function to display player info upon screen clear
 void header() {
-  std::cout << "============================\n"
-            << "| HP: " << std::setw(3) << std::setfill('0') << stat["Current HP"] << "/" << std::setw(3) << std::setfill('0') << stat["HP"] << "              |\n";
+  std::cout << "============================\n" // 28 character long for reference below 
+            << "| HP: " << std::setw(3) << std::setfill('0') << stat["Current HP"] << "/" << std::setw(3) << std::setfill('0') << stat["HP"] << "              |\n"
+            << "| Sector: " << currentSect.getName() << std::setw(19 - currentSect.getName().length()) << std::setfill(' ') << "|\n"
+            << "| Name: " << name << std::setw(21 - name.length()) << std::setfill(' ') << "|\n"
+            << "============================\n";
 }
 
 // Helper function to sleep for a certain amount of milliseconds
@@ -54,7 +57,7 @@ void settings() {
     case (1):
       cout << "General settings:\n1) Change time between text clears\n2) Save current game progress (working on making this automatic)"; // TODO: Make include/headers/save.h
       while (!(cin >> op2) || op2 < 0 || op2 > 2) {
-        std::cout << "Invalid input, enter a vlue from 1-2. Use 0 to cancel: ";
+        std::cout << "Invalid input, enter a value from 1-2. Use 0 to cancel: ";
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       }
@@ -88,7 +91,10 @@ void settings() {
           break;
         case (1):
           std::cout << "Enter a new name: ";
+          std::cin.clear();
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
           while (!(std::getline(cin, name))) {
+            name = "NAME";
             std::cout << "Invalid input, please try again";
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -111,7 +117,7 @@ void settings() {
       }
       if (key == CONTINUE_STORY) {
         cout << "Please enter a new key for CONTINUE_STORY now: ";
-        while (!(cin >> CONTINUE_STORY) || ) {
+        while (!(cin >> CONTINUE_STORY)) {
           std::cout << "Please enter a valid character that isn't already in use: ";
           std::cin.clear();
           std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -136,15 +142,17 @@ void settings() {
       break;
   }
 }
+}
 
 // Overloading tolower since it only takes a character, not a string smh
-string tolower(string s) {
+std::string tolower(std::string s) {
     string s2 = "";
     for (char c: s) {
         s2 += tolower(c);
     }
     return s2;
 }
+
 
 // Switch case for the user to preform actions
 char decision() {
