@@ -1,7 +1,8 @@
 #include <iomanip>
 
+inline char CONTINUE_STORY = 'c', QUIT_GAME = 'q', SHOW_STATS = 's', INVENTORY = 'i', PICK_ITEM = 'p', DROP_ITEM = 'd', EQUIP_ITEM = 'e', UNEQUIP_ITEM = 'u', SHOP = '$', MOVE = 'm', WHERE = 'w', NORTH = 'N', EAST = 'E', SOUTH = 'S', WEST = 'W', ATTACK = 'a', RADAR = 'r';
 sector currentSect = Andris;
- char where;
+char where, key;
 string name = "NAME";
 bool b = false;
 int lives = 5, seconds = 2; // Starting the user off with 5 lives, this IS changable. Check ../extra/lore.txt to see how
@@ -30,7 +31,7 @@ double randomNum() {
 
 // Help manu, idk why I didn't just put this in the switch case but wtvr
 void help() {
-    cout << "HELP MENU\n\nMAIN FUNCTIONS:\nc: continue the story\nq: quit game\ns: show your stats\n\nINVENTORY FUNCTIONS:\ni: show inventory\np: pick an item up from the ground\nd: drop an item to the ground\ne: equip an equippable item from your inventory\nu: unequip an equipped item\n$: show the shop\n\nLOCATION FUNCTIONS:\nm: move around\nw: show what sector you're in\nN: move north\nS: move south\nE: move east\n W: move west\n\nENEMIES:\na: attack enemies\nr: detect enemies with the radar\n";
+    cout << "HELP MENU\n\nMAIN FUNCTIONS:\n" << CONTINUE_STORY << ": continue the story\n" << QUIT_GAME << ": quit game\n " << SHOW_STATS << ": show your stats\n\nINVENTORY FUNCTIONS:\n" << INVENTORY << ": show inventory\n " << PICK_ITEM << ": pick an item up from the ground\n" << DROP_ITEM << ": drop an item to the ground\n" << EQUIP_ITEM << ": equip an equippable item from your inventory\n" << UNEQUIP_ITEM << ": unequip an equipped item\n" << SHOP << ": show the shop\n\nLOCATION FUNCTIONS:\n" << MOVE << ": move around\n" << WHERE << ": show what sector you're in\n" << NORTH << ": move north\n" << SOUTH << ": move south\n" << EAST << ": move east\n" << WEST << ": move west\n\nENEMIES:\n" << ATTACK << ": attack enemies\n" << RADAR << ": detect enemies with the radar\n";
 }
 
 // Returns the user's stats (this also could've been put in the switch case)
@@ -42,7 +43,7 @@ void stats() {
 
 // Change game settings like name, seconds to wait, etc
 void settings() {
-  int op;
+  int op, op2;
   std::cout << "Choose a value to change:\n1) General settings\n2)Player info\n3) Controls\nEnter a number: ";
   while (!(std::cin >> op) || op < 0 || op > 3) {
     std::cout << "Invalid input, enter a value from 1-3. 0 to cancel: ";
@@ -51,15 +52,88 @@ void settings() {
   }
   switch (op) {
     case (1):
-      cout << "General settings:\n1) Change time between text clears\n2) Save current game progress (working on making this automatic)";
+      cout << "General settings:\n1) Change time between text clears\n2) Save current game progress (working on making this automatic)"; // TODO: Make include/headers/save.h
+      while (!(cin >> op2) || op2 < 0 || op2 > 2) {
+        std::cout << "Invalid input, enter a vlue from 1-2. Use 0 to cancel: ";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      }
+      switch (op2) {
+        case (0):
+          break;
+        case (1):
+          std::cout << "The current time between inputs is " << seconds << ". Enter a new time between inputs: ";
+          while (!(cin >> seconds) || seconds < 1 || seconds > 20) {
+            std::cout << "Invalid input, please enter a number from 1-20. Use 0 to cancel: ";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+          }
+          std::cout << "Time between prompts successfully set to " << seconds << ".\n";
+          break;
+        case (2):
+          // if (save() != "ERROR") std::cout << "Saved successfully to " << save(); // TODO implement this
+          // else std::cout << "Error while saving game.";
+          break;
+      }
       break;
     case (2):
       cout << "Player info:\n1) Change name";
+      while (!(cin >> op2) || op2 < 0 || op2 > 2) {
+        std::cout << "Invalid input, enter a vlue from 1-2. Use 0 to cancel: ";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      }
+      switch (op2) {
+        case (0):
+          break;
+        case (1):
+          std::cout << "Enter a new name: ";
+          while (!(std::getline(cin, name))) {
+            std::cout << "Invalid input, please try again";
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+          }
+          std::cout << "Name changed successfully to " << name;
+          break;
+        default:
+          break;
+      }
       break;
     case (3):
       cout << "Controls:\n";
       cout << "Current controls:\n";
       help();
+      std::cout << "\nEnter the command to change the input for (for example, if you want to change the input for shop, type '$'): ";
+      while (!(std::cin >> key)) {
+        std::cout << "Invalid input, please try again. Remember, enter only a single character that is ALREADY SET TO AN ACTION! ";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      }
+      if (key == CONTINUE_STORY) {
+        cout << "Please enter a new key for CONTINUE_STORY now: ";
+        while (!(cin >> CONTINUE_STORY) || ) {
+          std::cout << "Please enter a valid character that isn't already in use: ";
+          std::cin.clear();
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+      if (key == QUIT_GAME) cout << "Please enter a new key for QUIT_GAME now: ";
+      if (key == SHOW_STATS) cout << "Please enter a new key for SHOW_STATS now: ";
+      if (key == INVENTORY) cout << "Please enter a new key for INVENTORY now: ";
+      if (key == PICK_ITEM) cout << "Please enter a new key for PICK_ITEM now: ";
+      if (key == DROP_ITEM) cout << "Please enter a new key for DROP_ITEM now: ";
+      if (key == EQUIP_ITEM) cout << "Please enter a new key for EQUIP_ITEM now: ";
+      if (key == UNEQUIP_ITEM) cout << "Please enter a new key for UNEQUIP_ITEM now: ";
+      if (key == SHOP) cout << "Please enter a new key for SHOP now: ";
+      if (key == MOVE) cout << "Please enter a new key for MOVE now: ";
+      if (key == WHERE) cout << "Please enter a new key for WHERE now: ";
+      if (key == NORTH) cout << "Please enter a new key for NORTH now: ";
+      if (key == EAST) cout << "Please enter a new key for EAST now: ";
+      if (key == SOUTH) cout << "Please enter a new key for SOUTH now: ";
+      if (key == WEST) cout << "Please enter a new key for WEST now: ";
+      if (key == ATTACK) cout << "Please enter a new key for ATTACK now: ";
+      if (key == RADAR) cout << "Please enter a new key for RADAR now: ";
+    default: 
+      break;
   }
 }
 
