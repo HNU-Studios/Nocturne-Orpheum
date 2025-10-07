@@ -3,13 +3,13 @@
 inline char CONTINUE_STORY = 'c', QUIT_GAME = 'q', SHOW_STATS = 's', INVENTORY = 'i', PICK_ITEM = 'p', DROP_ITEM = 'd', EQUIP_ITEM = 'e', UNEQUIP_ITEM = 'u', SHOP = '$', MOVE = 'm', WHERE = 'w', NORTH = 'N', EAST = 'E', SOUTH = 'S', WEST = 'W', ATTACK = 'a', RADAR = 'r';
 sector currentSect = Andris;
 char where, key;
-string name = "NAME";
 bool b = false;
 int lives = 5, seconds = 2; // Starting the user off with 5 lives, this IS changable. Check ../extra/lore.txt to see how
 
 // Helper function to display player info upon screen clear
 void header() {
-  std::cout << "============================\n" // 28 character long for reference below 
+  std::cout << "Scroll up for previous history\n"
+            << "============================\n" // 28 character long for reference below 
             << "| HP: " << std::setw(3) << std::setfill('0') << stat["Current HP"] << "/" << std::setw(3) << std::setfill('0') << stat["HP"] << "              |\n"
             << "| Sector: " << currentSect.getName() << std::setw(19 - currentSect.getName().length()) << std::setfill(' ') << "|\n"
             << "| Name: " << name << std::setw(21 - name.length()) << std::setfill(' ') << "|\n"
@@ -47,7 +47,7 @@ void stats() {
 // Change game settings like name, seconds to wait, etc
 void settings() {
   int op, op2;
-  std::cout << "Choose a value to change:\n1) General settings\n2)Player info\n3) Controls\nEnter a number: ";
+  std::cout << "Choose a value to change:\n1) General settings\n2) Player info\n3) Controls\nEnter a number: ";
   while (!(std::cin >> op) || op < 0 || op > 3) {
     std::cout << "Invalid input, enter a value from 1-3. 0 to cancel: ";
     std::cin.clear();
@@ -55,7 +55,7 @@ void settings() {
   }
   switch (op) {
     case (1):
-      cout << "General settings:\n1) Change time between text clears\n2) Save current game progress (working on making this automatic)"; // TODO: Make include/headers/save.h
+      cout << "General settings:\n1) Change time between text clears\n2) Save current game progress (working on making this automatic)\n"; // TODO: Make include/headers/save.h
       while (!(cin >> op2) || op2 < 0 || op2 > 2) {
         std::cout << "Invalid input, enter a value from 1-2. Use 0 to cancel: ";
         std::cin.clear();
@@ -74,15 +74,16 @@ void settings() {
           std::cout << "Time between prompts successfully set to " << seconds << ".\n";
           break;
         case (2):
-          // if (save() != "ERROR") std::cout << "Saved successfully to " << save(); // TODO implement this
+          // std::string saveFile = save();
+          // if (save() != "ERROR") std::cout << "Saved successfully to " << saveFile; // TODO implement this
           // else std::cout << "Error while saving game.";
           break;
       }
       break;
     case (2):
-      cout << "Player info:\n1) Change name";
+      cout << "Player info:\n1) Change name\n2) Change progress";
       while (!(cin >> op2) || op2 < 0 || op2 > 2) {
-        std::cout << "Invalid input, enter a vlue from 1-2. Use 0 to cancel: ";
+        std::cout << "Invalid input, enter a value from 1-2. Use 0 to cancel: ";
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       }
@@ -101,6 +102,8 @@ void settings() {
           }
           std::cout << "Name changed successfully to " << name;
           break;
+        case (2):
+          std::cout << "Please try again later... this hasn't been implemented yet!\n";
         default:
           break;
       }
