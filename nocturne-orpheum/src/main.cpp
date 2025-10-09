@@ -129,10 +129,10 @@ int main() { // Story starts from here, core functionality is in the decision() 
   }
   incrementProg(); // 10
   incrementProg(); // 11
-  incrementProg();
-  std::getline(std::cin, guideName);
+  getline(std::cin, guideName);
   npc* guide = new npc(guideName, "guide");
   std::cout << "Huh, " << guide -> getName();
+  incrementProg();
   incrementProg();
   sleep(seconds * 1500); // Longer wait since this is a LOT of text
   std::cout << "\033[2J"; // Clear screen (multiplatform, system("CLS | clear") is annoying)
