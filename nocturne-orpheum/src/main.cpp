@@ -130,6 +130,7 @@ int main() { // Story starts from here, core functionality is in the decision() 
   incrementProg(); // 10
   incrementProg(); // 11
   getline(std::cin, guideName);
+  if (guideName == "" || guideName == "\n") getline(std::cin, guideName);
   npc* guide = new npc(guideName, "guide");
   std::cout << "Huh, " << guide -> getName();
   incrementProg();
