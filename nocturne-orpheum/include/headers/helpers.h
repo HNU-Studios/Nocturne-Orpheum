@@ -499,6 +499,8 @@ char decision() {
                 return option;
         }
     }
+  std::cin.clear();
+  std::cin.ignore();
 }
 
 // Helper function to prompt the user

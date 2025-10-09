@@ -43,19 +43,26 @@ int main() { // Story starts from here, core functionality is in the decision() 
       std::cout << "Please enter a valid number from 1 - 20 seconds: ";
       std::cin.clear(); std::cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
     }
-    std::cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
+    std::cin.clear();
+    std::cin.ignore();
     incrementProg(); // 1
     getline(cin, name);
+    std::cin.clear();
+    // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     incrementProg(); // 2
     std::string op = "";
     std::getline(std::cin, op);
     while (tolower(op[0]) != 't' && tolower(op[0]) != 's') {
       cout << "You entered " << op << ".\n";
       cout << "Please enter either 't' for the tutorial or 's' to skip to the story: ";
+      std::cin.clear();
       std::getline(std::cin, op);
     }
-    if (tolower(op[0]) == 's') progress += 6;
+    std::cin.clear();
+    if (tolower(op[0]) == 's') { progress += 7; std::cin.clear(); }
     else if (tolower(op[0]) == 't') {
+      // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+      std::cin.clear();
       incrementProg(); // 3
       incrementProg(); // 4
       incrementProg(); // 5
@@ -123,7 +130,6 @@ int main() { // Story starts from here, core functionality is in the decision() 
   incrementProg(); // 10
   incrementProg(); // 11
   incrementProg();
-  std::cin.clear();
   std::getline(std::cin, guideName);
   npc* guide = new npc(guideName, "guide");
   std::cout << "Huh, " << guide -> getName();
