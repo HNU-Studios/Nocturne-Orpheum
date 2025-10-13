@@ -13,6 +13,7 @@ Please contribute if you'd like! Any help is appreciated. Need help thinking of 
 
 ### Todo:
     1) Implement save files (.zave, get it? Because like... Zandris sAVE... I'll see myself out)
+    2) Merge new story with src/main.cpp
     2) Add graphics (OpenGL or SFML)
     3) Add quests (./headers/quest.h)
 
