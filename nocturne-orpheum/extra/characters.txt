@@ -1,0 +1,37 @@
+Lyran Nevel 
+  Desc:
+    Occupation: Professor at a university in Lumera
+    Age: 30
+    Physical description: Brown hair, dark eyes. Height: 6’0 
+    Saved a cat from a tree and protected a bajillion people from smth btw
+    Personality: Focused, determined, intelligent,
+    Context (background prior to the starting of the story): He was a former soldier who fought in Avaritia from the age of 15 to the age of 18. Adopted by an older scholar and taken to Lumera where he fell in love with books and knowledge. He became a professor by 22. When his adopted father was killed by the government, his dying wish was for Lyran to revolt against the government and reintroduce magic into the world. And so he did. 
+    Aims to study the pale pillars and the leviathans and conducts research in order to reintroduce magic. 
+
+Ethymia Lazarus
+  Desc:
+    Occupation: Princess of Aurelia. Next in line for the throne
+    Age: 25
+    Physical description: black hair, grey eyes. Brown skin, Height: 5’8
+    Personality: Brave, selfish, reckless
+    Context: Adopted into the royal family of K’vera, she’s next in line to take the throne and has been trained to be a warrior throughout her life. When seeing the corruption happening due to magic and how her people were struggling under the rule of her family, she tries to overthrow her father. First she’s against Lyran but later takes his side and fights in the revolt with him.
+    Aims to become the new queen of K’vera
+    Uses golden sword + armor 
+
+Cyrus Dey
+  Desc:
+    Occupation: Member of the huntsman guild
+    Physical description:
+    Personality: lighthearted (trauma response), deeply caring under the surface
+    Context: 
+    He witnessed his family fall to the corruption quickly. Realizing they were no longer human, he ran, knowing that he was resistant. He soon found others that were resistant as well, and they set out as hunters, people who took contracts to help out in areas overridden by corruption due to their high resistance and aptitude.
+
+Deus Solus, The Graven Man
+  Desc:
+    Physical description: not seen in game
+    Personality: Mysterious, cunning, cutthroat
+    Context: This entity is a mysterious beast, and whether or not he is a symptom of Lyran’s fractured mind remains up to the viewer
+    Aims to study Lyran’s “unique” interaction with magic
+    May be the source of Lyran’s uniqueness in the world (whether that specialness is a property of Lyran’s fragile ego and broken mind remain open to interpretation as well)
+
+
