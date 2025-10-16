@@ -1,7 +1,6 @@
 // Header files in the std namespace
 #include <iostream>
 #include <map>
-#include <vector>
 #include <algorithm>
 #include <limits>
 #include <random>
@@ -46,9 +45,6 @@ int main() { // Story starts from here, core functionality is in the decision() 
     std::cin.clear();
     std::cin.ignore();
     incrementProg(); // 1
-    getline(cin, name);
-    std::cin.clear();
-    // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     incrementProg(); // 2
     std::string op = "";
     std::getline(std::cin, op);
@@ -63,20 +59,18 @@ int main() { // Story starts from here, core functionality is in the decision() 
     else if (tolower(op[0]) == 't') {
       // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       std::cin.clear();
-      incrementProg(); // 3
-      incrementProg(); // 4
-      incrementProg(); // 5
       currentSect.putOnGround(dullSword);
       currentSect.putOnGround(chippedHelmet);
       currentSect.putOnGround(revivalStone);
       enemy first("Test", 1, 1);
       enemy second("Other Test", 1, 5);
+      incrementProg(); // 3
+      incrementProg(); // 4
       if (next() == 'q') return 0; // Part of ../include/headers/helpers.h
       currentSect.putOnGround(first);
       currentSect.putOnGround(second);
-      incrementProg(); // 6
-      if (equipped["Weapon"] == item("", "", 0)) { incrementProg(); progress++; } // 7, skip 8
-      else progress++; // 8, skip 7
+      if (equipped["Weapon"] == templateItem) { incrementProg(); progress++; } // 5, skip 6
+      else { progress++; incrementProg(); } // skip 5, 6
       if (next() == 'q') return 0;
       if (stat["Current HP"] <= 0) {
         if (equipped["Artifact 1"] == revivalStone || equipped["Artifact 2"] == revivalStone || equipped["Artifact 3"] == revivalStone || equipped["Artifact 4"] == revivalStone || equipped["Artifact 5"] == revivalStone) {
@@ -99,7 +93,7 @@ int main() { // Story starts from here, core functionality is in the decision() 
       }
     }
     if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
-    incrementProg(); // 9, end of tutorial
+    incrementProg(); // 7
     if (next() == 'q') return 0;
     if (stat["Current HP"] <= 0) {
       if (equipped["Artifact 1"] == revivalStone || equipped["Artifact 2"] == revivalStone || equipped["Artifact 3"] == revivalStone || equipped["Artifact 4"] == revivalStone || equipped["Artifact 5"] == revivalStone) {
@@ -122,23 +116,38 @@ int main() { // Story starts from here, core functionality is in the decision() 
       }
     }
     if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
-    cout << "TUTORIAL FINISHED\n";
+    incrementProg(); // 8
     clearInv();
     stat["Current HP"] = stat["HP"];
-    std::cout << name << std::endl;
   }
+  incrementProg(); // 9
   incrementProg(); // 10
-  incrementProg(); // 11
-  getline(std::cin, guideName);
-  if (guideName == "" || guideName == "\n") getline(std::cin, guideName);
-  npc* guide = new npc(guideName, "guide");
-  std::cout << "Huh, " << guide -> getName();
-  incrementProg();
-  incrementProg();
   sleep(seconds * 1500); // Longer wait since this is a LOT of text
   std::cout << "\033[2J"; // Clear screen (multiplatform, system("CLS | clear") is annoying)
   std::cout << "\033[1;1H"; // Move cursor to the top left of the screen
-  incrementProg();
+  incrementProg(); // 11
+  sleep(seconds * 1000);
+  incrementProg(); // 12
+  sleep(seconds * 1000);
+  incrementProg(); // 13
+  sleep(seconds * 1000);
+  incrementProg(); // 14
+  sleep(seconds * 1000);
+  incrementProg(); // 15
+  sleep(seconds * 1000);
+  incrementProg(); // 16
+  sleep(seconds * 1000);
+  incrementProg(); // 17
+  sleep(seconds * 1000);
+  incrementProg(); // 18
+  sleep(seconds * 1000);
+  incrementProg(); // 19
+  sleep(seconds * 1000);
+  incrementProg(); // 20
+  sleep(seconds * 1000);
+  incrementProg(); // 21
+  sleep(seconds * 1000);
+  incrementProg(); // 22
   if (next() == 'q') return 0;
   return 0;
 }
