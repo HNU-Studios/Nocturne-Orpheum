@@ -1,6 +1,6 @@
 #include <iomanip>
 
-inline char CONTINUE_STORY = 'c', QUIT_GAME = 'q', SHOW_STATS = 's', INVENTORY = 'i', PICK_ITEM = 'p', DROP_ITEM = 'd', EQUIP_ITEM = 'e', UNEQUIP_ITEM = 'u', SHOP = '$', MOVE = 'm', WHERE = 'w', NORTH = 'N', EAST = 'E', SOUTH = 'S', WEST = 'W', ATTACK = 'a', RADAR = 'r';
+inline char CONTINUE_STORY = 'c', QUIT_GAME = 'q', SHOW_STATS = 's', INVENTORY = 'i', PICK_ITEM = 'p', DROP_ITEM = 'd', EQUIP_ITEM = 'e', UNEQUIP_ITEM = 'u', SHOP = '$', MOVE = 'm', WHERE = 'w', NORTH = 'N', EAST = 'E', SOUTH = 'S', WEST = 'W', ATTACK = 'a', RADAR = 'r', HELP = 'h', OPTIONS = 'o';
 sector currentSect = Andris;
 char where, key;
 bool b = false;
@@ -77,6 +77,7 @@ void settings() {
           // std::string saveFile = save();
           // if (save() != "ERROR") std::cout << "Saved successfully to " << saveFile; // TODO implement this
           // else std::cout << "Error while saving game.";
+          std::cout << "Apologies, save files haven't been implemented yet. These will be released in a future patch!\n";
           break;
       }
       break;
@@ -120,32 +121,437 @@ void settings() {
       }
       if (key == CONTINUE_STORY) {
         cout << "Please enter a new key for CONTINUE_STORY now: ";
-        while (!(cin >> CONTINUE_STORY)) {
-          std::cout << "Please enter a valid character that isn't already in use: ";
+        while (!(cin >> CONTINUE_STORY) || 
+            CONTINUE_STORY == QUIT_GAME || 
+            CONTINUE_STORY == SHOW_STATS || 
+            CONTINUE_STORY == INVENTORY || 
+            CONTINUE_STORY == PICK_ITEM || 
+            CONTINUE_STORY == DROP_ITEM || 
+            CONTINUE_STORY == EQUIP_ITEM ||
+            CONTINUE_STORY == UNEQUIP_ITEM || 
+            CONTINUE_STORY == SHOP || 
+            CONTINUE_STORY == MOVE || 
+            CONTINUE_STORY == WHERE ||
+            CONTINUE_STORY == NORTH || 
+            CONTINUE_STORY == EAST ||
+            CONTINUE_STORY == SOUTH || 
+            CONTINUE_STORY == WEST ||
+            CONTINUE_STORY == ATTACK || 
+            CONTINUE_STORY == RADAR ||
+            CONTINUE_STORY == HELP) {
+          std::cout << "Please enter a valid, single character that isn't already in use: ";
           std::cin.clear();
           std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
-      if (key == QUIT_GAME) cout << "Please enter a new key for QUIT_GAME now: ";
-      if (key == SHOW_STATS) cout << "Please enter a new key for SHOW_STATS now: ";
-      if (key == INVENTORY) cout << "Please enter a new key for INVENTORY now: ";
-      if (key == PICK_ITEM) cout << "Please enter a new key for PICK_ITEM now: ";
-      if (key == DROP_ITEM) cout << "Please enter a new key for DROP_ITEM now: ";
-      if (key == EQUIP_ITEM) cout << "Please enter a new key for EQUIP_ITEM now: ";
-      if (key == UNEQUIP_ITEM) cout << "Please enter a new key for UNEQUIP_ITEM now: ";
-      if (key == SHOP) cout << "Please enter a new key for SHOP now: ";
-      if (key == MOVE) cout << "Please enter a new key for MOVE now: ";
-      if (key == WHERE) cout << "Please enter a new key for WHERE now: ";
-      if (key == NORTH) cout << "Please enter a new key for NORTH now: ";
-      if (key == EAST) cout << "Please enter a new key for EAST now: ";
-      if (key == SOUTH) cout << "Please enter a new key for SOUTH now: ";
-      if (key == WEST) cout << "Please enter a new key for WEST now: ";
-      if (key == ATTACK) cout << "Please enter a new key for ATTACK now: ";
-      if (key == RADAR) cout << "Please enter a new key for RADAR now: ";
+
+      }
+      else if (key == QUIT_GAME) {
+        cout << "Please enter a new key for QUIT_GAME now: ";
+        while (!(cin >> QUIT_GAME) || 
+            QUIT_GAME == CONTINUE_STORY || 
+            QUIT_GAME == SHOW_STATS || 
+            QUIT_GAME == INVENTORY || 
+            QUIT_GAME == PICK_ITEM || 
+            QUIT_GAME == DROP_ITEM || 
+            QUIT_GAME == EQUIP_ITEM ||
+            QUIT_GAME == UNEQUIP_ITEM || 
+            QUIT_GAME == SHOP || 
+            QUIT_GAME == MOVE || 
+            QUIT_GAME == WHERE ||
+            QUIT_GAME == NORTH || 
+            QUIT_GAME == EAST ||
+            QUIT_GAME == SOUTH || 
+            QUIT_GAME == WEST ||
+            QUIT_GAME == ATTACK || 
+            QUIT_GAME == RADAR ||
+            QUIT_GAME == HELP) {
+          std::cout << "Please enter a valid, single character that isn't already in use: ";
+          std::cin.clear();
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+      }
+      if (key == SHOW_STATS) {
+        cout << "Please enter a new key for SHOW_STATS now: ";
+        while (!(cin >> SHOW_STATS) || 
+            SHOW_STATS == CONTINUE_STORY || 
+            SHOW_STATS == QUIT_GAME ||  
+            SHOW_STATS == INVENTORY || 
+            SHOW_STATS == PICK_ITEM || 
+            SHOW_STATS == DROP_ITEM || 
+            SHOW_STATS == EQUIP_ITEM ||
+            SHOW_STATS == UNEQUIP_ITEM || 
+            SHOW_STATS == SHOP || 
+            SHOW_STATS == MOVE || 
+            SHOW_STATS == WHERE ||
+            SHOW_STATS == NORTH || 
+            SHOW_STATS == EAST ||
+            SHOW_STATS == SOUTH || 
+            SHOW_STATS == WEST ||
+            SHOW_STATS == ATTACK || 
+            SHOW_STATS == RADAR ||
+            SHOW_STATS == HELP) {
+          std::cout << "Please enter a valid, single character that isn't already in use: ";
+          std::cin.clear();
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+      }
+      if (key == INVENTORY) {
+        cout << "Please enter a new key for INVENTORY now: ";
+        while (!(cin >> INVENTORY) ||
+            INVENTORY == CONTINUE_STORY || 
+            INVENTORY == SHOW_STATS ||  
+            INVENTORY == QUIT_GAME || 
+            INVENTORY == PICK_ITEM || 
+            INVENTORY == DROP_ITEM || 
+            INVENTORY == EQUIP_ITEM ||
+            INVENTORY == UNEQUIP_ITEM || 
+            INVENTORY == SHOP || 
+            INVENTORY == MOVE || 
+            INVENTORY == WHERE ||
+            INVENTORY == NORTH || 
+            INVENTORY == EAST ||
+            INVENTORY == SOUTH || 
+            INVENTORY == WEST ||
+            INVENTORY == ATTACK || 
+            INVENTORY == RADAR ||
+            INVENTORY == HELP) {
+
+          std::cout << "Please enter a valid, single character that isn't already in use: ";
+          std::cin.clear();
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+      }
+      if (key == PICK_ITEM) {
+        cout << "Please enter a new key for PICK_ITEM now: ";
+        while (!(cin >> PICK_ITEM) ||
+            PICK_ITEM == CONTINUE_STORY || 
+            PICK_ITEM == SHOW_STATS ||  
+            PICK_ITEM == INVENTORY || 
+            PICK_ITEM == QUIT_GAME || 
+            PICK_ITEM == DROP_ITEM || 
+            PICK_ITEM == EQUIP_ITEM ||
+            PICK_ITEM == UNEQUIP_ITEM || 
+            PICK_ITEM == SHOP || 
+            PICK_ITEM == MOVE || 
+            PICK_ITEM == WHERE ||
+            PICK_ITEM == NORTH || 
+            PICK_ITEM == EAST ||
+            PICK_ITEM == SOUTH || 
+            PICK_ITEM == WEST ||
+            PICK_ITEM == ATTACK || 
+            PICK_ITEM == RADAR ||
+            PICK_ITEM == HELP) {
+
+          std::cout << "Please enter a valid, single character that isn't already in use: ";
+          std::cin.clear();
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+      }
+      if (key == DROP_ITEM) {
+        cout << "Please enter a new key for DROP_ITEM now: ";
+        while (!(cin >> DROP_ITEM) || 
+            DROP_ITEM == CONTINUE_STORY || 
+            DROP_ITEM == SHOW_STATS || 
+            DROP_ITEM == INVENTORY || 
+            DROP_ITEM == PICK_ITEM || 
+            DROP_ITEM == QUIT_GAME || 
+            DROP_ITEM == EQUIP_ITEM ||
+            DROP_ITEM == UNEQUIP_ITEM || 
+            DROP_ITEM == SHOP || 
+            DROP_ITEM == MOVE || 
+            DROP_ITEM == WHERE ||
+            DROP_ITEM == NORTH || 
+            DROP_ITEM == EAST ||
+            DROP_ITEM == SOUTH || 
+            DROP_ITEM == WEST ||
+            DROP_ITEM == ATTACK || 
+            DROP_ITEM == RADAR ||
+            DROP_ITEM == HELP) {
+          std::cout << "Please enter a valid, single character that isn't already in use: ";
+          std::cin.clear();
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+      }
+      if (key == EQUIP_ITEM) {
+        cout << "Please enter a new key for EQUIP_ITEM now: ";
+        while (!(cin >> EQUIP_ITEM) || 
+            EQUIP_ITEM == CONTINUE_STORY || 
+            EQUIP_ITEM == SHOW_STATS || 
+            EQUIP_ITEM == INVENTORY || 
+            EQUIP_ITEM == PICK_ITEM || 
+            EQUIP_ITEM == DROP_ITEM || 
+            EQUIP_ITEM == QUIT_GAME||
+            EQUIP_ITEM == UNEQUIP_ITEM || 
+            EQUIP_ITEM == SHOP || 
+            EQUIP_ITEM == MOVE || 
+            EQUIP_ITEM == WHERE ||
+            EQUIP_ITEM == NORTH || 
+            EQUIP_ITEM == EAST ||
+            EQUIP_ITEM == SOUTH || 
+            EQUIP_ITEM == WEST ||
+            EQUIP_ITEM == ATTACK || 
+            EQUIP_ITEM == RADAR ||
+            EQUIP_ITEM == HELP) {
+          std::cout << "Please enter a valid, single character that isn't already in use: ";
+          std::cin.clear();
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+      }
+      if (key == UNEQUIP_ITEM) {
+        cout << "Please enter a new key for UNEQUIP_ITEM now: ";
+        while (!(cin >> UNEQUIP_ITEM) || 
+            UNEQUIP_ITEM == CONTINUE_STORY || 
+            UNEQUIP_ITEM == SHOW_STATS || 
+            UNEQUIP_ITEM == INVENTORY || 
+            UNEQUIP_ITEM == PICK_ITEM || 
+            UNEQUIP_ITEM == DROP_ITEM || 
+            UNEQUIP_ITEM == EQUIP_ITEM ||
+            UNEQUIP_ITEM == QUIT_GAME|| 
+            UNEQUIP_ITEM == SHOP || 
+            UNEQUIP_ITEM == MOVE || 
+            UNEQUIP_ITEM == WHERE ||
+            UNEQUIP_ITEM == NORTH || 
+            UNEQUIP_ITEM == EAST ||
+            UNEQUIP_ITEM == SOUTH || 
+            UNEQUIP_ITEM == WEST ||
+            UNEQUIP_ITEM == ATTACK || 
+            UNEQUIP_ITEM == RADAR ||
+            UNEQUIP_ITEM == HELP) {
+          std::cout << "Please enter a valid, single character that isn't already in use: ";
+          std::cin.clear();
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+      }
+      if (key == SHOP) {
+        cout << "Please enter a new key for SHOP now: ";
+        while (!(cin >> SHOP) || 
+            SHOP == CONTINUE_STORY || 
+            SHOP == SHOW_STATS || 
+            SHOP == INVENTORY || 
+            SHOP == PICK_ITEM || 
+            SHOP == DROP_ITEM || 
+            SHOP == EQUIP_ITEM ||
+            SHOP == UNEQUIP_ITEM || 
+            SHOP == QUIT_GAME|| 
+            SHOP == MOVE || 
+            SHOP == WHERE ||
+            SHOP == NORTH || 
+            SHOP == EAST ||
+            SHOP == SOUTH || 
+            SHOP == WEST ||
+            SHOP == ATTACK || 
+            SHOP == RADAR ||
+            SHOP == HELP) {          
+            std::cout << "Please enter a valid, single character that isn't already in use: ";
+          std::cin.clear();
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+      }
+      if (key == MOVE) {
+        cout << "Please enter a new key for MOVE now: ";
+        while (!(cin >> MOVE) || 
+            MOVE == CONTINUE_STORY || 
+            MOVE == SHOW_STATS || 
+            MOVE == INVENTORY || 
+            MOVE == PICK_ITEM || 
+            MOVE == DROP_ITEM || 
+            MOVE == EQUIP_ITEM ||
+            MOVE == UNEQUIP_ITEM || 
+            MOVE == SHOP || 
+            MOVE == QUIT_GAME || 
+            MOVE == WHERE ||
+            MOVE == NORTH || 
+            MOVE == EAST ||
+            MOVE == SOUTH || 
+            MOVE == WEST ||
+            MOVE == ATTACK || 
+            MOVE == RADAR ||
+            MOVE == HELP) {
+          std::cout << "Please enter a valid, single character that isn't already in use: ";
+          std::cin.clear();
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+      }
+      if (key == WHERE) {
+        cout << "Please enter a new key for WHERE now: ";
+        while (!(cin >> WHERE) || 
+            WHERE == CONTINUE_STORY || 
+            WHERE == SHOW_STATS || 
+            WHERE == INVENTORY ||  
+            WHERE == PICK_ITEM || 
+            WHERE == DROP_ITEM || 
+            WHERE == EQUIP_ITEM ||
+            WHERE == UNEQUIP_ITEM || 
+            WHERE == SHOP || 
+            WHERE == MOVE || 
+            WHERE == QUIT_GAME ||
+            WHERE == NORTH || 
+            WHERE == EAST ||
+            WHERE == SOUTH || 
+            WHERE == WEST ||
+            WHERE == ATTACK || 
+            WHERE == RADAR ||
+            WHERE == HELP) {
+          std::cout << "Please enter a valid, single character that isn't already in use: ";
+          std::cin.clear();
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+      }
+      if (key == NORTH) {
+        cout << "Please enter a new key for NORTH now: ";
+        while (!(cin >> NORTH) || 
+            NORTH == CONTINUE_STORY || 
+            NORTH == SHOW_STATS || 
+            NORTH == INVENTORY ||  
+            NORTH == PICK_ITEM || 
+            NORTH == DROP_ITEM || 
+            NORTH == EQUIP_ITEM ||
+            NORTH == UNEQUIP_ITEM || 
+            NORTH == SHOP || 
+            NORTH == MOVE || 
+            NORTH == WHERE ||
+            NORTH == QUIT_GAME || 
+            NORTH == EAST ||
+            NORTH == SOUTH || 
+            NORTH == WEST ||
+            NORTH == ATTACK || 
+            NORTH == RADAR ||
+            NORTH == HELP) {          
+          std::cout << "Please enter a valid, single character that isn't already in use: ";
+          std::cin.clear();
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+      }
+      if (key == EAST) {
+        cout << "Please enter a new key for EAST now: ";
+        while (!(cin >> EAST) ||
+            EAST == CONTINUE_STORY || 
+            EAST == SHOW_STATS || 
+            EAST == INVENTORY || 
+            EAST == PICK_ITEM || 
+            EAST == DROP_ITEM || 
+            EAST == EQUIP_ITEM ||
+            EAST == UNEQUIP_ITEM || 
+            EAST == SHOP || 
+            EAST == MOVE || 
+            EAST == WHERE ||
+            EAST == NORTH || 
+            EAST == RADAR ||
+            EAST == SOUTH || 
+            EAST == WEST ||
+            EAST == ATTACK || 
+            EAST == QUIT_GAME ||
+            EAST == HELP) {
+          std::cout << "Please enter a valid, single character that isn't already in use: ";
+          std::cin.clear();
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+      }
+      if (key == SOUTH) {
+        cout << "Please enter a new key for SOUTH now: ";
+        while (!(cin >> SOUTH) || 
+            SOUTH == CONTINUE_STORY || 
+            SOUTH == SHOW_STATS || 
+            SOUTH == INVENTORY || 
+            SOUTH == PICK_ITEM || 
+            SOUTH == DROP_ITEM || 
+            SOUTH == EQUIP_ITEM ||
+            SOUTH == UNEQUIP_ITEM || 
+            SOUTH == SHOP || 
+            SOUTH == MOVE || 
+            SOUTH == WHERE ||
+            SOUTH == NORTH || 
+            SOUTH == EAST ||
+            SOUTH == QUIT_GAME || 
+            SOUTH == WEST ||
+            SOUTH == ATTACK || 
+            SOUTH == RADAR ||
+            SOUTH == HELP) {            
+          std::cout << "Please enter a valid, single character that isn't already in use: ";
+          std::cin.clear();
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+      }
+      if (key == WEST) {
+        cout << "Please enter a new key for WEST now: ";
+        while (!(cin >> WEST) || 
+            WEST == CONTINUE_STORY || 
+            WEST == SHOW_STATS || 
+            WEST == INVENTORY || 
+            WEST == PICK_ITEM || 
+            WEST == DROP_ITEM || 
+            WEST == EQUIP_ITEM ||
+            WEST == UNEQUIP_ITEM || 
+            WEST == SHOP || 
+            WEST == MOVE || 
+            WEST == WHERE ||
+            WEST == NORTH || 
+            WEST == EAST ||
+            WEST == SOUTH || 
+            WEST == QUIT_GAME ||
+            WEST == ATTACK || 
+            WEST == RADAR ||
+            WEST == HELP) {
+          std::cout << "Please enter a valid, single character that isn't already in use: ";
+          std::cin.clear();
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+      }
+      if (key == ATTACK) {
+        cout << "Please enter a new key for ATTACK now: ";
+        while (!(cin >> ATTACK) || 
+            ATTACK == CONTINUE_STORY || 
+            ATTACK == SHOW_STATS || 
+            ATTACK == INVENTORY || 
+            ATTACK == PICK_ITEM || 
+            ATTACK == DROP_ITEM || 
+            ATTACK == EQUIP_ITEM ||
+            ATTACK == UNEQUIP_ITEM || 
+            ATTACK == SHOP || 
+            ATTACK == MOVE || 
+            ATTACK == WHERE ||
+            ATTACK == NORTH || 
+            ATTACK == EAST ||
+            ATTACK == SOUTH || 
+            ATTACK == WEST ||
+            ATTACK == QUIT_GAME || 
+            ATTACK == RADAR ||
+            ATTACK == HELP) {
+            std::cout << "Please enter a valid, single character that isn't already in use: ";
+          std::cin.clear();
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+      }
+      if (key == RADAR) {
+        cout << "Please enter a new key for RADAR now: ";
+        while (!(cin >> RADAR) || 
+            RADAR == CONTINUE_STORY || 
+            RADAR == SHOW_STATS || 
+            RADAR == INVENTORY || 
+            RADAR == PICK_ITEM || 
+            RADAR == DROP_ITEM || 
+            RADAR == EQUIP_ITEM ||
+            RADAR == UNEQUIP_ITEM || 
+            RADAR == SHOP || 
+            RADAR == MOVE || 
+            RADAR == WHERE ||
+            RADAR == NORTH || 
+            RADAR == EAST ||
+            RADAR == SOUTH || 
+            RADAR == WEST ||
+            RADAR == ATTACK || 
+            RADAR == QUIT_GAME ||
+            RADAR == HELP) {
+            std::cout << "Please enter a valid, single character that isn't already in use: ";
+          std::cin.clear();
+          std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+      }
     default: 
       break;
   }
 }
-}
+
 
 // Overloading tolower since it only takes a character, not a string smh
 std::string tolower(std::string s) {
@@ -158,9 +564,9 @@ std::string tolower(std::string s) {
 
 
 // Switch case for the user to preform actions
-char decision() {
+char decision() { 
+  char option;
     while (true) {
-        char option;
         cout << "\nEnter an option (? or h for help, c to continue story, q to quit): ";
         if (!(cin >> option)) {
             // If the input isn't an int, clear it and retry
@@ -170,140 +576,138 @@ char decision() {
             continue; // continue
         }
         long unsigned int* skillChoice = nullptr;
-        switch (option) {
-	        case ('a'): // Attack enemies
-                // *skillChoice = 0;
-                cout << "Tip! You can scan for enemies without attacking them using your radar! Type 'r' to use it\n";
-                if (currentSect.getEnemies().size() == 0) cout << "There are currently no enemies in this sector. Try using 'm' to move!";
-                else {
-                    int c = 1;
-                    cout << "Current enemies: ";
-                    for (enemy i: currentSect.getEnemies()){
-                        cout << endl << c << ") NAME: " << i.getName() << ", ATK: "<< i.getPower() << ", HP: " << i.getHp();
-                        c++;
-                    }
-                    cout << "\nEnter the number of the enemy to attack (0 to cancel): ";
-                    int en;
-                    while (true) {
-                        if (!(cin >> en) || en > (c - 1)) {
-                            cin.clear();
-                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-                            cout << "Invalid input. Please enter a valid number.\n";
-                            continue;
-                        }
-                        else break;
-                    }
-                    if (en <= 0) return 'a';
-                    if (skills.size() != 0) {
-                        cout << "\nSkills avaliable: " << endl;
-                        for (long unsigned int i = 0; i < skills.size(); i++) {
-                            cout << i + 1 << ": " << skills[i].getName() << ", a " << skills[i].getKind() << " type skill with " << skills[i].getUses() << " uses left and " << skills[i].getPower() << " power.\n";
-                        }
-                        cout << "Use a skill? (y/n)";
-                        char* temp = new char;
-                        cin >> *temp;
-                        if (toupper(*temp) == 'Y') {
-                            delete temp;
-                            temp = nullptr;
-                            long unsigned int* skillChoice = new long unsigned int;
-                            while (true) {
-                                cout << "What skill would you like to use? Please enter the number from the list.\n";
-                                cin >> *skillChoice;
-                                if (*skillChoice > skills.size() + 1 || *skillChoice <= 0) {
-                                    cout << "That isn't a valid skill :(\n";
-                                }
-                                else {
-                                    break;
-                                }
-                            }
-                            if (skills[*skillChoice - 1].getKind() == "Attack") {
-                                if (randomNum() > 0.5) {
-                                    currentSect.getEnemies()[en - 1].setHp(currentSect.getEnemies()[en - 1].getHp() - 1);
-                                }
-                            }
-                            else if (skills[*skillChoice - 1].getKind() == "Health") {
-                                stat["Current HP"]++;
-                                if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
-                            }
-                            else if (skills[*skillChoice - 1].getKind() == "Defense") {
-                                stat["Defense"]++;
-                            }
-                            else if (skills[*skillChoice - 1].getKind() == "Divine") {
-                                stat["Divinity"]++;
-                            }
-                            else if (skills[*skillChoice - 1].getKind() == "Magic") {
-                                stat["Intelligence"]++;
-                            }
-                            else if (skills[*skillChoice - 1].getKind() == "Charisma") {
-                                stat["Charisma"]++;
-                            }
-                            else if (skills[*skillChoice - 1].getKind() == "Stealth") {
-                                stat["Stealth"]++;
-                            }
-                        }
-                        else {
-                            delete temp;
-                            temp = nullptr;
-                            if (equipped["Weapon"] != item("", "", 0)) {
-                                cout << "Not using a skill, only using your currently equipped weapon, " << equipped["Weapon"].getName() << ".\n";
-                            }
-                            else {
-                                cout << "Not using a skill, only using your strength.\n";
-                            }
-                        }
-                    }
-                    double r = randomNum();
-                    cout << "\nAttacking " << currentSect.getEnemies()[en - 1].getName() << " staring with HP " << currentSect.getEnemies()[en - 1].getHp() << " and you have " << stat["Strength"] << " attack power, along with " << stat["Current HP"] << " health.\n";
-                    if (r < 0.5){
-                        currentSect.getEnemies()[en - 1].setHp(currentSect.getEnemies()[en - 1].getHp() - stat["Strength"]);
-                        if (currentSect.getEnemies()[en - 1].getHp() < 0) currentSect.getEnemies()[en - 1].setHp(0);
-                        cout << "\nYou hit the enemy! Enemies new health: " << currentSect.getEnemies()[en - 1].getHp();
-                    }
-                    else {
-                        cout << "\nYou missed the enemy!";
-                    }
-                    r = randomNum();
-                    if (r < 0.5) {
-                        stat["Current HP"] -= currentSect.getEnemies()[en - 1].getHp();
-                        if (stat["Current HP"] < 0) stat["Current HP"] = 0;
-                        cout << "\nYou got hit! Your new health: " << stat["Current HP"];
-                    }
-                    else if (r > 0.5) {
-                        cout << "\nThe enemy missed you!";
-                    }
-                    if (currentSect.getEnemies()[en - 1].getHp() <= 0){
-                        cout << "\nYou've killed " << currentSect.getEnemies()[en - 1].getName() << "!";
-                        currentSect.getEnemies().erase(currentSect.getEnemies().begin() + (en - 1));
-                    }
-                    if (stat["Current HP"] <= 0) {
-                        if (equipped["Artifact 1"] == revivalStone || equipped["Artifact 2"] == revivalStone || equipped["Artifact 3"] == revivalStone || equipped["Artifact 4"] == revivalStone || equipped["Artifact 5"] == revivalStone) {
-                            cout << "\nYou had the revival stone and have been brought back to life! Welcome back, " << name << ".\n";
-                            stat["Current HP"] = stat["HP"];
-                        }
-                        else {
-                            cout << "\n\n"
-                                << "\x1b[1;31;41m\n\n"
-                                << "=======================================\n"
-                                << "               YOU DIED               \n"
-                                << "=======================================\n"
-                                << "\x1b[0m"
-                                << " \n\n"
-                                << "\x1b[1m"
-                                << "You can play again, but will not retain any of your stuff.\n"
-                                << "Good job on this run, " << name << ".\x1b[0m"
-                                << " ";
-                            return 'q';
-                        }
-                    }
-                    return option;
+	      if (option == ATTACK) { // Attack enemies
+          // *skillChoice = 0;
+          cout << "Tip! You can scan for enemies without attacking them using your radar! Type 'r' to use it\n";
+          if (currentSect.getEnemies().size() == 0) cout << "There are currently no enemies in this sector. Try using 'm' to move!";
+          else {
+            int c = 1;
+            cout << "Current enemies: ";
+            for (enemy i: currentSect.getEnemies()){
+              cout << endl << c << ") NAME: " << i.getName() << ", ATK: "<< i.getPower() << ", HP: " << i.getHp();
+              c++;
+            }
+            cout << "\nEnter the number of the enemy to attack (0 to cancel): ";
+            int en;
+            while (true) {
+              if (!(cin >> en) || en > (c - 1)) {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Invalid input. Please enter a valid number.\n";
+                continue;
+              }
+              else break;
+            }
+            if (en <= 0) return 'a';
+            if (skills.size() != 0) {
+              cout << "\nSkills avaliable: " << endl;
+              for (long unsigned int i = 0; i < skills.size(); i++) {
+                cout << i + 1 << ": " << skills[i].getName() << ", a " << skills[i].getKind() << " type skill with " << skills[i].getUses() << " uses left and " << skills[i].getPower() << " power.\n";
+              }
+              cout << "Use a skill? (y/n)";
+              char* temp = new char;
+              cin >> *temp;
+              if (toupper(*temp) == 'Y') {
+                delete temp;
+                temp = nullptr;
+                long unsigned int* skillChoice = new long unsigned int;
+                while (true) {
+                  cout << "What skill would you like to use? Please enter the number from the list.\n";
+                  cin >> *skillChoice;
+                  if (*skillChoice > skills.size() + 1 || *skillChoice <= 0) {
+                    cout << "That isn't a valid skill :(\n";
+                  }
+                  else break;
                 }
-                cout << "";
-                if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
-                delete skillChoice;
-                skillChoice = nullptr; // We love killing our variables :3
-                return option;
-                break;
-            case ('c'): // Continue the story
+                if (skills[*skillChoice - 1].getKind() == "Attack") {
+                  if (randomNum() > 0.5) {
+                    currentSect.getEnemies()[en - 1].setHp(currentSect.getEnemies()[en - 1].getHp() - 1);
+                  }
+                }
+                else if (skills[*skillChoice - 1].getKind() == "Health") {
+                  stat["Current HP"]++;
+                  if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
+                }
+                else if (skills[*skillChoice - 1].getKind() == "Defense") {
+                  stat["Defense"]++;
+                }
+                else if (skills[*skillChoice - 1].getKind() == "Divine") {
+                  stat["Divinity"]++;
+                }
+                else if (skills[*skillChoice - 1].getKind() == "Magic") {
+                  stat["Intelligence"]++;
+                }
+                else if (skills[*skillChoice - 1].getKind() == "Charisma") {
+                  stat["Charisma"]++;
+                }
+                else if (skills[*skillChoice - 1].getKind() == "Stealth") {
+                  stat["Stealth"]++;
+                }
+              }
+              else {
+                delete temp;
+                temp = nullptr;
+                if (equipped["Weapon"] != item("", "", 0)) {
+                  cout << "Not using a skill, only using your currently equipped weapon, " << equipped["Weapon"].getName() << ".\n";
+                }
+              else {
+                cout << "Not using a skill, only using your strength.\n";
+              }
+            }
+          }
+          double r = randomNum();
+          cout << "\nAttacking " << currentSect.getEnemies()[en - 1].getName() << " staring with HP " << currentSect.getEnemies()[en - 1].getHp() << " and you have " << stat["Strength"] << " attack power, along with " << stat["Current HP"] << " health.\n";
+          if (r < 0.5){
+            currentSect.getEnemies()[en - 1].setHp(currentSect.getEnemies()[en - 1].getHp() - stat["Strength"]);
+            if (currentSect.getEnemies()[en - 1].getHp() < 0) currentSect.getEnemies()[en - 1].setHp(0);
+              cout << "\nYou hit the enemy! Enemies new health: " << currentSect.getEnemies()[en - 1].getHp();
+            }
+          else {
+            cout << "\nYou missed the enemy!";
+          }
+          r = randomNum();
+          if (r < 0.5) {
+            stat["Current HP"] -= currentSect.getEnemies()[en - 1].getHp();
+            if (stat["Current HP"] < 0) stat["Current HP"] = 0;
+              cout << "\nYou got hit! Your new health: " << stat["Current HP"];
+            }
+          else if (r > 0.5) {
+            cout << "\nThe enemy missed you!";
+          }
+          if (currentSect.getEnemies()[en - 1].getHp() <= 0){
+            cout << "\nYou've killed " << currentSect.getEnemies()[en - 1].getName() << "!";
+            currentSect.getEnemies().erase(currentSect.getEnemies().begin() + (en - 1));
+          }
+          if (stat["Current HP"] <= 0) {
+            if (equipped["Artifact 1"] == revivalStone || equipped["Artifact 2"] == revivalStone || equipped["Artifact 3"] == revivalStone || equipped["Artifact 4"] == revivalStone || equipped["Artifact 5"] == revivalStone) {
+              cout << "\nYou had the revival stone and have been brought back to life! Welcome back, " << name << ".\n";
+              stat["Current HP"] = stat["HP"];
+            }
+            else {
+              cout << "\n\n"
+                   << "\x1b[1;31;41m\n\n"
+                   << "=======================================\n"
+                   << "               YOU DIED               \n"
+                   << "=======================================\n"
+                   << "\x1b[0m"
+                   << " \n\n"
+                   << "\x1b[1m"
+                   << "You can play again, but will not retain any of your stuff.\n"
+                   << "Good job on this run, " << name << ".\x1b[0m"
+                   << " ";
+              return 'q';
+            }
+          }
+          return option;
+        }
+        cout << "";
+        if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];
+          delete skillChoice;
+          skillChoice = nullptr; // We love killing our variables :3
+          return option;
+          break;
+        }
+        else if (option == CONTINUE_STORY) { // Continue the story
                 if (stat["Current HP"] <= 0) {
                     if (stat["Current HP"] <= 0) {
                         if (equipped["Artifact 1"] == revivalStone || equipped["Artifact 2"] == revivalStone || equipped["Artifact 3"] == revivalStone || equipped["Artifact 4"] == revivalStone || equipped["Artifact 5"] == revivalStone) {
@@ -328,32 +732,40 @@ char decision() {
                 }
                 if (stat["Current HP"] > stat["HP"]) stat["Current HP"] = stat["HP"];     
                 return option;
-            case ('h'): // Fallthhrough to next case (both of these are valid for help menu)
-            case ('?'): // Returns the help menu
+        }
+        else if (option == HELP || option == '?') { // Returns the help menu
                 help();
                 return option;
-            case ('i'): // Check ../include/headers/inventory.h for this function
+        }
+        else if (option == INVENTORY) { // Check ../include/headers/inventory.h for this function
                 inventory();
                 return option;
-            case ('s'): // Returns user's stata
+        }
+        else if (option == SHOW_STATS) { // Returns user's stata
                 stats();
                 return option;
-            case ('p'): // Picks up item from the ground (this is also in ../include/headers/inventory.h)
+        }
+        else if (option == PICK_ITEM) {// Picks up item from the ground (this is also in ../include/headers/inventory.h)
                 pick(currentSect.getGround());
                 return option;
-            case ('e'): // This is ALSO in ../include/headers/inventory.h
+        }
+        else if (option == EQUIP_ITEM) { // This is ALSO in ../include/headers/inventory.h
                 equip();
                 return option;
-            case ('u'): // I wonder where this could be... maybe ../include/headers/inventory.h?
+        }
+        else if (option == UNEQUIP_ITEM) { // I wonder where this could be... maybe ../include/headers/inventory.h?
                 unequip();
                 return option;
-            case ('d'): // Yep, also in ../include/headers/inventory.h
+        }
+        else if (option == DROP_ITEM) { // Yep, also in ../include/headers/inventory.h
                 drop(currentSect.getGround());
                 return option;
-            case ('q'): // Quits the game 
+        }
+        else if (option == QUIT_GAME) { // Quits the game 
                 cout << "Goodbye, " << name << "." << endl;
                 return option;
-            case ('r'): // Radar to scan for enemies in the current sector
+        }
+        else if (option == RADAR) { // Radar to scan for enemies in the current sector
                 if (currentSect.getEnemies().size() == 0) cout << "There are currently no enemies. You're safe!\n";
                 else {
                     int count = 0;
@@ -365,7 +777,8 @@ char decision() {
                     cout << "\n";
                 }
             	return option;
-            case ('N'): // Move north but faster than m > n
+        }
+        else if (option == NORTH) { // Move north but faster than m > n
               where = Move('N');
               if (where == ' ') cout << "Move complete\n";
               else if (where == 'n') {
@@ -381,7 +794,8 @@ char decision() {
                 else cout << "No town found North of you! You are currently as far North as possible in town " << currentSect.getName() << endl;
               }
               break;
-            case ('S'): // Move south but faster than m > s
+        }
+        else if (option == SOUTH) { // Move south but faster than m > s
               where = Move('S');
               if (where == ' ') cout << "Move complete";
               else if (where == 's') {
@@ -397,7 +811,8 @@ char decision() {
                 else cout << "No town found South of you! You are currently as far South as possible in town " << currentSect.getName() << endl;
               }
               break;
-            case ('E'): // Move east but faster than m > e
+        }
+        else if (option == EAST) { // Move east but faster than m > e
               where = Move('E');
               if (where == ' ') cout << "Move complete";
               else if (where == 'e') {
@@ -413,7 +828,8 @@ char decision() {
                 else cout << "No town found East of you! You are currently as far East as possible in town " << currentSect.getName() << endl;
               }
               break;
-            case ('W'): // Move west but faster than m > w
+        }
+        else if (option == WEST) { // Move west but faster than m > w
               where = Move('W');
               if (where == ' ') cout << "Move complete";
               else if (where == 'w') {
@@ -429,7 +845,8 @@ char decision() {
                 else cout << "No town found West of you! You are currently as far West as possible in town " << currentSect.getName() << endl;
               }
               break;
-            case ('m'): // Move function (allows using u(p), d(own), l(eft), r(ight) instead of n, s, e, w)
+        }
+        else if (option == MOVE) { // Move function (allows using u(p), d(own), l(eft), r(ight) instead of n, s, e, w)
                 where = Move();
                 if(where == ' ') {
                     cout << "Move complete\n";
@@ -484,23 +901,27 @@ char decision() {
                 }
                 else if (where == 'S') return option;
             return option;
-            case ('w'): // Checks where the user is
+        }
+        else if (option == WHERE) { // Checks where the user is
                 cout << "You are currently in " << currentSect.getName() << "\n" << "Your current coordinates are (" << currCoords.first << ", " << currCoords.second << ")." << endl;
                 return option;
-            case('$'): // Opens shop (not complete)
+        }
+        else if (option == SHOP) { // Opens shop (not complete)
                 shop();
                 return option;
-            case('o'):
+        }
+        else if (option == OPTIONS) {
               settings();
               return option;
-		return option;
-            default: // Self explanatory
+        }
+        else { // Self explanatory
                 cout << "Invalid input, please try again\n";
                 return option;
         }
     }
   std::cin.clear();
   std::cin.ignore();
+  return option;
 }
 
 // Helper function to prompt the user

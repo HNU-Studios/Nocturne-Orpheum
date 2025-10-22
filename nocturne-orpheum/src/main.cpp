@@ -36,7 +36,9 @@ void decrementProg(int times) {
   }
 }
 // Main game loop w/ story
-int main() { // Story starts from here, core functionality is in the decision() function and other header files, ilke inventory.h or move.h
+int main() { // Story starts from here, core functionality is in the 
+             // decision() function (located in the helpers.h header file)
+             // and other header files, ilke inventory.h or move.h
     incrementProg(); // 0
     while (!(cin >> seconds) || seconds < 1 || seconds > 20) {
       std::cout << "Please enter a valid number from 1 - 20 seconds: ";
