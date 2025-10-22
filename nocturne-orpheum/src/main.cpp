@@ -46,9 +46,6 @@ int main() { // Story starts from here, core functionality is in the decision() 
     std::cin.clear();
     std::cin.ignore();
     incrementProg(); // 1
-    getline(cin, name);
-    std::cin.clear();
-    // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     incrementProg(); // 2
     std::string op = "";
     std::getline(std::cin, op);
@@ -63,12 +60,15 @@ int main() { // Story starts from here, core functionality is in the decision() 
     else if (tolower(op[0]) == 't') {
       // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       std::cin.clear();
-      incrementProg(); // 3
-      incrementProg(); // 4
-      incrementProg(); // 5
       currentSect.putOnGround(dullSword);
       currentSect.putOnGround(chippedHelmet);
       currentSect.putOnGround(revivalStone);
+      incrementProg(); // 3
+      if (next() == 'q') return 0;
+      incrementProg(); // 4
+      if (next() == 'q') return 0;
+      incrementProg(); // 5
+      if (next() == 'q') return 0;
       enemy first("Test", 1, 1);
       enemy second("Other Test", 1, 5);
       if (next() == 'q') return 0; // Part of ../include/headers/helpers.h
@@ -81,7 +81,13 @@ int main() { // Story starts from here, core functionality is in the decision() 
       if (stat["Current HP"] <= 0) {
         if (equipped["Artifact 1"] == revivalStone || equipped["Artifact 2"] == revivalStone || equipped["Artifact 3"] == revivalStone || equipped["Artifact 4"] == revivalStone || equipped["Artifact 5"] == revivalStone) {
           cout << "You had the revival stone and have been brought back to life! Welcome back, " << name << ".\n";
-          stat["Current HP"] = stat["HP"];
+          stat["Current HP"] = stat["HP"] / 1.1;
+          if (equipped["Artifact 1"] == revivalStone) equipped["Artifact 1"] = templateItem;
+          if (equipped["Artifact 2"] == revivalStone) equipped["Artifact 2"] = templateItem;
+          if (equipped["Artifact 3"] == revivalStone) equipped["Artifact 3"] = templateItem;
+          if (equipped["Artifact 4"] == revivalStone) equipped["Artifact 4"] = templateItem;
+          if (equipped["Artifact 5"] == revivalStone) equipped["Artifact 5"] = templateItem;
+
         }
       else {
         cout << "\n\n"
