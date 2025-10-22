@@ -5,7 +5,7 @@ ifeq ($(UNAME_S),Darwin)
 endif
 
 CXXFLAGS := -Wall -Wextra -pedantic -std=c++17 -Iinclude
-LDFLAGS := -lsfml-window -lsfml-graphics -lsfml-system
+LDFLAGS := -lsfml-window -lsfml-graphics -lsfml-system -lGL -lglfw
 
 SRC_DIR := src
 BUILD_DIR := build
