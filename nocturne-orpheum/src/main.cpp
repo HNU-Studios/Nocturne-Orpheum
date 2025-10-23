@@ -36,9 +36,7 @@ void decrementProg(int times) {
   }
 }
 // Main game loop w/ story
-int main() { // Story starts from here, core functionality is in the 
-             // decision() function (located in the helpers.h header file)
-             // and other header files, ilke inventory.h or move.h
+int main() { // Story starts from here, core functionality is in the decision() function and other header files, ilke inventory.h or move.h
     incrementProg(); // 0
     while (!(cin >> seconds) || seconds < 1 || seconds > 20) {
       std::cout << "Please enter a valid number from 1 - 20 seconds: ";
@@ -57,19 +55,13 @@ int main() { // Story starts from here, core functionality is in the
       std::getline(std::cin, op);
     }
     std::cin.clear();
-    if (tolower(op[0]) == 's') { progress += 7; std::cin.clear(); }
+    if (tolower(op[0]) == 's') { progress += 6; std::cin.clear(); }
     else if (tolower(op[0]) == 't') {
       // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       std::cin.clear();
       currentSect.putOnGround(dullSword);
       currentSect.putOnGround(chippedHelmet);
       currentSect.putOnGround(revivalStone);
-      incrementProg(); // 3
-      if (next() == 'q') return 0;
-      incrementProg(); // 4
-      if (next() == 'q') return 0;
-      incrementProg(); // 5
-      if (next() == 'q') return 0;
       enemy first("Test", 1, 1);
       enemy second("Other Test", 1, 5);
       incrementProg(); // 3
@@ -83,13 +75,7 @@ int main() { // Story starts from here, core functionality is in the
       if (stat["Current HP"] <= 0) {
         if (equipped["Artifact 1"] == revivalStone || equipped["Artifact 2"] == revivalStone || equipped["Artifact 3"] == revivalStone || equipped["Artifact 4"] == revivalStone || equipped["Artifact 5"] == revivalStone) {
           cout << "You had the revival stone and have been brought back to life! Welcome back, " << name << ".\n";
-          stat["Current HP"] = stat["HP"] / 1.1;
-          if (equipped["Artifact 1"] == revivalStone) equipped["Artifact 1"] = templateItem;
-          if (equipped["Artifact 2"] == revivalStone) equipped["Artifact 2"] = templateItem;
-          if (equipped["Artifact 3"] == revivalStone) equipped["Artifact 3"] = templateItem;
-          if (equipped["Artifact 4"] == revivalStone) equipped["Artifact 4"] = templateItem;
-          if (equipped["Artifact 5"] == revivalStone) equipped["Artifact 5"] = templateItem;
-
+          stat["Current HP"] = stat["HP"];
         }
       else {
         cout << "\n\n"
@@ -161,7 +147,6 @@ int main() { // Story starts from here, core functionality is in the
   sleep(seconds * 1000);
   incrementProg(); // 21
   sleep(seconds * 1000);
-  incrementProg(); // 22
   if (next() == 'q') return 0;
   return 0;
 }
