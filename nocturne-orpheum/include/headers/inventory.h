@@ -6,7 +6,6 @@
 #include "items.h"
 #include "enemy.h"
 #include "skill.h"
-#define templateItem item("", "", 0)
 using namespace std;
 // Inventory arrays
 map<item, int> food; // Stores a user's food
@@ -14,6 +13,7 @@ map<item, int> weapons; // Stores a user's unequipped weapons
 map<item, int> gear; // Stores a user's unequipped armour & artifacts
 map<string, int> stat = {{"Strength", 1}, {"Defense", 1}, {"Intelligence", 1}, {"HP", 10}, {"Level", 1}, {"Charisma", 1}, {"Stealth", 0}, {"Current HP", 10}, {"Divinity", 0}}; // User stats
 vector<skill> skills = {}; // Stores skills a user can use (may be included with weapons)
+const item templateItem = item("", "", 0);
 /*Stores a user's equipped items*/map<string, item> equipped = {{"Weapon", item("", "", 0)}, {"Helmet", item("", "", 0)}, {"Breastplate", item("", "", 0)}, {"Gloves", item("", "", 0)}, {"Mask", item("", "", 0)}, {"Artifact 1", item("", "", 0)}, {"Artifact 2", item("", "", 0)}, {"Artifact 3", item("", "", 0)}, {"Artifact 4", item("", "", 0)}, {"Artifact 5", item("", "", 0)}};
 // vector<item> ground; // Shows items on the ground
 vector<enemy> enemies;
@@ -301,75 +301,117 @@ void equip(){ // Lets the user equip an item
         }
     }
 }
-void unequip(){ // Lets the user unequip/ take off an item
+void unequip(item toUnequip = templateItem) { // Lets the user unequip/ take off an item
     cout << "Please select a category of item to unequip\n\n";
     cout << "For weapon: w\nFor gear/ artifacts: g\nEnter your option (leave blank to exit this menu): ";
     c = 1;
     char option;
-    cin >> option;
+    if (toUnequip == templateItem) cin >> option;
+    else if (toUnequip.getType() == "Weapon") option = 'w';
+    else if (toUnequip.getType() == "Helmet" || toUnequip.getType() == "Breastplate" || toUnequip.getType() == "Gloves" || toUnequip.getType() == "Mask" || toUnequip.getType() == "Gloves" || toUnequip.getType() == "Artifact") option = 'g';
     if (option == 'w'){
         if (equipped["Weapon"] != templateItem){
             cout << "Unequipping weapon: " << equipped["Weapon"].getName() << ".\n";
-            item putBack = equipped["Weapon"];
-            stat["Strength"] -= putBack.getPower();
-            if (weapons.find(putBack) != weapons.end()) weapons[putBack]++;
-            else weapons[putBack] = 1;
+            toUnequip = equipped["Weapon"];
+            stat["Strength"] -= toUnequip.getPower();
+            weapons[toUnequip]++;
+            equipped["Weapon"] = templateItem;
+        }
+        else if (equipped["Weapon"] == toUnequip) { 
+          equipped["Weapon"] = templateItem;
+          gear[toUnequip]++;
         }
     }
     if (option == 'g'){
         vector<item> u;
         c = 1;
-        if (equipped["Helmet"] != templateItem){
-            cout << c << ") Current helmet: " << equipped["Helmet"].getName();
+        if (equipped["Helmet"] != templateItem && equipped["Helmet"] != toUnequip && toUnequip != templateItem){
+            cout << '\n' << c << ") Current helmet: " << equipped["Helmet"].getName();
             u.push_back(equipped["Helmet"]);
             c++;
         }
-        if (equipped["Breastplate"] != templateItem){
-            cout << c << ") Current breastplate: " << equipped["Breastplate"].getName();
+        else if (equipped["Helmet"] == toUnequip) { 
+          equipped["Helmet"] = templateItem;
+          gear[toUnequip]++;
+        }
+        if (equipped["Breastplate"] != templateItem && equipped["Breastplate"] != toUnequip && toUnequip != templateItem){
+            cout << '\n' << c << ") Current breastplate: " << equipped["Breastplate"].getName();
             u.push_back(equipped["Breastplate"]);
             c++;
         }
-        if (equipped["Gloves"] != templateItem){
-            cout << c << ") Current gloves: " << equipped["Gloves"].getName();
+        else if (equipped["Breastplate"] == toUnequip) { 
+          equipped["Breastplate"] = templateItem;
+          gear[toUnequip]++;
+        }
+        if (equipped["Gloves"] != templateItem && equipped["Gloves"] != toUnequip && toUnequip != templateItem){
+            cout << '\n' << c << ") Current gloves: " << equipped["Gloves"].getName();
             u.push_back(equipped["Gloves"]);
             c++;
         }
-        if (equipped["Mask"] != templateItem){
-            cout << c << ") Current mask: " << equipped["Mask"].getName();
+        else if (equipped["Gloves"] == toUnequip) { 
+          equipped["Gloves"] = templateItem;
+          gear[toUnequip]++;
+        }
+        if (equipped["Mask"] != templateItem && equipped["Mask"] != toUnequip && toUnequip != templateItem){
+            cout << '\n' << c << ") Current mask: " << equipped["Mask"].getName();
             u.push_back(equipped["Mask"]);
             c++;
         }
-        if (equipped["Artifact 1"] != templateItem){
-            cout << c << ") Current artifact in slot 1: " << equipped["Artifact 1"].getName();
+        else if (equipped["Mask"] == toUnequip) { 
+          equipped["Mask"] = templateItem;
+          gear[toUnequip]++;
+        }
+        if (equipped["Artifact 1"] != templateItem && equipped["Artifact 1"] != toUnequip && toUnequip != templateItem){
+            cout << '\n' << c << ") Current artifact in slot 1: " << equipped["Artifact 1"].getName();
             u.push_back(equipped["Artifact 1"]);
             c++;
         }
-        if (equipped["Artifact 2"] != templateItem){
-            cout << c << ") Current artifact in slot 2: " << equipped["Artifact 2"].getName();
+        else if (equipped["Artifact 1"] == toUnequip) { 
+          equipped["Artifact 1"] = templateItem;
+          gear[toUnequip]++;
+        }
+        if (equipped["Artifact 2"] != templateItem && equipped["Artifact 2"] != toUnequip && toUnequip != templateItem){
+            cout << '\n' << c << ") Current artifact in slot 2: " << equipped["Artifact 2"].getName();
             u.push_back(equipped["Artifact 2"]);
             c++;
         }
-        if (equipped["Artifact 3"] != templateItem){
-            cout << c << ") Current artifact in slot 3: " << equipped["Artifact 3"].getName();
+        else if (equipped["Artifact 2"] == toUnequip) { 
+          equipped["Artifact 2"] = templateItem;
+          gear[toUnequip]++;
+        }
+        if (equipped["Artifact 3"] != templateItem && equipped["Artifact 3"] != toUnequip && toUnequip != templateItem){
+            cout << '\n' << c << ") Current artifact in slot 3: " << equipped["Artifact 3"].getName();
             u.push_back(equipped["Artifact 3"]);
             c++;
         }
-        if (equipped["Artifact 4"] != templateItem){
-            cout << c << ") Current artifact in slot 4: " << equipped["Artifact 4"].getName();
+        else if (equipped["Artifact 3"] == toUnequip) { 
+          equipped["Artifact 3"] = templateItem;
+          gear[toUnequip]++;
+        }
+        if (equipped["Artifact 4"] != templateItem && equipped["Artifact 4"] != toUnequip && toUnequip != templateItem){
+            cout << '\n' << c << ") Current artifact in slot 4: " << equipped["Artifact 4"].getName();
             u.push_back(equipped["Artifact 4"]);
             c++;
         }
-        if (equipped["Artifact 5"] != templateItem){
-            cout << c << ") Current artifact in slot 5: " << equipped["Artifact 5"].getName();
+        else if (equipped["Artifact 4"] == toUnequip) { 
+          equipped["Artifact 4"] = templateItem;
+          gear[toUnequip]++;
+        }
+        if (equipped["Artifact 5"] != templateItem && equipped["Artifact 5"] != toUnequip && toUnequip != templateItem){
+            cout << '\n' << c << ") Current artifact in slot 5: " << equipped["Artifact 5"].getName();
             u.push_back(equipped["Artifact 5"]);
             c++;
         }
-        if (equipped.empty()){
+        else if (equipped["Artifact 5"] == toUnequip) { 
+          equipped["Artifact 5"] = templateItem;
+          gear[toUnequip]++;
+        }
+        if (u.empty()){
             cout << "\nYou have no gear equipped!\n";
             return;
         }
         int o;
-        while (true) {
+        while (true && toUnequip == templateItem) {
             cout << "\nEnter the number of the item you want to unequip (0 to leave): ";
             if (!(cin >> o)) {
                 // If the input is not an integer, clear the error & ignore invalid input

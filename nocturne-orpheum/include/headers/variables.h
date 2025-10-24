@@ -1,3 +1,3 @@
 #include <string>
-std::string name = "NAME", guideName = "GUIDENAME";
+std::string name = "Lyran Nevel";
 int progress = 0;

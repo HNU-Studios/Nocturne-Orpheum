@@ -32,6 +32,13 @@ public:
         return name == other.name && type == other.type && power == other.power && buffs == other.buffs;
     }
     bool operator<(const item& other) const {
+      if (name != other.name)
         return name < other.name;
+      if (type != other.type)
+        return type < other.type;
+      if (power != other.power)
+        return power < other.power;
+      return buffs < other.buffs;
     }
+
 };
