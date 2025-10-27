@@ -7,4 +7,5 @@ main.s
 build/*
 *.xcf
 textGame
-
+include/headers/extraInfo.txt
+*.lorien
