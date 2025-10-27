@@ -9,7 +9,7 @@ int lives = 5, seconds = 2; // Starting the user off with 5 lives, this IS chang
 // Helper function to display player info upon screen clear
 void header() {
   std::cout << "Scroll up for previous history\n"
-            << "============================\n" // 28 character long for reference below 
+            << "============================\n" // This is 28 characters long for reference below (length needed to determine spacing) 
             << "| HP: " << std::setw(3) << std::setfill('0') << stat["Current HP"] << "/" << std::setw(3) << std::setfill('0') << stat["HP"] << "              |\n"
             << "| Sector: " << currentSect.getName() << std::setw(19 - currentSect.getName().length()) << std::setfill(' ') << "|\n"
             << "| Name: " << name << std::setw(21 - name.length()) << std::setfill(' ') << "|\n"
@@ -647,7 +647,7 @@ char decision() {
               else {
                 delete temp;
                 temp = nullptr;
-                if (equipped["Weapon"] != item("", "", 0)) {
+                if (equipped["Weapon"].getName() != "") {
                   cout << "Not using a skill, only using your currently equipped weapon, " << equipped["Weapon"].getName() << ".\n";
                 }
               else {
@@ -754,7 +754,8 @@ char decision() {
                 return option;
         }
         else if (option == UNEQUIP_ITEM) { // I wonder where this could be... maybe ../include/headers/inventory.h?
-                unequip();
+                item templateItem = item("", "", 0);
+                unequip(templateItem);
                 return option;
         }
         else if (option == DROP_ITEM) { // Yep, also in ../include/headers/inventory.h

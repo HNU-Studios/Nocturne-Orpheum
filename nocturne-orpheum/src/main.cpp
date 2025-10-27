@@ -12,7 +12,7 @@
 #include <headers/Shop.h>
 #include <headers/story.h>
 #include <headers/npc.h>
-#include <headers/helpers.h> // Super important lmao, has like everything
+#include <headers/helpers.h> 
 
 void incrementProg(bool input = false) {
   std::cout << story[progress];
@@ -44,6 +44,8 @@ void decrementProg(int times) {
 }
 // Main game loop w/ story
 int main() { // Story starts from here, core functionality is in the decision() function and other header files, ilke inventory.h or move.h
+  cout << "\033[2J" << "\033[1;1H";
+  header();
   incrementProg(true);
   while (!(cin >> seconds) || seconds < 1 || seconds > 20) {
     std::cout << "Please enter a valid number from 1 - 20 seconds: ";
@@ -64,6 +66,8 @@ int main() { // Story starts from here, core functionality is in the decision() 
   std::cin.clear();
   if (tolower(op[0]) == 's') { progress += 6; std::cin.clear(); }
   else if (tolower(op[0]) == 't') {
+    cout << "\033[2J" << "\033[1;1H";
+    header();
     // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cin.clear();
     currentSect.putOnGround(dullSword);
@@ -71,11 +75,11 @@ int main() { // Story starts from here, core functionality is in the decision() 
     currentSect.putOnGround(revivalStone);
     enemy first("Test", 1, 1);
     enemy second("Other Test", 1, 5);
+    currentSect.putOnGround(first);
+    currentSect.putOnGround(second);
     incrementProg(); // 3
     incrementProg(); // 4
     if (next() == 'q') return 0; // Part of ../include/headers/helpers.h
-    currentSect.putOnGround(first);
-    currentSect.putOnGround(second);
     if (equipped["Weapon"] == templateItem) { incrementProg(); progress++; } // 5, skip 6
     else { progress++; incrementProg(); } // skip 5, 6
     if (next() == 'q') return 0;

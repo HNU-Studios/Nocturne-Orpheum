@@ -40,5 +40,7 @@ public:
         return power < other.power;
       return buffs < other.buffs;
     }
-
+    item operator=(const item& other) const {
+      return item(other.name, other.type, other.power, other.buffs, other.hasSet); 
+    }
 };
