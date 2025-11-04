@@ -1,6 +1,25 @@
 #include <iomanip>
 
-inline char CONTINUE_STORY = 'c', QUIT_GAME = 'q', SHOW_STATS = 's', INVENTORY = 'i', PICK_ITEM = 'p', DROP_ITEM = 'd', EQUIP_ITEM = 'e', UNEQUIP_ITEM = 'u', SHOP = '$', MOVE = 'm', WHERE = 'w', NORTH = 'N', EAST = 'E', SOUTH = 'S', WEST = 'W', ATTACK = 'a', RADAR = 'r', HELP = 'h', OPTIONS = 'o';
+inline char 
+CONTINUE_STORY = 'c', 
+QUIT_GAME = 'q', 
+SHOW_STATS = 's', 
+INVENTORY = 'i', 
+PICK_ITEM = 'p', 
+DROP_ITEM = 'd', 
+EQUIP_ITEM = 'e', 
+UNEQUIP_ITEM = 'u', 
+SHOP = '$', 
+MOVE = 'm', 
+WHERE = 'w', 
+NORTH = 'N', 
+EAST = 'E', 
+SOUTH = 'S', 
+WEST = 'W', 
+ATTACK = 'a', 
+RADAR = 'r', 
+HELP = 'h', 
+OPTIONS = 'o';
 sector currentSect = Andris;
 char where, key;
 bool b = false;

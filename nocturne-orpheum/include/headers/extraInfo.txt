@@ -1,6 +1,0 @@
-- Mana reacts badly with Prana and creates corruption
-
-- Lyran Nevel, since birth, had a very low Prana concentration
-
-- This causes the Mana to not fully corrupt him, instead simply wiping his memory as it
-couldn't find an anchor
